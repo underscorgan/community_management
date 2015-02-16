@@ -73,4 +73,9 @@ class OctokitUtils
     commit ||= client.commit(repo, ref)
     commit[:commit][:author][:date]
   end
+
+  def commits_since_date(repo, date)
+    commits ||= client.commits_since(repo, date)
+    commits.size
+  end
 end
