@@ -25,10 +25,10 @@ if not missing.empty?
   exit
 end
 
-options[:repo] = '.*' if options[:repo].nil?
+options[:repo_regex] = '.*' if options[:repo_regex].nil?
 
 util = OctokitUtils.new(options[:oauth])
-repos = util.list_repos(options[:namespace], options[:repo])
+repos = util.list_repos(options[:namespace], options)
 
 repo_data = []
 

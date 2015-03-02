@@ -12,8 +12,14 @@ class OctokitUtils
     user.login
   end
 
-  def list_repos(organization, repo_regex='.*')
-    repos ||= client.organization_repositories(organization).collect {|org| org[:name] if org[:name] =~ /#{repo_regex}/}
+  def list_repos(organization, options)
+    if not options[:repo_regex]
+      regex = '.*'
+    else
+      regex = options[:repo_regex]
+    end
+
+    repos ||= client.organization_repositories(organization).collect {|org| org[:name] if org[:name] =~ /#{regex}/}
     # The collection leaves nil entries in for non-matches
     repos = repos.select {|repo| repo }
     return repos.sort.uniq
@@ -60,9 +66,15 @@ class OctokitUtils
     pulls.select{ |pull| pull[:updated_at] < end_time and pull[:updated_at] > start_time }
   end
 
-  def fetch_tags(repo, tag_regex='.*')
+  def fetch_tags(repo, options)
+    if not options[:tag_regex]
+      regex = '.*'
+    else
+      regex = options[:tag_regex]
+    end
+
     tags ||= client.tags(repo)
-    tags.select {|tag| tag[:name] =~ /#{tag_regex}/}
+    tags.select {|tag| tag[:name] =~ /#{regex}/}
   end
 
   def ref_from_tag(tag)
@@ -77,5 +89,36 @@ class OctokitUtils
   def commits_since_date(repo, date)
     commits ||= client.commits_since(repo, date)
     commits.size
+  end
+
+  def test_for_release(repo, options)
+    if not options[:commits] and not options[:time]
+      raise ArgumentError, 'One of :commits or :time must be specified in the options hash'
+    end
+
+    newest_tag = fetch_tags(repo, options).first
+    if newest_tag
+      date_of_tag = date_of_ref(repo, ref_from_tag(newest_tag)).to_dateime
+      if options[:time] and date_of_tag < (DateTime.now - options[:time])
+        if options[:commits] and (client.commits(repo, since: date_of_tag).count > options[:commits])
+          puts "#{repo}: A new release is needed"
+        else
+          puts "#{repo}: A new release is needed"
+        end
+      elsif not options[:time] and (client.commits(repo, since: date_of_tag).count > options[:commits])
+        puts "#{repo}: A new release is needed"
+      end
+      #else?
+    end
+  end
+
+  def format_pulls(pulls)
+    pulls.each do |pull|
+      repo = pull.repo.full_name
+      updated_at = pull.updated_at
+      url = pull.url
+      number = pull.number
+      puts "#{repo},#{updated_at},#{number},#{url}"
+    end
   end
 end
