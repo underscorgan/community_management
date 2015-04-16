@@ -7,6 +7,8 @@ options = {}
 parser = OptionParser.new do |opts|
   opts.banner = 'Usage: pull_requests.rb [options]'
 
+  opts.on('-a', '--after DAYS', 'Pull requests that were last updated after DAYS days ago.') { |v| options[:after] = v.to_i }
+  opts.on('-b', '--before DAYS', 'Pull requests that were last updated before DAYS days ago.') { |v| options[:before] = v.to_i }
   opts.on('-c', '--count', 'Only print the count of pull requests.') { options[:count] = true }
   opts.on('-e', '--show-empty', 'List repos with no pull requests') { options[:empty] = true }
   opts.on('-n', '--namespace NAME', 'GitHub namespace. Required.') { |v| options[:namespace] = v }
@@ -26,6 +28,10 @@ if not missing.empty?
   puts parser
   exit
 end
+if options[:before] and options[:after]
+  puts "Only one of -a and -b can be specified"
+  exit
+end
 
 options[:repo_regex] = '.*' if options[:repo_regex].nil?
 
@@ -37,6 +43,16 @@ repo_data = []
 repos.each do |repo|
   begin
     pulls = util.fetch_pull_requests("#{options[:namespace]}/#{repo}")
+
+    if options[:before]
+      opts = { :pulls => pulls }
+      start_time = (DateTime.now - options[:before]).to_time
+      pulls = util.pulls_older_than(start_time, opts)
+    elsif options[:after]
+      opts = { :pulls => pulls }
+      end_time = (DateTime.now - options[:after]).to_time
+      pulls = util.pulls_newer_than(end_time, opts)
+    end
 
     if not options[:empty] and pulls.empty?
       next
