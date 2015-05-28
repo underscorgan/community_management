@@ -17,6 +17,27 @@ parser = OptionParser.new do |opts|
   opts.on('-s', '--sort', 'Sort output based on number of pull requests') { options[:sort] = true }
   opts.on('-t', '--oauth-token TOKEN', 'OAuth token. Required.') { |v| options[:oauth] = v }
   opts.on('-v', '--verbose', 'More output') { options[:verbose] = true }
+
+  # default filters
+  opts.on('--puppetlabs', 'Select Puppet Labs\' modules') {
+    options[:namespace] = 'puppetlabs'
+    options[:repo_regex] = '^puppetlabs-'
+  }
+
+  opts.on('--puppetlabs-supported', 'Select only Puppet Labs\' supported modules') {
+    options[:namespace] = 'puppetlabs'
+    options[:repo_regex] = '^puppetlabs-(acl|apache|apt|aws|catalog_preview|concat|docker_platform|f5|firewall|haproxy|inifile|java|java_ks|mysql|netscaler|ntp|postgresql|powershell|reboot|registry|sqlserver|stdlib|tomcat|vcsrepo)'
+  }
+
+  opts.on('--community', 'Select community modules') {
+    options[:namespace] = 'puppet-community'
+    options[:repo_regex] = '^puppet-'
+  }
+
+  opts.on('--no-response', 'Select PRs which had no response in the last 30 days') {
+    options[:before] = 30
+  }
+
 end
 
 parser.parse!
