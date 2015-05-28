@@ -4,6 +4,7 @@ require 'optparse'
 require_relative 'octokit_utils'
 
 options = {}
+options[:oauth] = ENV['GITHUB_COMMUNITY_TOKEN'] if ENV['GITHUB_COMMUNITY_TOKEN']
 parser = OptionParser.new do |opts|
   opts.banner = 'Usage: pull_requests.rb [options]'
 
