@@ -75,7 +75,14 @@ end
 
 repo_data.each do |entry|
   puts "=== #{entry['repo']} ==="
-  puts "  #{entry['pull_count']} open pull requests"
+  case entry['pull_count']
+  when 0
+    puts '  no open pull requests'
+  when 1
+    puts '  1 open pull request'
+  else
+    puts "  #{entry['pull_count']} open pull requests"
+  end
   unless options[:count]
     entry['pulls'].each do |pull|
       puts "  #{pull[:html_url]}"
