@@ -85,7 +85,7 @@ repo_data.each do |entry|
   end
   unless options[:count]
     entry['pulls'].each do |pull|
-      puts "  #{pull[:html_url]}"
+      puts "  #{pull[:html_url]} - #{pull[:title]}"
     end
   end
 end
