@@ -38,6 +38,11 @@ parser = OptionParser.new do |opts|
     options[:before] = 30
   }
 
+  opts.on('--needs-closing', 'Select PRs where the last response is from an owner, but no further activity for the last 30 days') {
+    options[:before] = 30
+    options[:last_comment] = :owner
+  }
+
 end
 
 parser.parse!
@@ -64,7 +69,11 @@ repo_data = []
 
 repos.each do |repo|
   begin
-    pulls = util.fetch_pull_requests("#{options[:namespace]}/#{repo}")
+    if options[:last_comment] == :owner
+      pulls = util.fetch_pull_requests_with_last_owner_comment("#{options[:namespace]}/#{repo}")
+    else
+      pulls = util.fetch_pull_requests("#{options[:namespace]}/#{repo}")
+    end
 
     if options[:before]
       opts = { :pulls => pulls }
