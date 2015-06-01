@@ -4,6 +4,7 @@ require 'optparse'
 require_relative 'octokit_utils'
 
 options = {}
+options[:oauth] = ENV['GITHUB_COMMUNITY_TOKEN'] if ENV['GITHUB_COMMUNITY_TOKEN']
 parser = OptionParser.new do |opts|
   opts.banner = 'Usage: pull_requests.rb [options]'
 
@@ -16,6 +17,32 @@ parser = OptionParser.new do |opts|
   opts.on('-s', '--sort', 'Sort output based on number of pull requests') { options[:sort] = true }
   opts.on('-t', '--oauth-token TOKEN', 'OAuth token. Required.') { |v| options[:oauth] = v }
   opts.on('-v', '--verbose', 'More output') { options[:verbose] = true }
+
+  # default filters
+  opts.on('--puppetlabs', 'Select Puppet Labs\' modules') {
+    options[:namespace] = 'puppetlabs'
+    options[:repo_regex] = '^puppetlabs-'
+  }
+
+  opts.on('--puppetlabs-supported', 'Select only Puppet Labs\' supported modules') {
+    options[:namespace] = 'puppetlabs'
+    options[:repo_regex] = '^puppetlabs-(acl|apache|apt|aws|catalog_preview|concat|docker_platform|f5|firewall|haproxy|inifile|java|java_ks|mysql|netscaler|ntp|postgresql|powershell|reboot|registry|sqlserver|stdlib|tomcat|vcsrepo)'
+  }
+
+  opts.on('--community', 'Select community modules') {
+    options[:namespace] = 'puppet-community'
+    options[:repo_regex] = '^puppet-'
+  }
+
+  opts.on('--no-response', 'Select PRs which had no response in the last 30 days') {
+    options[:before] = 30
+  }
+
+  opts.on('--needs-closing', 'Select PRs where the last response is from an owner, but no further activity for the last 30 days') {
+    options[:before] = 30
+    options[:last_comment] = :owner
+  }
+
 end
 
 parser.parse!
@@ -42,7 +69,11 @@ repo_data = []
 
 repos.each do |repo|
   begin
-    pulls = util.fetch_pull_requests("#{options[:namespace]}/#{repo}")
+    if options[:last_comment] == :owner
+      pulls = util.fetch_pull_requests_with_last_owner_comment("#{options[:namespace]}/#{repo}")
+    else
+      pulls = util.fetch_pull_requests("#{options[:namespace]}/#{repo}")
+    end
 
     if options[:before]
       opts = { :pulls => pulls }
@@ -74,10 +105,17 @@ end
 
 repo_data.each do |entry|
   puts "=== #{entry['repo']} ==="
-  puts "  #{entry['pull_count']} open pull requests"
+  case entry['pull_count']
+  when 0
+    puts '  no open pull requests'
+  when 1
+    puts '  1 open pull request'
+  else
+    puts "  #{entry['pull_count']} open pull requests"
+  end
   unless options[:count]
     entry['pulls'].each do |pull|
-      puts "  #{pull[:html_url]}"
+      puts "  #{pull[:html_url]} - #{pull[:title]}"
     end
   end
 end

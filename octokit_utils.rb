@@ -30,6 +30,28 @@ class OctokitUtils
     prs
   end
 
+  def fetch_pull_requests_with_last_owner_comment(repo, options={:state=>'open', :sort=>'updated'})
+    prs ||= client.pulls(repo, options)
+    return [] if prs.count == 0
+
+    owner = prs[0].base.repo.owner
+    if owner.type == 'User'
+      members = { owner.login => :owner }
+    else
+      members = client.organization_members(owner.login).each_with_object({}) { |user, hash| hash[user.login] = :owner }
+    end
+
+    latest_comment_by_pr = client.issues_comments(repo, {:sort=> 'updated', :direction => 'desc'}).each_with_object({}) do |c, hash|
+      hash[c.issue_url] ||= c
+    end
+
+    prs = prs.select do |p|
+      latest_comment_by_pr[p.issue_url] && members[latest_comment_by_pr[p.issue_url].user.login] == :owner
+    end
+
+    prs
+  end
+
   def pulls_newer_than(time, options)
     if not options[:pulls] and not options[:repo]
       raise ArgumentError, 'One of :pulls or :repo must be specified in the options hash'
