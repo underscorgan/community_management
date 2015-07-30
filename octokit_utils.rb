@@ -25,6 +25,18 @@ class OctokitUtils
     return repos.sort.uniq
   end
 
+  def fetch_pull_requests_with_bad_status(repo, options={:state=>'open', :sort=>'updated'})
+    prs ||= client.pulls(repo, options)
+    returnVal = []
+    prs.each do |pr|
+      status = client.statuses(repo, pr.head.sha)
+      if status.first.state != 'success'
+        returnVal.push (pr)
+      end
+    end
+    returnVal
+  end
+
   def fetch_pull_requests(repo, options={:state=>'open', :sort=>'updated'})
     prs ||= client.pulls(repo, options)
     prs
