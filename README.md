@@ -3,6 +3,7 @@ community\_management
 
 Utilities using octokit to help with managing community repositories
 
+Get your OAth token generated from here, https://help.github.com/articles/creating-an-access-token-for-command-line-use . The default scope options are fine
 You can set your Github OAuth token in the `GITHUB_COMMUNITY_TOKEN` environment
 variable instead of using the `-t` option.
 

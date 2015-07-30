@@ -43,6 +43,10 @@ parser = OptionParser.new do |opts|
     options[:last_comment] = :owner
   }
 
+  opts.on('--bad-status', 'Select PRs where the status is bad') {
+    options[:bad_status] = 1
+  }
+
 end
 
 parser.parse!
@@ -71,6 +75,8 @@ repos.each do |repo|
   begin
     if options[:last_comment] == :owner
       pulls = util.fetch_pull_requests_with_last_owner_comment("#{options[:namespace]}/#{repo}")
+    elsif options[:bad_status]
+      pulls = util.fetch_pull_requests_with_bad_status("#{options[:namespace]}/#{repo}")
     else
       pulls = util.fetch_pull_requests("#{options[:namespace]}/#{repo}")
     end
