@@ -37,6 +37,18 @@ class OctokitUtils
     returnVal
   end
 
+  def fetch_pull_requests_which_need_squashed(repo, options={:state=>'open', :sort=>'updated'})
+    prs ||= client.pulls(repo, options)
+    returnVal = []
+    prs.each do |pr|
+      commits = client.pull_request_commits(repo, pr.number)
+      if commits.size > 1
+        returnVal.push (pr)
+      end
+    end
+    returnVal
+  end
+
   def fetch_pull_requests(repo, options={:state=>'open', :sort=>'updated'})
     prs ||= client.pulls(repo, options)
     prs
