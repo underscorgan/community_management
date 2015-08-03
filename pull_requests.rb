@@ -47,6 +47,10 @@ parser = OptionParser.new do |opts|
     options[:bad_status] = 1
   }
 
+  opts.on('--needs-squashed', 'Select PRs that need squashed') {
+    options[:needs_squashed] = 1
+  }
+
 end
 
 parser.parse!
@@ -77,6 +81,8 @@ repos.each do |repo|
       pulls = util.fetch_pull_requests_with_last_owner_comment("#{options[:namespace]}/#{repo}")
     elsif options[:bad_status]
       pulls = util.fetch_pull_requests_with_bad_status("#{options[:namespace]}/#{repo}")
+    elsif options[:needs_squashed]
+      pulls = util.fetch_pull_requests_which_need_squashed("#{options[:namespace]}/#{repo}")
     else
       pulls = util.fetch_pull_requests("#{options[:namespace]}/#{repo}")
     end
