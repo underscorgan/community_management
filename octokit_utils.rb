@@ -54,6 +54,18 @@ class OctokitUtils
     prs
   end
 
+  def fetch_pull_requests_which_need_rebase(repo, options={:state=>'open', :sort=>'updated'})
+    prs ||= client.pulls(repo, options)
+    returnVal = []
+    prs.each do |pr|
+      status = client.pull_request(repo, pr.number, options)
+      if status.mergeable == false
+        returnVal.push (pr)
+      end
+    end
+    returnVal
+  end
+
   def fetch_pull_requests_with_last_owner_comment(repo, options={:state=>'open', :sort=>'updated'})
     prs ||= client.pulls(repo, options)
     return [] if prs.count == 0

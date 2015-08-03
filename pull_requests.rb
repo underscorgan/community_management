@@ -50,6 +50,10 @@ parser = OptionParser.new do |opts|
   opts.on('--needs-squashed', 'Select PRs that need squashed') {
     options[:needs_squashed] = 1
   }
+  
+  opts.on('--needs-rebase', 'Select PRs where they need a rebase') {
+    options[:needs_rebase] = 1
+  }
 
 end
 
@@ -79,6 +83,8 @@ repos.each do |repo|
   begin
     if options[:last_comment] == :owner
       pulls = util.fetch_pull_requests_with_last_owner_comment("#{options[:namespace]}/#{repo}")
+    elsif options[:needs_rebase]
+      pulls = util.fetch_pull_requests_which_need_rebase("#{options[:namespace]}/#{repo}")
     elsif options[:bad_status]
       pulls = util.fetch_pull_requests_with_bad_status("#{options[:namespace]}/#{repo}")
     elsif options[:needs_squashed]
