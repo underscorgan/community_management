@@ -18,3 +18,8 @@ release\_planning
 
 Show modules that should receive a release "soon". Use the `--help` flag to see
 all parameters.
+
+stats
+-----------------
+
+Show modules stats. Use the `--help` flag to see all parameters.
