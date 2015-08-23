@@ -57,39 +57,39 @@ total_last_comment_pulls = 0
 total_rebase_pulls = 0
 total_bad_status_pulls = 0
 total_squashed_pulls = 0
-total_pulls = 0
-
-if :display_detailed
-  repo_data.push(["Repository", "needs closed", "needs rebase", "fails tests", "needs squashed", "total"])
-end
+total_open_pulls = 0
+total_unmerged_pulls = 0
+total_merged_pulls = 0
 
 repos.each do |repo|
-  begin
-    last_comment_pulls = util.fetch_pull_requests_with_last_owner_comment("#{options[:namespace]}/#{repo}")
-    total_last_comment_pulls = total_last_comment_pulls + last_comment_pulls.size
-    rebase_pulls = util.fetch_pull_requests_which_need_rebase("#{options[:namespace]}/#{repo}")
-    total_rebase_pulls = total_rebase_pulls + rebase_pulls.size
-    bad_status_pulls = util.fetch_pull_requests_with_bad_status("#{options[:namespace]}/#{repo}")
-    total_bad_status_pulls = total_bad_status_pulls + bad_status_pulls.size
-    squashed_pulls = util.fetch_pull_requests_which_need_squashed("#{options[:namespace]}/#{repo}")
-    total_squashed_pulls = total_squashed_pulls + squashed_pulls.size
-    total_repo_pulls = util.fetch_pull_requests("#{options[:namespace]}/#{repo}")
-    total_pulls = total_pulls + total_repo_pulls.size
-  puts "#{options[:namespace]}/#{repo}, #{last_comment_pulls.size}, #{rebase_pulls.size}, #{bad_status_pulls.size}, #{squashed_pulls.size}, #{total_repo_pulls.size}"
-    repo_data.push(["#{options[:namespace]}/#{repo}", last_comment_pulls.size, rebase_pulls.size, bad_status_pulls.size, squashed_pulls.size, total_repo_pulls.size])
-  rescue
-    puts "Unable to fetch pull requests for #{options[:namespace]}/#{repo}" if options[:verbose]
-  end
+  last_comment_pulls = util.fetch_pull_requests_with_last_owner_comment("#{options[:namespace]}/#{repo}")
+  total_last_comment_pulls = total_last_comment_pulls + last_comment_pulls.size
+  rebase_pulls = util.fetch_pull_requests_which_need_rebase("#{options[:namespace]}/#{repo}")
+  total_rebase_pulls = total_rebase_pulls + rebase_pulls.size
+  bad_status_pulls = util.fetch_pull_requests_with_bad_status("#{options[:namespace]}/#{repo}")
+  total_bad_status_pulls = total_bad_status_pulls + bad_status_pulls.size
+  squashed_pulls = util.fetch_pull_requests_which_need_squashed("#{options[:namespace]}/#{repo}")
+  total_squashed_pulls = total_squashed_pulls + squashed_pulls.size
 
-if :display_detailed
-  File.open("detailed.csv", "w") {|f| f.write(repo_data.inject([]) { |csv, row|  csv << CSV.generate_line(row) }.join(""))}
+  #total open pulls
+  total_repo_open_pulls = util.fetch_pull_requests("#{options[:namespace]}/#{repo}")
+  total_open_pulls = total_open_pulls + total_repo_open_pulls.size
+  total_repo_unmerged_pulls = util.fetch_unmerged_pull_requests("#{options[:namespace]}/#{repo}")
+  total_unmerged_pulls = total_unmerged_pulls + total_repo_unmerged_pulls.size
+  total_repo_merged_pulls = util.fetch_merged_pull_requests("#{options[:namespace]}/#{repo}")
+  total_merged_pulls = total_merged_pulls + total_repo_merged_pulls.size
+
+  puts "#{options[:namespace]}/#{repo}, #{last_comment_pulls.size}, #{rebase_pulls.size}, #{bad_status_pulls.size}, #{squashed_pulls.size}, #{total_repo_open_pulls.size}"
+  repo_data.push(["#{options[:namespace]}/#{repo}", last_comment_pulls.size, rebase_pulls.size, bad_status_pulls.size, squashed_pulls.size, total_repo_open_pulls.size])
 end
 
 if :display_overview
   CSV.open("overview.csv", "w") do |csv|
     csv << ["needs closed", "needs rebase", "fails tests", "needs squashed", "total PRs"]
-    csv << [total_last_comment_pulls, total_rebase_pulls, total_bad_status_pulls, total_squashed_pulls, total_pulls]
+    csv << [total_last_comment_pulls, total_rebase_pulls, total_bad_status_pulls, total_squashed_pulls, total_open_pulls]
   end
-end
-
+  CSV.open("totals.csv", "w") do |csv|
+    csv << ["total unmerged PRs", "total merged PR's", "total open PRs"]
+    csv << [total_unmerged_pulls, total_merged_pulls, total_open_pulls]
+  end
 end
