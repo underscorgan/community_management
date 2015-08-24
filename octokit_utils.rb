@@ -30,8 +30,8 @@ class OctokitUtils
     returnVal = []
     prs.each do |pr|
       status = client.statuses(repo, pr.head.sha)
-      if status.first.state != 'success'
-        returnVal.push (pr)
+      if status.first != nil and status.first.state != 'success'
+          returnVal.push (pr)
       end
     end
     returnVal
@@ -52,6 +52,28 @@ class OctokitUtils
   def fetch_pull_requests(repo, options={:state=>'open', :sort=>'updated'})
     prs ||= client.pulls(repo, options)
     prs
+  end
+
+  def fetch_merged_pull_requests(repo, options={:state=>'closed', :sort=>'updated'})
+    prs ||= client.pulls(repo, options)
+    returnVal = []
+    prs.each do |pr|
+      if pr.merged_at != nil
+        returnVal.push (pr)
+      end
+    end
+    returnVal
+  end
+
+  def fetch_unmerged_pull_requests(repo, options={:state=>'closed', :sort=>'updated'})
+    prs ||= client.pulls(repo, options)
+    returnVal = []
+    prs.each do |pr|
+      if pr.merged_at == nil
+        returnVal.push (pr)
+      end
+    end
+    returnVal
   end
 
   def fetch_pull_requests_which_need_rebase(repo, options={:state=>'open', :sort=>'updated'})
