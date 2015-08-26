@@ -91,7 +91,7 @@ end
 if options[:display_overview]
   CSV.open("overview.csv", "w") do |csv|
     csv << ["needs closed", "needs rebase", "fails tests", "needs squashed", "total PRs", "uncommented"]
-    csv << [array_last_comment_pulls.size, total_rebase_pulls, total_bad_status_pulls, total_squashed_pulls, total_open_pulls, array_uncommented_pulls]
+    csv << [array_last_comment_pulls.size, total_rebase_pulls, total_bad_status_pulls, total_squashed_pulls, total_open_pulls, array_uncommented_pulls.size]
   end
   CSV.open("totals.csv", "w") do |csv|
     csv << ["total unmerged PRs", "total merged PRs", "total open PRs", "total uncommented open PRs"]
