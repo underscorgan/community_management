@@ -55,6 +55,9 @@ parser = OptionParser.new do |opts|
     options[:needs_rebase] = 1
   }
 
+  opts.on('--no-comments', 'Select PRs where there are no comments') {
+    options[:no_comments] = 1
+  }
 end
 
 parser.parse!
@@ -89,6 +92,8 @@ repos.each do |repo|
       pulls = util.fetch_pull_requests_with_bad_status("#{options[:namespace]}/#{repo}")
     elsif options[:needs_squashed]
       pulls = util.fetch_pull_requests_which_need_squashed("#{options[:namespace]}/#{repo}")
+    elsif options[:no_comments]
+      pulls = util.fetch_uncommented_pull_requests("#{options[:namespace]}/#{repo}")
     else
       pulls = util.fetch_pull_requests("#{options[:namespace]}/#{repo}")
     end

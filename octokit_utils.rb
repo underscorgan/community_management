@@ -65,6 +65,18 @@ class OctokitUtils
     returnVal
   end
 
+  def fetch_uncommented_pull_requests(repo, options={:state=>'open', :sort=>'updated'})
+    prs ||= client.pulls(repo, options)
+    returnVal = []
+    prs.each do |pr|
+      size = client.issue_comments(repo, pr.number, options).size
+      if size == 0
+        returnVal.push (pr)
+      end
+    end
+    returnVal
+  end
+
   def fetch_unmerged_pull_requests(repo, options={:state=>'closed', :sort=>'updated'})
     prs ||= client.pulls(repo, options)
     returnVal = []
