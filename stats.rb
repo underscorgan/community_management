@@ -62,7 +62,7 @@ total_merged_pulls = 0
 repos.each do |repo|
   #these are arrays used in generating the report
   last_comment_pulls = util.fetch_pull_requests_with_last_owner_comment("#{options[:namespace]}/#{repo}")
-  array_last_comment_pulls = array_last_comment_pulls + last_comment_pulls
+  array_last_comment_pulls = array_last_comment_pulls + util.pulls_older_than((DateTime.now - 30).to_time, { :pulls => last_comment_pulls })
   uncommented_pulls = util.fetch_uncommented_pull_requests("#{options[:namespace]}/#{repo}")
   array_uncommented_pulls = array_uncommented_pulls + uncommented_pulls
 
