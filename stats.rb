@@ -104,11 +104,11 @@ html.push("<html><title>PRs that need action</title>")
 
 html.push("<h1>PRs that need action</h1></br>")
 html.push("</br><h2>PRs that need review</h2></br>")
-array_uncommented_pulls.each do |pr|
+OctokitUtils.sort_pulls(array_uncommented_pulls).each do |pr|
   html.push("<a href='#{pr.html_url}'>#{pr.html_url}</a></br>")
 end
 html.push("</br><h2>PRs that need closed</h2></br>")
-array_last_comment_pulls.each do |pr|
+OctokitUtils.sort_pulls(array_last_comment_pulls).each do |pr|
   html.push("<a href='#{pr.html_url}'>#{pr.html_url}</a></br>")
 end
 html.push("</html>")

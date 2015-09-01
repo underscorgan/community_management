@@ -120,6 +120,14 @@ class OctokitUtils
     prs
   end
 
+  def self.sort_pulls(prs)
+    prs.sort do |a, b|
+      result = a.base.repo.name <=> b.base.repo.name
+      result = a.number <=> b.number if result == 0
+      result
+    end
+  end
+
   def pulls_newer_than(time, options)
     if not options[:pulls] and not options[:repo]
       raise ArgumentError, 'One of :pulls or :repo must be specified in the options hash'
