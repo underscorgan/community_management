@@ -8,8 +8,9 @@ class OctokitUtils
   def initialize(access_token)
     Octokit.auto_paginate = true
     @client = Octokit::Client.new(:access_token => "#{access_token}")
-    user = client.user
-    user.login
+    client.user.login
+
+    @pr_cache = {}
   end
 
   def list_repos(organization, options)
@@ -25,10 +26,13 @@ class OctokitUtils
     return repos.sort.uniq
   end
 
+  def pulls(repo, options)
+    @pr_cache[[repo, options]] ||= client.pulls(repo, options)
+  end
+
   def fetch_pull_requests_with_bad_status(repo, options={:state=>'open', :sort=>'updated'})
-    prs ||= client.pulls(repo, options)
     returnVal = []
-    prs.each do |pr|
+    pulls(repo, options).each do |pr|
       status = client.statuses(repo, pr.head.sha)
       if status.first != nil and status.first.state != 'success'
           returnVal.push (pr)
@@ -38,9 +42,8 @@ class OctokitUtils
   end
 
   def fetch_pull_requests_which_need_squashed(repo, options={:state=>'open', :sort=>'updated'})
-    prs ||= client.pulls(repo, options)
     returnVal = []
-    prs.each do |pr|
+    pulls(repo, options).each do |pr|
       commits = client.pull_request_commits(repo, pr.number)
       if commits.size > 1
         returnVal.push (pr)
@@ -50,14 +53,12 @@ class OctokitUtils
   end
 
   def fetch_pull_requests(repo, options={:state=>'open', :sort=>'updated'})
-    prs ||= client.pulls(repo, options)
-    prs
+    pulls(repo, options)
   end
 
   def fetch_merged_pull_requests(repo, options={:state=>'closed', :sort=>'updated'})
-    prs ||= client.pulls(repo, options)
     returnVal = []
-    prs.each do |pr|
+    pulls(repo, options).each do |pr|
       if pr.merged_at != nil
         returnVal.push (pr)
       end
@@ -66,9 +67,8 @@ class OctokitUtils
   end
 
   def fetch_uncommented_pull_requests(repo, options={:state=>'open', :sort=>'updated'})
-    prs ||= client.pulls(repo, options)
     returnVal = []
-    prs.each do |pr|
+    pulls(repo, options).each do |pr|
       size = client.issue_comments(repo, pr.number, options).size
       if size == 0
         returnVal.push (pr)
@@ -78,9 +78,8 @@ class OctokitUtils
   end
 
   def fetch_unmerged_pull_requests(repo, options={:state=>'closed', :sort=>'updated'})
-    prs ||= client.pulls(repo, options)
     returnVal = []
-    prs.each do |pr|
+    pulls(repo, options).each do |pr|
       if pr.merged_at == nil
         returnVal.push (pr)
       end
@@ -89,9 +88,8 @@ class OctokitUtils
   end
 
   def fetch_pull_requests_which_need_rebase(repo, options={:state=>'open', :sort=>'updated'})
-    prs ||= client.pulls(repo, options)
     returnVal = []
-    prs.each do |pr|
+    pulls(repo, options).each do |pr|
       status = client.pull_request(repo, pr.number, options)
       if status.mergeable == false
         returnVal.push (pr)
@@ -101,10 +99,10 @@ class OctokitUtils
   end
 
   def fetch_pull_requests_with_last_owner_comment(repo, options={:state=>'open', :sort=>'updated'})
-    prs ||= client.pulls(repo, options)
-    return [] if prs.count == 0
+    prs ||= pulls(repo, options)
+    return [] if prs.empty?
 
-    owner = prs[0].base.repo.owner
+    owner = prs.first.base.repo.owner
     if owner.type == 'User'
       members = { owner.login => :owner }
     else
