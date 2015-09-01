@@ -62,7 +62,7 @@ total_merged_pulls = 0
 repos.each do |repo|
   #these are arrays used in generating the report
   last_comment_pulls = util.fetch_pull_requests_with_last_owner_comment("#{options[:namespace]}/#{repo}")
-  array_last_comment_pulls = array_last_comment_pulls + last_comment_pulls
+  array_last_comment_pulls = array_last_comment_pulls + util.pulls_older_than((DateTime.now - 30).to_time, { :pulls => last_comment_pulls })
   uncommented_pulls = util.fetch_uncommented_pull_requests("#{options[:namespace]}/#{repo}")
   array_uncommented_pulls = array_uncommented_pulls + uncommented_pulls
 
@@ -104,11 +104,11 @@ html.push("<html><title>PRs that need action</title>")
 
 html.push("<h1>PRs that need action</h1></br>")
 html.push("</br><h2>PRs that need review</h2></br>")
-array_uncommented_pulls.each do |pr|
+OctokitUtils.sort_pulls(array_uncommented_pulls).each do |pr|
   html.push("<a href='#{pr.html_url}'>#{pr.html_url}</a></br>")
 end
 html.push("</br><h2>PRs that need closed</h2></br>")
-array_last_comment_pulls.each do |pr|
+OctokitUtils.sort_pulls(array_last_comment_pulls).each do |pr|
   html.push("<a href='#{pr.html_url}'>#{pr.html_url}</a></br>")
 end
 html.push("</html>")
