@@ -219,4 +219,28 @@ class OctokitUtils
       puts "#{repo},#{updated_at},#{number},#{url}"
     end
   end
+
+  def fetch_repo_missing_labels(repo, required_labels)
+    returnVal = []
+    repo_labels = []
+    labels_data = client.labels(repo, {})
+
+    labels_data.each do |label|
+      repo_labels.push (label.name)
+    end
+
+    required_labels.each do |required_label|
+      unless repo_labels.include?(required_label[:name])
+        returnVal.push (required_label)
+      end
+    end
+    returnVal
+  end
+
+  def add_repo_labels(repo, required_labels)
+    required_labels.each do |required_label|
+      client.add_label(repo, required_label[:name], required_label[:color])
+    end
+  end
+
 end
