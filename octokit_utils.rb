@@ -102,12 +102,7 @@ class OctokitUtils
     prs ||= pulls(repo, options)
     return [] if prs.empty?
 
-    owner = prs.first.base.repo.owner
-    if owner.type == 'User'
-      members = { owner.login => :owner }
-    else
-      members = client.organization_members(owner.login).each_with_object({}) { |user, hash| hash[user.login] = :owner }
-    end
+    members = puppet_organisation_members(prs)
 
     latest_comment_by_pr = client.issues_comments(repo, {:sort=> 'updated', :direction => 'desc'}).each_with_object({}) do |c, hash|
       hash[c.issue_url] ||= c
@@ -118,6 +113,37 @@ class OctokitUtils
     end
 
     prs
+  end
+
+  def fetch_pull_requests_with_no_puppet_personnel_comments(repo, options={:state=>'open', :sort=>'updated'})
+    returnVal = []
+
+    prs = pulls(repo, options)
+    return [] if prs.empty?
+
+    members = puppet_organisation_members(prs)
+    prs.each do |pr|
+      commenters = []
+      client.issue_comments(repo, pr.number).each do |comment|
+        commenters.push(comment.user.login)
+      end
+
+      member_array = members.keys
+      if (member_array & commenters).empty?
+        returnVal.push(pr)
+      end
+    end
+    returnVal
+  end
+
+  def puppet_organisation_members(prs)
+    owner = prs.first.base.repo.owner
+    if owner.type == 'User'
+      members = { owner.login => :owner }
+    else
+      members = client.organization_members(owner.login).each_with_object({}) { |user, hash| hash[user.login] = :owner }
+    end
+    members
   end
 
   def self.sort_pulls(prs)

@@ -58,6 +58,10 @@ parser = OptionParser.new do |opts|
   opts.on('--no-comments', 'Select PRs where there are no comments') {
     options[:no_comments] = 1
   }
+
+  opts.on('--no-puppet-comments', 'Select PRs where there are no comments from puppet members') {
+    options[:no_puppet_comments] = 1
+  }
 end
 
 parser.parse!
@@ -94,6 +98,8 @@ repos.each do |repo|
       pulls = util.fetch_pull_requests_which_need_squashed("#{options[:namespace]}/#{repo}")
     elsif options[:no_comments]
       pulls = util.fetch_uncommented_pull_requests("#{options[:namespace]}/#{repo}")
+    elsif options[:no_puppet_comments]
+      pulls = util.fetch_pull_requests_with_no_puppet_personnel_comments("#{options[:namespace]}/#{repo}")
     else
       pulls = util.fetch_pull_requests("#{options[:namespace]}/#{repo}")
     end

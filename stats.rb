@@ -45,6 +45,7 @@ if not missing.empty?
   exit
 end
 
+
 options[:repo_regex] = '.*' if options[:repo_regex].nil?
 
 util = OctokitUtils.new(options[:oauth])
@@ -52,6 +53,7 @@ repos = util.list_repos(options[:namespace], options)
 
 array_last_comment_pulls = []
 array_uncommented_pulls = []
+array_puppet_uncommented_pulls = []
 total_rebase_pulls = 0
 total_bad_status_pulls = 0
 total_squashed_pulls = 0
@@ -65,6 +67,8 @@ repos.each do |repo|
   array_last_comment_pulls = array_last_comment_pulls + util.pulls_older_than((DateTime.now - 30).to_time, { :pulls => last_comment_pulls })
   uncommented_pulls = util.fetch_uncommented_pull_requests("#{options[:namespace]}/#{repo}")
   array_uncommented_pulls = array_uncommented_pulls + uncommented_pulls
+  puppet_uncommented_pulls = util.fetch_pull_requests_with_no_puppet_personnel_comments("#{options[:namespace]}/#{repo}")
+  array_puppet_uncommented_pulls = array_puppet_uncommented_pulls + puppet_uncommented_pulls
 
   rebase_pulls = util.fetch_pull_requests_which_need_rebase("#{options[:namespace]}/#{repo}")
   total_rebase_pulls = total_rebase_pulls + rebase_pulls.size
@@ -100,17 +104,46 @@ if options[:display_overview]
 end
 
 html = []
-html.push("<html><title>PRs that need action</title>")
+html.push("<html><title>PRs that Require Triage</title>")
 
-html.push("<h1>PRs that need action</h1></br>")
-html.push("</br><h2>PRs that need review</h2></br>")
+html.push("<h1>PRs that Require Triage</h1>")
+html.push("<h2>PRs that are uncommented:</h2>")
+html.push("<table border='1' style='width:100%'> <tr>")
+html.push("<td>Title:</td><td>Author:</td><td>Location:</td></tr>")
 OctokitUtils.sort_pulls(array_uncommented_pulls).each do |pr|
-  html.push("<a href='#{pr.html_url}'>#{pr.html_url}</a></br>")
+  html.push("<tr><td> <a href='#{pr.html_url}'>#{pr.title}</a></td> <td>#{pr.user.login}</td>")
+  if pr.head.repo != nil
+    html.push("<td>#{pr.head.repo.name}</td>")
+  end
+  html.push("</tr>")
+  #require 'pry'; binding.pry
 end
-html.push("</br><h2>PRs that need closed</h2></br>")
+html.push("</table>")
+
+html.push("<h2>PRs that require closure:</h2>")
+html.push("<table border='1' style='width:100%'> <tr>")
+html.push("<td>Title:</td><td>Author:</td><td>Location:</td></tr>")
 OctokitUtils.sort_pulls(array_last_comment_pulls).each do |pr|
-  html.push("<a href='#{pr.html_url}'>#{pr.html_url}</a></br>")
+  html.push("<tr><td> <a href='#{pr.html_url}'>#{pr.title}</a></td> <td>#{pr.user.login}</td>")
+  if pr.head.repo != nil
+    html.push("<td>#{pr.head.repo.name}</td>")
+  end
+  html.push("</tr>")
+  #require 'pry'; binding.pry
 end
+html.push("</table>")
+
+html.push("<h2>PRs that have yet to be commented on by a puppet member:</h2>")
+html.push("<table border='1' style='width:100%'> <tr>")
+html.push("<td>Title:</td><td>Author:</td><td>Location:</td></tr>")
+OctokitUtils.sort_pulls(array_puppet_uncommented_pulls).each do |pr|
+   html.push("<tr><td> <a href='#{pr.html_url}'>#{pr.title}</a></td> <td>#{pr.user.login}</td>")
+   if pr.head.repo != nil
+     html.push("<td>#{pr.head.repo.name}</td>")
+   end
+   html.push("</tr>")
+end
+html.push("</table>")
 html.push("</html>")
 
 if options[:work]
