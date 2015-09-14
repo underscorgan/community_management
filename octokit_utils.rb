@@ -269,4 +269,33 @@ class OctokitUtils
     end
   end
 
+  def add_label_to_pr(repo, pr_number, label)
+    client.add_labels_to_an_issue(repo, pr_number, [label])
+  end
+
+  def remove_label_from_pr(repo, pr_number, label)
+    client.remove_label(repo, pr_number, label, {})
+  end
+
+  def add_comment_to_pr(repo, pr_number, comment)
+    client.add_comment(repo, pr_number, comment)
+  end
+
+  def does_pr_have_label (repo, pr_number, needed_label)
+    returnVal = false
+    labels = client.labels_for_issue(repo, pr_number)
+    labels.each do |label|
+      if label.name == needed_label
+        returnVal = true
+      end
+    end
+    returnVal
+  end
+
+  def does_pr_merge (repo, pr_number)
+    returnVal = false
+    pr = client.pull_request(repo, pr_number, {})
+    returnVal =  pr.mergeable
+    returnVal
+  end
 end
