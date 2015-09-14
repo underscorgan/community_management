@@ -112,9 +112,7 @@ html.push("<table border='1' style='width:100%'> <tr>")
 html.push("<td>Title:</td><td>Author:</td><td>Location:</td></tr>")
 OctokitUtils.sort_pulls(array_uncommented_pulls).each do |pr|
   html.push("<tr><td> <a href='#{pr.html_url}'>#{pr.title}</a></td> <td>#{pr.user.login}</td>")
-  if pr.head.repo != nil
-    html.push("<td>#{pr.head.repo.name}</td>")
-  end
+  html.push("<td>#{pr.base.repo.name}</td>")
   html.push("</tr>")
   #require 'pry'; binding.pry
 end
@@ -125,11 +123,8 @@ html.push("<table border='1' style='width:100%'> <tr>")
 html.push("<td>Title:</td><td>Author:</td><td>Location:</td></tr>")
 OctokitUtils.sort_pulls(array_last_comment_pulls).each do |pr|
   html.push("<tr><td> <a href='#{pr.html_url}'>#{pr.title}</a></td> <td>#{pr.user.login}</td>")
-  if pr.head.repo != nil
-    html.push("<td>#{pr.head.repo.name}</td>")
-  end
+  html.push("<td>#{pr.base.repo.name}</td>")
   html.push("</tr>")
-  #require 'pry'; binding.pry
 end
 html.push("</table>")
 
@@ -138,9 +133,7 @@ html.push("<table border='1' style='width:100%'> <tr>")
 html.push("<td>Title:</td><td>Author:</td><td>Location:</td></tr>")
 OctokitUtils.sort_pulls(array_puppet_uncommented_pulls).each do |pr|
    html.push("<tr><td> <a href='#{pr.html_url}'>#{pr.title}</a></td> <td>#{pr.user.login}</td>")
-   if pr.head.repo != nil
-     html.push("<td>#{pr.head.repo.name}</td>")
-   end
+   html.push("<td>#{pr.base.repo.name}</td>")
    html.push("</tr>")
 end
 html.push("</table>")
