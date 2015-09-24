@@ -53,6 +53,7 @@ repos = util.list_repos(options[:namespace], options)
 
 array_last_comment_pulls = []
 array_uncommented_pulls = []
+array_mentioned_pulls = []
 array_puppet_uncommented_pulls = []
 total_rebase_pulls = 0
 total_bad_status_pulls = 0
@@ -60,7 +61,9 @@ total_squashed_pulls = 0
 total_open_pulls = 0
 total_unmerged_pulls = 0
 total_merged_pulls = 0
+total_mentioned_pulls = 0
 
+  puts "repo, last comment, needs rebase, fails test, needs squash, no comments, total open, has mention"
 repos.each do |repo|
   #these are arrays used in generating the report
   last_comment_pulls = util.fetch_pull_requests_with_last_owner_comment("#{options[:namespace]}/#{repo}")
@@ -69,6 +72,9 @@ repos.each do |repo|
   array_uncommented_pulls = array_uncommented_pulls + uncommented_pulls
   puppet_uncommented_pulls = util.fetch_pull_requests_with_no_puppet_personnel_comments("#{options[:namespace]}/#{repo}")
   array_puppet_uncommented_pulls = array_puppet_uncommented_pulls + puppet_uncommented_pulls
+  mentioned_pulls = util.fetch_pull_requests_mention_member("#{options[:namespace]}/#{repo}")
+  array_mentioned_pulls = array_mentioned_pulls + mentioned_pulls
+  total_mentioned_pulls = total_mentioned_pulls + mentioned_pulls.size
 
   rebase_pulls = util.fetch_pull_requests_which_need_rebase("#{options[:namespace]}/#{repo}")
   total_rebase_pulls = total_rebase_pulls + rebase_pulls.size
@@ -89,7 +95,7 @@ repos.each do |repo|
   total_repo_merged_pulls = util.fetch_merged_pull_requests("#{options[:namespace]}/#{repo}")
   total_merged_pulls = total_merged_pulls + total_repo_merged_pulls.size
 
-  puts "#{options[:namespace]}/#{repo}, #{last_comment_pulls.size}, #{rebase_pulls.size}, #{bad_status_pulls.size}, #{squashed_pulls.size}, #{uncommented_pulls.size}, #{total_repo_open_pulls.size}"
+  puts "#{options[:namespace]}/#{repo}, #{last_comment_pulls.size}, #{rebase_pulls.size}, #{bad_status_pulls.size}, #{squashed_pulls.size}, #{uncommented_pulls.size}, #{total_repo_open_pulls.size}, #{total_mentioned_pulls}"
 end
 
 if options[:display_overview]
@@ -144,6 +150,19 @@ OctokitUtils.sort_pulls(array_puppet_uncommented_pulls).each do |pr|
    html.push("</tr>")
 end
 html.push("</table>")
+
+html.push("<h2>PRs that community have asked for help:</h2>")
+html.push("<table border='1' style='width:100%'> <tr>")
+html.push("<td>Title:</td><td>Author:</td><td>Location:</td></tr>")
+OctokitUtils.sort_pulls(array_mentioned_pulls).each do |pr|
+   html.push("<tr><td> <a href='#{pr.html_url}'>#{pr.title}</a></td> <td>#{pr.user.login}</td>")
+   if pr.head.repo != nil
+     html.push("<td>#{pr.head.repo.name}</td>")
+   end
+   html.push("</tr>")
+end
+html.push("</table>")
+
 html.push("</html>")
 
 if options[:work]

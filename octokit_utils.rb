@@ -115,6 +115,28 @@ class OctokitUtils
     prs
   end
 
+  def fetch_pull_requests_mention_member(repo, options={:state=>'open', :sort=>'updated'})
+    prs ||= pulls(repo, options)
+    return [] if prs.empty?
+    returnVal = []
+    members = puppet_organisation_members(prs)
+
+    prs.each do |pr|
+      comments = client.issue_comments(repo, pr.number)
+      unless comments.empty?
+        comments.last.body.gsub(/@\w*/) do |person|
+          #remove @
+          person[0] = ''
+          if members.has_key?(person)
+            returnVal.push(pr) unless returnVal.include?(pr)
+          end
+        end
+      end
+    end
+
+    returnVal
+  end
+
   def fetch_pull_requests_with_no_puppet_personnel_comments(repo, options={:state=>'open', :sort=>'updated'})
     returnVal = []
 
