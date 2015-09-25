@@ -55,6 +55,7 @@ array_last_comment_pulls = []
 array_uncommented_pulls = []
 array_mentioned_pulls = []
 array_puppet_uncommented_pulls = []
+array_needs_rebase_pulls = []
 total_rebase_pulls = 0
 total_bad_status_pulls = 0
 total_squashed_pulls = 0
@@ -77,6 +78,7 @@ repos.each do |repo|
   total_mentioned_pulls = total_mentioned_pulls + mentioned_pulls.size
 
   rebase_pulls = util.fetch_pull_requests_which_need_rebase("#{options[:namespace]}/#{repo}")
+  array_needs_rebase_pulls = array_needs_rebase_pulls + rebase_pulls
   total_rebase_pulls = total_rebase_pulls + rebase_pulls.size
   bad_status_pulls = util.fetch_pull_requests_with_bad_status("#{options[:namespace]}/#{repo}")
   total_bad_status_pulls = total_bad_status_pulls + bad_status_pulls.size
@@ -156,6 +158,17 @@ OctokitUtils.sort_pulls(array_mentioned_pulls).each do |pr|
 end
 html.push("</table>")
 
+html.push("<h2>PRs that require rebase:</h2>")
+html.push("<table border='1' style='width:100%'> <tr>")
+html.push("<td>Title:</td><td>Author:</td><td>Location:</td></tr>")
+OctokitUtils.sort_pulls(array_needs_rebase_pulls).each do |pr|
+   html.push("<tr><td> <a href='#{pr.html_url}'>#{pr.title}</a></td> <td>#{pr.user.login}</td>")
+   if pr.head.repo != nil
+     html.push("<td>#{pr.head.repo.name}</td>")
+   end
+   html.push("</tr>")
+end
+html.push("</table>")
 html.push("</html>")
 
 if options[:work]
