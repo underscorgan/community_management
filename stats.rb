@@ -4,6 +4,22 @@ require 'optparse'
 require 'csv'
 require_relative 'octokit_utils'
 
+def tablecreation(title,pr_array)
+  html = []
+  html.push("<h2>#{title}</h2>")
+  html.push("<table border='1' style='width:100%'> <tr>")
+  html.push("<td>Title:</td><td>Author:</td><td>Location:</td></tr>")
+  OctokitUtils.sort_pulls(pr_array).each do |pr|
+    html.push("<tr><td> <a href='#{pr.html_url}'>#{pr.title}</a></td> <td>#{pr.user.login}</td>")
+    if pr.head.repo != nil
+      html.push("<td>#{pr.head.repo.name}</td>")
+    end
+    html.push("</tr>")
+  end
+  html.push("</table>")
+  return html
+end
+
 options = {}
 options[:oauth] = ENV['GITHUB_COMMUNITY_TOKEN'] if ENV['GITHUB_COMMUNITY_TOKEN']
 parser = OptionParser.new do |opts|
@@ -113,62 +129,18 @@ end
 
 html = []
 html.push("<html><title>PRs that Require Triage</title>")
-
 html.push("<h1>PRs that Require Triage</h1>")
-html.push("<h2>PRs that are uncommented:</h2>")
-html.push("<table border='1' style='width:100%'> <tr>")
-html.push("<td>Title:</td><td>Author:</td><td>Location:</td></tr>")
-OctokitUtils.sort_pulls(array_uncommented_pulls).each do |pr|
-  html.push("<tr><td> <a href='#{pr.html_url}'>#{pr.title}</a></td> <td>#{pr.user.login}</td>")
-  html.push("<td>#{pr.base.repo.name}</td>")
-  html.push("</tr>")
-  #require 'pry'; binding.pry
-end
-html.push("</table>")
 
-html.push("<h2>PRs that require closure:</h2>")
-html.push("<table border='1' style='width:100%'> <tr>")
-html.push("<td>Title:</td><td>Author:</td><td>Location:</td></tr>")
-OctokitUtils.sort_pulls(array_last_comment_pulls).each do |pr|
-  html.push("<tr><td> <a href='#{pr.html_url}'>#{pr.title}</a></td> <td>#{pr.user.login}</td>")
-  html.push("<td>#{pr.base.repo.name}</td>")
-  html.push("</tr>")
-end
-html.push("</table>")
-
-html.push("<h2>PRs that have yet to be commented on by a puppet member:</h2>")
-html.push("<table border='1' style='width:100%'> <tr>")
-html.push("<td>Title:</td><td>Author:</td><td>Location:</td></tr>")
-OctokitUtils.sort_pulls(array_puppet_uncommented_pulls).each do |pr|
-   html.push("<tr><td> <a href='#{pr.html_url}'>#{pr.title}</a></td> <td>#{pr.user.login}</td>")
-   html.push("<td>#{pr.base.repo.name}</td>")
-   html.push("</tr>")
-end
-html.push("</table>")
-
-html.push("<h2>PRs that community have asked for help:</h2>")
-html.push("<table border='1' style='width:100%'> <tr>")
-html.push("<td>Title:</td><td>Author:</td><td>Location:</td></tr>")
-OctokitUtils.sort_pulls(array_mentioned_pulls).each do |pr|
-   html.push("<tr><td> <a href='#{pr.html_url}'>#{pr.title}</a></td> <td>#{pr.user.login}</td>")
-   if pr.head.repo != nil
-     html.push("<td>#{pr.head.repo.name}</td>")
-   end
-   html.push("</tr>")
-end
-html.push("</table>")
-
-html.push("<h2>PRs that require rebase:</h2>")
-html.push("<table border='1' style='width:100%'> <tr>")
-html.push("<td>Title:</td><td>Author:</td><td>Location:</td></tr>")
-OctokitUtils.sort_pulls(array_needs_rebase_pulls).each do |pr|
-   html.push("<tr><td> <a href='#{pr.html_url}'>#{pr.title}</a></td> <td>#{pr.user.login}</td>")
-   if pr.head.repo != nil
-     html.push("<td>#{pr.head.repo.name}</td>")
-   end
-   html.push("</tr>")
-end
-html.push("</table>")
+htmlchunk = tablecreation("PRs that are uncommented:",array_uncommented_pulls)
+html.push(htmlchunk)
+htmlchunk = tablecreation("PRs that require closure:",array_last_comment_pulls)
+html.push(htmlchunk)
+htmlchunk = tablecreation("PRs that have yet to be commented on by a puppet member:",array_puppet_uncommented_pulls)
+html.push(htmlchunk)
+htmlchunk = tablecreation("PRs that community have asked for help:",array_mentioned_pulls)
+html.push(htmlchunk)
+htmlchunk = tablecreation("PRs that require rebase:",array_needs_rebase_pulls)
+html.push(htmlchunk)
 html.push("</html>")
 
 if options[:work]
