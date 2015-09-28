@@ -72,6 +72,7 @@ array_uncommented_pulls = []
 array_mentioned_pulls = []
 array_puppet_uncommented_pulls = []
 array_needs_rebase_pulls = []
+array_needs_prompt_pulls = []
 total_rebase_pulls = 0
 total_bad_status_pulls = 0
 total_squashed_pulls = 0
@@ -85,6 +86,8 @@ repos.each do |repo|
   #these are arrays used in generating the report
   last_comment_pulls = util.fetch_pull_requests_with_last_owner_comment("#{options[:namespace]}/#{repo}")
   array_last_comment_pulls = array_last_comment_pulls + util.pulls_older_than((DateTime.now - 30).to_time, { :pulls => last_comment_pulls })
+  needs_prompt_pulls = util.fetch_pull_requests_with_last_owner_comment("#{options[:namespace]}/#{repo}")
+  array_needs_prompt_pulls = array_needs_prompt_pulls + util.pulls_older_than((DateTime.now - 15).to_time, { :pulls => last_comment_pulls })
   uncommented_pulls = util.fetch_uncommented_pull_requests("#{options[:namespace]}/#{repo}")
   array_uncommented_pulls = array_uncommented_pulls + uncommented_pulls
   puppet_uncommented_pulls = util.fetch_pull_requests_with_no_puppet_personnel_comments("#{options[:namespace]}/#{repo}")
@@ -133,7 +136,9 @@ html.push("<h1>PRs that Require Triage</h1>")
 
 htmlchunk = tablecreation("PRs that are uncommented:",array_uncommented_pulls)
 html.push(htmlchunk)
-htmlchunk = tablecreation("PRs that require closure:",array_last_comment_pulls)
+htmlchunk = tablecreation("PRs that have been dormant for 15 days:",array_needs_prompt_pulls)
+html.push(htmlchunk)
+htmlchunk = tablecreation("PRs that have been dormant for 30 days:",array_last_comment_pulls)
 html.push(htmlchunk)
 htmlchunk = tablecreation("PRs that have yet to be commented on by a puppet member:",array_puppet_uncommented_pulls)
 html.push(htmlchunk)
