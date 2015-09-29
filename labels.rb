@@ -11,7 +11,6 @@ parser = OptionParser.new do |opts|
   opts.on('-n', '--namespace NAME', 'GitHub namespace. Required.') { |v| options[:namespace] = v }
   opts.on('-r', '--repo-regex REGEX', 'Repository regex') { |v| options[:repo_regex] = v }
   opts.on('-t', '--oauth-token TOKEN', 'OAuth token. Required.') { |v| options[:oauth] = v }
-  opts.on('-c', '--check-labels', 'Check that labels in repo match have the ones we want') { options[:check_labels] = true}
   opts.on('-f', '--fix-labels', 'Add the missing labels to repo') { options[:fix_labels] = true}
 
   # default filters
@@ -22,7 +21,7 @@ parser = OptionParser.new do |opts|
 
   opts.on('--puppetlabs-supported', 'Select only Puppet Labs\' supported modules') {
     options[:namespace] = 'puppetlabs'
-    options[:repo_regex] = '^puppetlabs-(acl|apache|apt|aws|catalog_preview|concat|docker_platform|f5|firewall|haproxy|inifile|java|java_ks|mysql|netscaler|ntp|postgresql|powershell|reboot|registry|sqlserver|stdlib|tomcat|vcsrepo)$'
+    options[:repo_regex] = $supported_modules_regex
   }
 
   opts.on('--community', 'Select community modules') {
