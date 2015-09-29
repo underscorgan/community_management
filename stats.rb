@@ -41,7 +41,7 @@ parser = OptionParser.new do |opts|
 
   opts.on('--puppetlabs-supported', 'Select only Puppet Labs\' supported modules') {
     options[:namespace] = 'puppetlabs'
-    options[:repo_regex] = '^puppetlabs-(acl|apache|apt|aws|catalog_preview|concat|docker_platform|f5|firewall|haproxy|inifile|java|java_ks|mysql|netscaler|ntp|postgresql|powershell|reboot|registry|sqlserver|stdlib|tomcat|vcsrepo)$'
+    options[:repo_regex] = $supported_modules_regex
   }
 
   opts.on('--community', 'Select community modules') {
@@ -60,7 +60,6 @@ if not missing.empty?
   puts parser
   exit
 end
-
 
 options[:repo_regex] = '.*' if options[:repo_regex].nil?
 
@@ -84,28 +83,33 @@ total_mentioned_pulls = 0
   puts "repo, last comment, needs rebase, fails test, needs squash, no comments, total open, has mention"
 repos.each do |repo|
   #these are arrays used in generating the report
+  #no comment from contributer in 30 days
   last_comment_pulls = util.fetch_pull_requests_with_last_owner_comment("#{options[:namespace]}/#{repo}")
   array_last_comment_pulls = array_last_comment_pulls + util.pulls_older_than((DateTime.now - 30).to_time, { :pulls => last_comment_pulls })
+  #no comment from contributer in 15 days
   needs_prompt_pulls = util.fetch_pull_requests_with_last_owner_comment("#{options[:namespace]}/#{repo}")
   array_needs_prompt_pulls = array_needs_prompt_pulls + util.pulls_older_than((DateTime.now - 15).to_time, { :pulls => last_comment_pulls })
+  #no comment from anyone
   uncommented_pulls = util.fetch_uncommented_pull_requests("#{options[:namespace]}/#{repo}")
   array_uncommented_pulls = array_uncommented_pulls + uncommented_pulls
+  #no comment from a puppet employee
   puppet_uncommented_pulls = util.fetch_pull_requests_with_no_puppet_personnel_comments("#{options[:namespace]}/#{repo}")
   array_puppet_uncommented_pulls = array_puppet_uncommented_pulls + puppet_uncommented_pulls
+  #last comment mentions a puppet person
   mentioned_pulls = util.fetch_pull_requests_mention_member("#{options[:namespace]}/#{repo}")
   array_mentioned_pulls = array_mentioned_pulls + mentioned_pulls
   total_mentioned_pulls = total_mentioned_pulls + mentioned_pulls.size
-
+  #prs that need rebase
   rebase_pulls = util.fetch_pull_requests_which_need_rebase("#{options[:namespace]}/#{repo}")
   array_needs_rebase_pulls = array_needs_rebase_pulls + rebase_pulls
   total_rebase_pulls = total_rebase_pulls + rebase_pulls.size
+
+  #failing tests
   bad_status_pulls = util.fetch_pull_requests_with_bad_status("#{options[:namespace]}/#{repo}")
   total_bad_status_pulls = total_bad_status_pulls + bad_status_pulls.size
+  #needs squash
   squashed_pulls = util.fetch_pull_requests_which_need_squashed("#{options[:namespace]}/#{repo}")
   total_squashed_pulls = total_squashed_pulls + squashed_pulls.size
-
-  #find all PRs that have nothing wrong with them, ie actionable by us ?
-
   #total open pulls
   total_repo_open_pulls = util.fetch_pull_requests("#{options[:namespace]}/#{repo}")
   total_open_pulls = total_open_pulls + total_repo_open_pulls.size
@@ -134,17 +138,19 @@ html = []
 html.push("<html><title>PRs that Require Triage</title>")
 html.push("<h1>PRs that Require Triage</h1>")
 
-htmlchunk = tablecreation("PRs that are uncommented:",array_uncommented_pulls)
+htmlchunk = tablecreation("PRs that are have 0 comments:",array_uncommented_pulls)
 html.push(htmlchunk)
-htmlchunk = tablecreation("PRs that have been dormant for 15 days:",array_needs_prompt_pulls)
+htmlchunk = tablecreation("Last comment from puppet, no response for 15 days (needs ping):",array_needs_prompt_pulls)
 html.push(htmlchunk)
-htmlchunk = tablecreation("PRs that have been dormant for 30 days:",array_last_comment_pulls)
+htmlchunk = tablecreation("Last comment from puppet, no response for 30 days (needs closed):",array_last_comment_pulls)
 html.push(htmlchunk)
 htmlchunk = tablecreation("PRs that have yet to be commented on by a puppet member:",array_puppet_uncommented_pulls)
 html.push(htmlchunk)
-htmlchunk = tablecreation("PRs that community have asked for help:",array_mentioned_pulls)
+htmlchunk = tablecreation("PRs that community have asked for help (mentioned a puppet member):",array_mentioned_pulls)
 html.push(htmlchunk)
-htmlchunk = tablecreation("PRs that require rebase:",array_needs_rebase_pulls)
+htmlchunk = tablecreation("PRs that require rebase (needs comment and a label):",array_needs_rebase_pulls)
+html.push(htmlchunk)
+htmlchunk = tablecreation("PRs that require closing, no activity for 40 days:",array_needs_rebase_pulls)
 html.push(htmlchunk)
 html.push("</html>")
 
