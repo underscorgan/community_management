@@ -68,6 +68,17 @@ class OctokitUtils
     returnVal
   end
 
+  def fetch_pull_requests_with_no_activity_40_days(repo, options={:state=>'open', :sort=>'updated'})
+    returnVal = []
+    boundry = (DateTime.now - 40).to_time
+    pulls(repo, options).each do |pr|
+      if  pr.updated_at < boundry
+        returnVal.push (pr)
+      end
+    end
+    returnVal
+  end
+
   def fetch_uncommented_pull_requests(repo, options={:state=>'open', :sort=>'updated'})
     returnVal = []
     pulls(repo, options).each do |pr|

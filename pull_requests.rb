@@ -66,6 +66,10 @@ parser = OptionParser.new do |opts|
   opts.on('--last-comment-mention-member', 'Select PRs where the last comment mentions a puppet members') {
     options[:comment_mention_member] = 1
   }
+
+  opts.on('--no-activity-40-days', 'Select PRs where there has been no activity in 40 days') {
+    options[:no_activity_40] = 1
+  }
 end
 
 parser.parse!
@@ -106,6 +110,8 @@ repos.each do |repo|
       pulls = util.fetch_pull_requests_mention_member("#{options[:namespace]}/#{repo}")
     elsif options[:no_puppet_comments]
       pulls = util.fetch_pull_requests_with_no_puppet_personnel_comments("#{options[:namespace]}/#{repo}")
+    elsif options[:no_activity_40]
+      pulls = util.fetch_pull_requests_with_no_activity_40_days("#{options[:namespace]}/#{repo}")
     else
       pulls = util.fetch_pull_requests("#{options[:namespace]}/#{repo}")
     end
