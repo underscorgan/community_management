@@ -70,8 +70,9 @@ array_last_comment_pulls = []
 array_uncommented_pulls = []
 array_mentioned_pulls = []
 array_puppet_uncommented_pulls = []
-array_needs_rebase_pulls = []
+array_needs_rebase_no_label_pulls = []
 array_needs_prompt_pulls = []
+array_no_activity_pulls = []
 total_rebase_pulls = 0
 total_bad_status_pulls = 0
 total_squashed_pulls = 0
@@ -80,7 +81,7 @@ total_unmerged_pulls = 0
 total_merged_pulls = 0
 total_mentioned_pulls = 0
 
-  puts "repo, last comment, needs rebase, fails test, needs squash, no comments, total open, has mention"
+  puts "repo, last comment, needs rebase, fails test, needs squash, no comments, total open, has mention, no activty 40 days"
 repos.each do |repo|
   #these are arrays used in generating the report
   #no comment from contributer in 30 days
@@ -99,10 +100,17 @@ repos.each do |repo|
   mentioned_pulls = util.fetch_pull_requests_mention_member("#{options[:namespace]}/#{repo}")
   array_mentioned_pulls = array_mentioned_pulls + mentioned_pulls
   total_mentioned_pulls = total_mentioned_pulls + mentioned_pulls.size
-  #prs that need rebase
+  #prs that need rebase, report does not show prs with label, the graph/overview counts all prs (no label and has label)
   rebase_pulls = util.fetch_pull_requests_which_need_rebase("#{options[:namespace]}/#{repo}")
-  array_needs_rebase_pulls = array_needs_rebase_pulls + rebase_pulls
   total_rebase_pulls = total_rebase_pulls + rebase_pulls.size
+  rebase_pulls.each do |rebase|
+    unless util.does_pr_have_label("#{options[:namespace]}/#{repo}", rebase.number, "needs-rebase")
+      array_needs_rebase_no_label_pulls.push(rebase)
+    end
+  end
+  #prs that have had no activity in 40 days
+  no_activity_pulls = util.fetch_pull_requests_with_no_activity_40_days("#{options[:namespace]}/#{repo}")
+  array_no_activity_pulls = array_no_activity_pulls + no_activity_pulls
 
   #failing tests
   bad_status_pulls = util.fetch_pull_requests_with_bad_status("#{options[:namespace]}/#{repo}")
@@ -120,7 +128,7 @@ repos.each do |repo|
   total_repo_merged_pulls = util.fetch_merged_pull_requests("#{options[:namespace]}/#{repo}")
   total_merged_pulls = total_merged_pulls + total_repo_merged_pulls.size
 
-  puts "#{options[:namespace]}/#{repo}, #{last_comment_pulls.size}, #{rebase_pulls.size}, #{bad_status_pulls.size}, #{squashed_pulls.size}, #{uncommented_pulls.size}, #{total_repo_open_pulls.size}, #{total_mentioned_pulls}"
+  puts "#{options[:namespace]}/#{repo}, #{last_comment_pulls.size}, #{rebase_pulls.size}, #{bad_status_pulls.size}, #{squashed_pulls.size}, #{uncommented_pulls.size}, #{total_repo_open_pulls.size}, #{total_mentioned_pulls}, #{no_activity_pulls.size}"
 end
 
 if options[:display_overview]
@@ -138,7 +146,7 @@ html = []
 html.push("<html><title>PRs that Require Triage</title>")
 html.push("<h1>PRs that Require Triage</h1>")
 
-htmlchunk = tablecreation("PRs that are have 0 comments:",array_uncommented_pulls)
+htmlchunk = tablecreation("PRs that have 0 comments:",array_uncommented_pulls)
 html.push(htmlchunk)
 htmlchunk = tablecreation("Last comment from puppet, no response for 15 days (needs ping):",array_needs_prompt_pulls)
 html.push(htmlchunk)
@@ -148,9 +156,9 @@ htmlchunk = tablecreation("PRs that have yet to be commented on by a puppet memb
 html.push(htmlchunk)
 htmlchunk = tablecreation("PRs that community have asked for help (mentioned a puppet member):",array_mentioned_pulls)
 html.push(htmlchunk)
-htmlchunk = tablecreation("PRs that require rebase (needs comment and a label):",array_needs_rebase_pulls)
+htmlchunk = tablecreation("PRs that require rebase (needs comment and a label):",array_needs_rebase_no_label_pulls)
 html.push(htmlchunk)
-htmlchunk = tablecreation("PRs that require closing, no activity for 40 days:",array_needs_rebase_pulls)
+htmlchunk = tablecreation("PRs that require closing, no activity for 40 days:",array_no_activity_pulls)
 html.push(htmlchunk)
 html.push("</html>")
 
