@@ -5,7 +5,7 @@ require 'octokit'
 class OctokitUtils
   attr_accessor :client
 
-    $supported_modules_regex = '^puppetlabs-(acl|apache|apt|aws|catalog_preview|concat|docker_platform|f5_rest|firewall|haproxy|inifile|java|java_ks|mysql|netscaler|ntp|postgresql|powershell|reboot|registry|sqlserver|stdlib|tagmail|tomcat|vcsrepo|vsphere|wsus_client)$'
+    $supported_modules_regex = '^puppetlabs-(acl|apache|apt|puppet_authorization|aws|catalog_preview|concat|docker_platform|f5_rest|firewall|haproxy|inifile|java|java_ks|mysql|netscaler|ntp|postgresql|powershell|reboot|registry|sqlserver|stdlib|tagmail|tomcat|vcsrepo|vsphere|wsus_client)$'
 
   def initialize(access_token)
     Octokit.auto_paginate = true
