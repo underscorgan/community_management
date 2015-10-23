@@ -144,7 +144,9 @@ end
 
 html = []
 html.push("<html><title>PRs that Require Triage</title>")
-html.push("<h1>PRs that Require Triage</h1>")
+html.push("<head><link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'></head>")
+html.push("<body>")
+html.push("<h1>PRs that Require Triage <a href='http://www.cornify.com' onclick='cornify_add();return false;'><img src='http://www.cornify.com/assets/cornify.gif' width='61' height='16' border='0' alt='Cornify' /></a><script type='text/javascript' src='http://www.cornify.com/js/cornify.js'></script></h1>")
 
 htmlchunk = tablecreation("PRs that have 0 comments:",array_uncommented_pulls)
 html.push(htmlchunk)
@@ -160,6 +162,7 @@ htmlchunk = tablecreation("PRs that require rebase (needs comment and a label):"
 html.push(htmlchunk)
 htmlchunk = tablecreation("PRs that require closing, no activity for 40 days:",array_no_activity_pulls)
 html.push(htmlchunk)
+html.push("</body>")
 html.push("</html>")
 
 if options[:work]
