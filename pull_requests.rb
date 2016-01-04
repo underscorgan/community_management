@@ -95,23 +95,24 @@ repos = util.list_repos(options[:namespace], options)
 repo_data = []
 
 repos.each do |repo|
+  pr_information_cache = util.fetch_async("#{options[:namespace]}/#{repo}", search_with={:state=>'open', :sort=>'updated'}, filter=[:statuses, :pull_request_commits, :issue_comments, :pull_request])
   begin
     if options[:last_comment] == :owner
-      pulls = util.fetch_pull_requests_with_last_owner_comment("#{options[:namespace]}/#{repo}")
+      pulls = util.fetch_pull_requests_with_last_owner_comment(pr_information_cache)
     elsif options[:needs_rebase]
-      pulls = util.fetch_pull_requests_which_need_rebase("#{options[:namespace]}/#{repo}")
+      pulls = util.fetch_pull_requests_which_need_rebase(pr_information_cache)
     elsif options[:bad_status]
-      pulls = util.fetch_pull_requests_with_bad_status("#{options[:namespace]}/#{repo}")
+      pulls = util.fetch_pull_requests_with_bad_status(pr_information_cache)
     elsif options[:needs_squashed]
-      pulls = util.fetch_pull_requests_which_need_squashed("#{options[:namespace]}/#{repo}")
+      pulls = util.fetch_pull_requests_which_need_squashed(pr_information_cache)
     elsif options[:no_comments]
-      pulls = util.fetch_uncommented_pull_requests("#{options[:namespace]}/#{repo}")
+      pulls = util.fetch_uncommented_pull_requests(pr_information_cache)
     elsif options[:comment_mention_member]
-      pulls = util.fetch_pull_requests_mention_member("#{options[:namespace]}/#{repo}")
+      pulls = util.fetch_pull_requests_mention_member(pr_information_cache)
     elsif options[:no_puppet_comments]
-      pulls = util.fetch_pull_requests_with_no_puppet_personnel_comments("#{options[:namespace]}/#{repo}")
+      pulls = util.fetch_pull_requests_with_no_puppet_personnel_comments(pr_information_cache)
     elsif options[:no_activity_40]
-      pulls = util.fetch_pull_requests_with_no_activity_40_days("#{options[:namespace]}/#{repo}")
+      pulls = util.fetch_pull_requests_with_no_activity_40_days(pr_information_cache)
     else
       pulls = util.fetch_pull_requests("#{options[:namespace]}/#{repo}")
     end
