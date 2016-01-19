@@ -38,7 +38,7 @@ class OctokitUtils
     'wsus_client',
   ]
 
-  SUPPORTED_MODULES_REGEX = "^puppetlabs-(#{SUPPORTED_MODULES.join('|')})$"
+  SUPPORTED_MODULES_REGEX = "^(puppetlabs-(#{SUPPORTED_MODULES.join('|')})|modulesync_configs)$"
 
   def initialize(access_token)
     Octokit.auto_paginate = true
