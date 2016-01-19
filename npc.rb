@@ -22,7 +22,7 @@ parser = OptionParser.new do |opts|
 
   opts.on('--puppetlabs-supported', 'Select only Puppet Labs\' supported modules') {
     options[:namespace] = 'puppetlabs'
-    options[:repo_regex] = $supported_modules_regex
+    options[:repo_regex] = OctokitUtils::SUPPORTED_MODULES_REGEX
   }
 
   opts.on('--community', 'Select community modules') {
