@@ -56,7 +56,7 @@ puts "Checking for the following labels: #{label_names}"
 
 repos.each do |repo|
   missing_labels = util.fetch_repo_missing_labels("#{options[:namespace]}/#{repo}", wanted_labels)
-  puts "#{options[:namespace]}/#{repo}, #{missing_labels}" 
+  puts "#{options[:namespace]}/#{repo}, #{missing_labels}"
   if options[:fix_labels]
     util.add_repo_labels("#{options[:namespace]}/#{repo}", missing_labels)
   end

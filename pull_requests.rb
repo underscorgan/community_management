@@ -50,7 +50,7 @@ parser = OptionParser.new do |opts|
   opts.on('--needs-squashed', 'Select PRs that need squashed') {
     options[:needs_squashed] = 1
   }
-  
+
   opts.on('--needs-rebase', 'Select PRs where they need a rebase') {
     options[:needs_rebase] = 1
   }
