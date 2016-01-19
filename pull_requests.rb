@@ -26,7 +26,7 @@ parser = OptionParser.new do |opts|
 
   opts.on('--puppetlabs-supported', 'Select only Puppet Labs\' supported modules') {
     options[:namespace] = 'puppetlabs'
-    options[:repo_regex] = $supported_modules_regex
+    options[:repo_regex] = OctokitUtils::SUPPORTED_MODULES_REGEX
   }
 
   opts.on('--community', 'Select community modules') {
@@ -50,7 +50,7 @@ parser = OptionParser.new do |opts|
   opts.on('--needs-squashed', 'Select PRs that need squashed') {
     options[:needs_squashed] = 1
   }
-  
+
   opts.on('--needs-rebase', 'Select PRs where they need a rebase') {
     options[:needs_rebase] = 1
   }

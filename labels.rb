@@ -21,7 +21,7 @@ parser = OptionParser.new do |opts|
 
   opts.on('--puppetlabs-supported', 'Select only Puppet Labs\' supported modules') {
     options[:namespace] = 'puppetlabs'
-    options[:repo_regex] = $supported_modules_regex
+    options[:repo_regex] = OctokitUtils::SUPPORTED_MODULES_REGEX
   }
 
   opts.on('--community', 'Select community modules') {
@@ -56,7 +56,7 @@ puts "Checking for the following labels: #{label_names}"
 
 repos.each do |repo|
   missing_labels = util.fetch_repo_missing_labels("#{options[:namespace]}/#{repo}", wanted_labels)
-  puts "#{options[:namespace]}/#{repo}, #{missing_labels}" 
+  puts "#{options[:namespace]}/#{repo}, #{missing_labels}"
   if options[:fix_labels]
     util.add_repo_labels("#{options[:namespace]}/#{repo}", missing_labels)
   end

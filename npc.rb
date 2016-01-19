@@ -22,7 +22,7 @@ parser = OptionParser.new do |opts|
 
   opts.on('--puppetlabs-supported', 'Select only Puppet Labs\' supported modules') {
     options[:namespace] = 'puppetlabs'
-    options[:repo_regex] = $supported_modules_regex
+    options[:repo_regex] = OctokitUtils::SUPPORTED_MODULES_REGEX
   }
 
   opts.on('--community', 'Select community modules') {
@@ -60,7 +60,7 @@ repos.each do |repo|
       #do we already have a label ?
       pr_merges = util.does_pr_merge("#{options[:namespace]}/#{repo}", pr.number)
       pr_has_label = util.does_pr_have_label("#{options[:namespace]}/#{repo}", pr.number, "needs-rebase")
-      unless pr_merges 
+      unless pr_merges
         # pr does not merge
         unless pr_has_label
           #pr does not have a label
@@ -78,7 +78,7 @@ repos.each do |repo|
       else
         #pr merges
         #we have a label. should we remove the label if it is mergable
-        if pr_has_label 
+        if pr_has_label
           puts "#{options[:namespace]}/#{repo} #{pr.number} removing label"
           unless options[:no_op]
             util.remove_label_from_pr("#{options[:namespace]}/#{repo}", pr.number, "needs-rebase")
