@@ -65,10 +65,46 @@ class OctokitUtils
     @pr_cache[[repo, options]] ||= client.pulls(repo, options)
   end
 
-  def fetch_pull_requests_with_bad_status(repo, options={:state=>'open', :sort=>'updated'})
+  def fetch_async(repo, options={:state=>'open', :sort=>'updated'}, filter=[:statuses, :pull_request_commits, :issue_comments])
+    pr_information_cache = []
+    prs = client.pulls(repo, options)
+    poolsize = 10
+    mutex = Mutex.new
+
+    poolsize.times.map {
+      Thread.new(prs, pr_information_cache) do |prs, pr_information_cache|
+        while pr = mutex.synchronize { prs.pop }
+          pr_information = fetch_pr_information(repo, pr, filter)
+          mutex.synchronize { pr_information_cache << pr_information }
+        end
+      end
+    }.each(&:join)
+    return pr_information_cache
+  end
+
+  def fetch_pr_information(repo, pr, filter=[:statuses, :pull_request_commits, :issue_comments, :pull_request])
+    returnVal = {}
+    returnVal[:pull] = pr
+    if filter.include? :statuses
+      returnVal[:statuses] = client.statuses(repo, pr.head.sha)
+    end
+    if filter.include? :pull_request_commits
+      returnVal[:pull_request_commits] = client.pull_request_commits(repo, pr.number)
+    end
+    if filter.include? :pull_request
+      returnVal[:pull_request] = client.pull_request(repo, pr.number)
+    end
+    if filter.include? :issue_comments
+      returnVal[:issue_comments] = client.issue_comments(repo, pr.number)
+    end
+
+    returnVal
+  end
+
+  def fetch_pull_requests_with_bad_status(pr_information_cache)
     returnVal = []
-    pulls(repo, options).each do |pr|
-      status = client.statuses(repo, pr.head.sha)
+    pr_information_cache.each do |pr|
+      status = pr[:statuses]
       if status.first != nil and status.first.state != 'success'
           returnVal.push (pr)
       end
@@ -76,10 +112,10 @@ class OctokitUtils
     returnVal
   end
 
-  def fetch_pull_requests_which_need_squashed(repo, options={:state=>'open', :sort=>'updated'})
+  def fetch_pull_requests_which_need_squashed(pr_information_cache)
     returnVal = []
-    pulls(repo, options).each do |pr|
-      commits = client.pull_request_commits(repo, pr.number)
+    pr_information_cache.each do |pr|
+      commits = pr[:pull_request_commits]
       if commits.size > 1
         returnVal.push (pr)
       end
@@ -91,90 +127,94 @@ class OctokitUtils
     pulls(repo, options)
   end
 
-  def fetch_merged_pull_requests(repo, options={:state=>'closed', :sort=>'updated'})
+  def fetch_merged_pull_requests(pr_information_cache)
     returnVal = []
-    pulls(repo, options).each do |pr|
-      if pr.merged_at != nil
-        returnVal.push (pr)
+    pr_information_cache.each do |pr|
+      if pr[:pull].merged_at != nil
+        returnVal.push (pr[:pull])
       end
     end
     returnVal
   end
 
-  def fetch_pull_requests_with_no_activity_40_days(repo, options={:state=>'open', :sort=>'updated'})
+  def fetch_pull_requests_with_no_activity_40_days(pr_information_cache)
     returnVal = []
     boundry = (DateTime.now - 40).to_time
-    pulls(repo, options).each do |pr|
-      if  pr.updated_at < boundry
-        returnVal.push (pr)
+    pr_information_cache.each do |pr|
+      if  pr[:pull].updated_at < boundry
+        returnVal.push (pr[:pull])
       end
     end
     returnVal
   end
 
-  def fetch_uncommented_pull_requests(repo, options={:state=>'open', :sort=>'updated'})
+  def fetch_uncommented_pull_requests(pr_information_cache)
     returnVal = []
-    pulls(repo, options).each do |pr|
-      size = client.issue_comments(repo, pr.number, options).size
+    pr_information_cache.each do |pr|
+      size = pr[:issue_comments].size
       if size == 0
-        returnVal.push (pr)
+        returnVal.push (pr[:pull])
       end
     end
     returnVal
   end
 
-  def fetch_unmerged_pull_requests(repo, options={:state=>'closed', :sort=>'updated'})
+  def fetch_unmerged_pull_requests(pr_information_cache)
     returnVal = []
-    pulls(repo, options).each do |pr|
-      if pr.merged_at == nil
-        returnVal.push (pr)
+    pr_information_cache.each do |pr|
+      if pr[:pull].merged_at == nil
+        returnVal.push (pr[:pull])
       end
     end
     returnVal
   end
 
-  def fetch_pull_requests_which_need_rebase(repo, options={:state=>'open', :sort=>'updated'})
+  def fetch_pull_requests_which_need_rebase(pr_information_cache)
     returnVal = []
-    pulls(repo, options).each do |pr|
-      status = client.pull_request(repo, pr.number, options)
-      if status.mergeable == false
-        returnVal.push (pr)
+    pr_information_cache.each do |pr|
+      state = pr[:pull_request]
+        if state.mergeable  == false
+        returnVal.push pr[:pull]
       end
     end
     returnVal
   end
 
-  def fetch_pull_requests_with_last_owner_comment(repo, options={:state=>'open', :sort=>'updated'})
-    prs ||= pulls(repo, options)
+  def fetch_pull_requests_with_last_owner_comment(pr_information_cache)
+    prs = []
+    pr_information_cache.each do |iter|
+      prs.push iter[:pull]
+    end
     return [] if prs.empty?
 
     members = puppet_organisation_members(prs)
-
-    latest_comment_by_pr = client.issues_comments(repo, {:sort=> 'updated', :direction => 'desc'}).each_with_object({}) do |c, hash|
-      hash[c.issue_url] ||= c
+    returnVal =  []
+    pr_information_cache.each do |iter|
+      if iter[:issue_comments].size > 0 && members.key?(iter[:issue_comments].last.user.login)
+        returnVal.push(iter[:pull])
+      end
     end
 
-    prs = prs.select do |p|
-      latest_comment_by_pr[p.issue_url] && members[latest_comment_by_pr[p.issue_url].user.login] == :owner
-    end
-
-    prs
+    returnVal
   end
 
-  def fetch_pull_requests_mention_member(repo, options={:state=>'open', :sort=>'updated'})
-    prs ||= pulls(repo, options)
+  def fetch_pull_requests_mention_member(pr_information_cache)
+    prs = []
+    pr_information_cache.each do |iter|
+      prs.push iter[:pull]
+    end
     return [] if prs.empty?
     returnVal = []
     members = puppet_organisation_members(prs)
 
-    prs.each do |pr|
-      comments = client.issue_comments(repo, pr.number)
+    pr_information_cache.each do |pr|
+      comments = pr[:issue_comments]
       unless comments.empty?
         comments.last.body.gsub(/@\w*/) do |person|
           #remove @
           person[0] = ''
           if members.has_key?(person)
-            returnVal.push(pr) unless returnVal.include?(pr)
+            returnVal.push(pr[:pull]) unless returnVal.include?(pr[:pull])
           end
         end
       end
@@ -183,22 +223,24 @@ class OctokitUtils
     returnVal
   end
 
-  def fetch_pull_requests_with_no_puppet_personnel_comments(repo, options={:state=>'open', :sort=>'updated'})
-    returnVal = []
-
-    prs = pulls(repo, options)
+  def fetch_pull_requests_with_no_puppet_personnel_comments(pr_information_cache)
+    prs = []
+    pr_information_cache.each do |iter|
+      prs.push iter[:pull]
+    end
     return [] if prs.empty?
-
+    returnVal = []
     members = puppet_organisation_members(prs)
-    prs.each do |pr|
+
+    pr_information_cache.each do |iter|
       commenters = []
-      client.issue_comments(repo, pr.number).each do |comment|
+      iter[:issue_comments].each do |comment|
         commenters.push(comment.user.login)
       end
 
       member_array = members.keys
       if (member_array & commenters).empty?
-        returnVal.push(pr)
+        returnVal.push(iter[:pull])
       end
     end
     returnVal

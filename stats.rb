@@ -83,25 +83,28 @@ total_mentioned_pulls = 0
 
   puts "repo, last comment, needs rebase, fails test, needs squash, no comments, total open, has mention, no activty 40 days"
 repos.each do |repo|
+  pr_information_cache = util.fetch_async("#{options[:namespace]}/#{repo}", search_with={:state=>'open', :sort=>'updated'}, filter=[:statuses, :pull_request_commits, :issue_comments, :pull_request])
+
+  closed_pr_information_cache = util.fetch_async("#{options[:namespace]}/#{repo}", search_with={:state=>'closed', :sort=>'updated'}, filter=[])
   #these are arrays used in generating the report
   #no comment from contributer in 30 days
-  last_comment_pulls = util.fetch_pull_requests_with_last_owner_comment("#{options[:namespace]}/#{repo}")
+  last_comment_pulls = util.fetch_pull_requests_with_last_owner_comment(pr_information_cache)
   array_last_comment_pulls = array_last_comment_pulls + util.pulls_older_than((DateTime.now - 30).to_time, { :pulls => last_comment_pulls })
   #no comment from contributer in 15 days
-  needs_prompt_pulls = util.fetch_pull_requests_with_last_owner_comment("#{options[:namespace]}/#{repo}")
+  needs_prompt_pulls = util.fetch_pull_requests_with_last_owner_comment(pr_information_cache)
   array_needs_prompt_pulls = array_needs_prompt_pulls + util.pulls_older_than((DateTime.now - 15).to_time, { :pulls => last_comment_pulls })
   #no comment from anyone
-  uncommented_pulls = util.fetch_uncommented_pull_requests("#{options[:namespace]}/#{repo}")
+  uncommented_pulls = util.fetch_uncommented_pull_requests(pr_information_cache)
   array_uncommented_pulls = array_uncommented_pulls + uncommented_pulls
   #no comment from a puppet employee
-  puppet_uncommented_pulls = util.fetch_pull_requests_with_no_puppet_personnel_comments("#{options[:namespace]}/#{repo}")
+  puppet_uncommented_pulls = util.fetch_pull_requests_with_no_puppet_personnel_comments(pr_information_cache)
   array_puppet_uncommented_pulls = array_puppet_uncommented_pulls + puppet_uncommented_pulls
   #last comment mentions a puppet person
-  mentioned_pulls = util.fetch_pull_requests_mention_member("#{options[:namespace]}/#{repo}")
+  mentioned_pulls = util.fetch_pull_requests_mention_member(pr_information_cache)
   array_mentioned_pulls = array_mentioned_pulls + mentioned_pulls
   total_mentioned_pulls = total_mentioned_pulls + mentioned_pulls.size
   #prs that need rebase, report does not show prs with label, the graph/overview counts all prs (no label and has label)
-  rebase_pulls = util.fetch_pull_requests_which_need_rebase("#{options[:namespace]}/#{repo}")
+  rebase_pulls = util.fetch_pull_requests_which_need_rebase(pr_information_cache)
   total_rebase_pulls = total_rebase_pulls + rebase_pulls.size
   rebase_pulls.each do |rebase|
     unless util.does_pr_have_label("#{options[:namespace]}/#{repo}", rebase.number, "needs-rebase")
@@ -109,23 +112,26 @@ repos.each do |repo|
     end
   end
   #prs that have had no activity in 40 days
-  no_activity_pulls = util.fetch_pull_requests_with_no_activity_40_days("#{options[:namespace]}/#{repo}")
+  no_activity_pulls = util.fetch_pull_requests_with_no_activity_40_days(pr_information_cache)
   array_no_activity_pulls = array_no_activity_pulls + no_activity_pulls
 
   #failing tests
-  bad_status_pulls = util.fetch_pull_requests_with_bad_status("#{options[:namespace]}/#{repo}")
+  bad_status_pulls = util.fetch_pull_requests_with_bad_status(pr_information_cache)
   total_bad_status_pulls = total_bad_status_pulls + bad_status_pulls.size
   #needs squash
-  squashed_pulls = util.fetch_pull_requests_which_need_squashed("#{options[:namespace]}/#{repo}")
+  squashed_pulls = util.fetch_pull_requests_which_need_squashed(pr_information_cache)
   total_squashed_pulls = total_squashed_pulls + squashed_pulls.size
   #total open pulls
-  total_repo_open_pulls = util.fetch_pull_requests("#{options[:namespace]}/#{repo}")
+  total_repo_open_pulls = []
+  pr_information_cache.each do |iter|
+    total_repo_open_pulls.push iter[:pull]
+  end
   total_open_pulls = total_open_pulls + total_repo_open_pulls.size
   #total unmerged
-  total_repo_unmerged_pulls = util.fetch_unmerged_pull_requests("#{options[:namespace]}/#{repo}")
+  total_repo_unmerged_pulls = util.fetch_unmerged_pull_requests(closed_pr_information_cache)
   total_unmerged_pulls = total_unmerged_pulls + total_repo_unmerged_pulls.size
   #total merged
-  total_repo_merged_pulls = util.fetch_merged_pull_requests("#{options[:namespace]}/#{repo}")
+  total_repo_merged_pulls = util.fetch_merged_pull_requests(closed_pr_information_cache)
   total_merged_pulls = total_merged_pulls + total_repo_merged_pulls.size
 
   puts "#{options[:namespace]}/#{repo}, #{last_comment_pulls.size}, #{rebase_pulls.size}, #{bad_status_pulls.size}, #{squashed_pulls.size}, #{uncommented_pulls.size}, #{total_repo_open_pulls.size}, #{total_mentioned_pulls}, #{no_activity_pulls.size}"
