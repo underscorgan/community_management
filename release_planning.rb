@@ -15,6 +15,7 @@ parser = OptionParser.new do |opts|
   opts.on('-r', '--repo-regex REGEX', 'Repository regex') { |v| options[:repo_regex] = v }
   opts.on('-t', '--oauth-token TOKEN', 'OAuth token. Required.') { |v| options[:oauth] = v }
   opts.on('-v', '--verbose', 'More output') { options[:verbose] = true }
+  opts.on('-o', '--output', 'Creates html output') { options[:output] = true }
 end
 
 parser.parse!
@@ -70,3 +71,30 @@ end
 due_for_release.each do |entry|
   puts "#{entry['repo']} is due for release. Last release was tagged on #{entry['date']} and there have been #{entry['commits']} commits since then."
 end
+
+html = []
+html.push("<html>")
+html.push("<head><link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'></head>")
+html.push("<body>")
+html.push("<h2>Modules Requiring Release</h2>")
+html.push("<table cellpadding=\"20\">")
+html.push("<tr>")
+html.push("<th>Module Name</th>")
+html.push("<th>Last Release Tag Date</th>")
+html.push("<th>Commits Since Then</th>")
+html.push("</tr>")
+due_for_release.each do |entry|
+  html.push("<tr>")
+  html.push("<td>#{entry['repo']}</td>")
+  html.push("<td>#{entry['date']}</td>")
+  html.push("<td align=\"center\">#{entry['commits']}</td>")
+  html.push("</tr>")
+end
+html.push("</body>")
+html.push("</html>")
+
+if options[:output]
+  File.open("ModulesRelease.html", "w+") do |f|
+    f.puts(html)
+  end
+end  
