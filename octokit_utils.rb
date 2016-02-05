@@ -65,9 +65,17 @@ class OctokitUtils
     @pr_cache[[repo, options]] ||= client.pulls(repo, options)
   end
 
-  def fetch_async(repo, options={:state=>'open', :sort=>'updated'}, filter=[:statuses, :pull_request_commits, :issue_comments])
+  def fetch_async(repo, options={:state=>'open', :sort=>'updated'}, filter=[:statuses, :pull_request_commits, :issue_comments], limit={:attribute=>'closed_at', :date=>'2016-01-15 12:59:47 UTC'})
     pr_information_cache = []
-    prs = client.pulls(repo, options)
+    prs = []
+    unlimited_prs = client.pulls(repo, options)
+    unlimited_prs.each do |iter|
+      if limit[:attribute] == 'closed_at'
+        if iter.closed_at > limit[:date].to_time
+          prs.push(iter)
+        end
+      end
+    end
     poolsize = 10
     mutex = Mutex.new
 
