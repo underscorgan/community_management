@@ -20,6 +20,7 @@ class OctokitUtils
     'inifile',
     'java_ks',
     'java',
+    'modulesync_configs',
     'motd',
     'mysql',
     'netscaler',
