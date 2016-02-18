@@ -35,4 +35,5 @@ build/
 
 /Gemfile.lock
 *.csv
+*.png
 report.html
