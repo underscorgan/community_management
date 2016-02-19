@@ -74,6 +74,7 @@ open = []
 (start_date..end_date).each do |day_to_check|
   puppet_prs = 0
   community_prs = 0
+  daily_total = 0
   created_puppet_prs = 0
   created_community_prs = 0
   all_pulls.each do |pull|
@@ -100,7 +101,8 @@ open = []
       end
     end
   end
-  row = {"date" => day_to_check.strftime('%F'), "community" => community_prs, "puppet" => puppet_prs}
+  daily_total = community_prs + puppet_prs
+  row = {"date" => day_to_check.strftime('%F'), "community" => community_prs, "puppet" => puppet_prs, "total" => daily_total}
   open_row = {"date" => day_to_check.strftime('%F'), "puppet" => created_puppet_prs, "community" => created_community_prs}
   days.push(row)
   open.push(open_row)
@@ -109,9 +111,9 @@ end
 
 #Creates the CSV files
 CSV.open("daily_open_prs.csv", "w") do |csv|
-  csv << ["date", "community", "puppet"]
+  csv << ["date", "community", "puppet", "total"]
   days.each do |day|
-    csv << [day["date"], day["community"], day["puppet"]]
+    csv << [day["date"], day["community"], day["puppet"], day["total"]]
   end
 end
 CSV.open("created_per_day.csv", "w") do |csv|
