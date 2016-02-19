@@ -57,7 +57,7 @@ end
 def prs_currently_open_per_day_graph
   data_set = CSV.read('daily_open_prs.csv', headers: true)
 
-  graph = Gruff::StackedArea.new
+  graph = Gruff::Area.new
   graph.title = 'PRs Currently Open'
 
   count = 0
@@ -70,6 +70,9 @@ def prs_currently_open_per_day_graph
 
   graph.data("Community PRs", data_set.collect { |x| x['community'].to_i })
   graph.data("Puppet PRs", data_set.collect { |x| x['puppet'].to_i })
+  graph.data("Total PRs", data_set.collect { |x| x['total'].to_i })
+
+  graph.minimum_value = 0
 
   graph.x_axis_label = 'Day (Last 20, ascending)'
   graph.y_axis_label = 'PRs'
