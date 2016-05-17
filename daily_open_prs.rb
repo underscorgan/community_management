@@ -26,7 +26,7 @@ parser = OptionParser.new do |opts|
     options[:repo_regex] = OctokitUtils::SUPPORTED_MODULES_REGEX
   }
   opts.on('--community', 'Select community modules') {
-    options[:namespace] = 'puppet-community'
+    options[:namespace] = 'voxpupuli'
     options[:repo_regex] = '^puppet-'
   }
 end
