@@ -46,7 +46,7 @@ def prs_created_per_day_graph
   graph.label_stagger_height=10
 
   graph.data("Puppet PRs", data_set.collect { |x| x['puppet'].to_i })
-  graph.data("Voxpupuli PRs", data_set.collect { |x| x['voxpupuli'].to_i })
+  graph.data("Community PRs", data_set.collect { |x| x['community'].to_i })
 
   graph.x_axis_label = 'Day (Last 20, ascending)'
   graph.y_axis_label = 'PRs'
@@ -68,7 +68,7 @@ def prs_currently_open_per_day_graph
 
   graph.label_stagger_height=10
 
-  graph.data("Voxpupuli PRs", data_set.collect { |x| x['voxpupuli'].to_i })
+  graph.data("Community PRs", data_set.collect { |x| x['community'].to_i })
   graph.data("Puppet PRs", data_set.collect { |x| x['puppet'].to_i })
   graph.data("Total PRs", data_set.collect { |x| x['total'].to_i })
 
