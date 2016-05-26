@@ -23,6 +23,7 @@ class OctokitUtils
     'modulesync_configs',
     'motd',
     'mysql',
+    'netapp',
     'netscaler',
     'ntp',
     'postgresql',
