@@ -6,7 +6,6 @@ class OctokitUtils
   attr_accessor :client
 
   SUPPORTED_MODULES = [
-    'acl',
     'apache',
     'apt',
     'aws',
@@ -26,17 +25,12 @@ class OctokitUtils
     'netscaler',
     'ntp',
     'postgresql',
-    'powershell',
     'puppet_authorization',
-    'reboot',
-    'registry',
-    'sqlserver',
     'stdlib',
     'tagmail',
     'tomcat',
     'vcsrepo',
     'vsphere',
-    'wsus_client',
   ]
 
   SUPPORTED_MODULES_REGEX = "^(puppetlabs-(#{SUPPORTED_MODULES.join('|')})|modulesync_configs)$"
