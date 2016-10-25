@@ -1,6 +1,11 @@
 source 'https://rubygems.org'
 
-gem 'octokit'
+if RUBY_VERSION <= '2.0.0'
+  gem 'octokit', '4.3.0'
+else
+  gem 'octokit'
+end
+
 gem 'gruff'
 
 group 'development' do
