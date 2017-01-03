@@ -72,6 +72,12 @@ repos.each do |repo|
     row[:pr] = pr[:pull].number
     row[:age] = ((Time.now - pr[:pull].created_at) / 60 / 60 / 24).round
     row[:owner] = pr[:pull].user.login
+    if util.client.organization_member?("puppetlabs", pr[:pull].user.login)
+      row[:owner] += " <span class='label label-warning'>puppet</span>"
+    end
+    if util.client.organization_member?("voxpupuli", pr[:pull].user.login)
+      row[:owner] += " <span class='label label-primary'>vox</span>"
+    end
     row[:title] = pr[:pull].title
 
     if pr[:issue_comments].size > 0 
