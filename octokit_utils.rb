@@ -16,6 +16,7 @@ class OctokitUtils
     'cisco',
     'chocolatey',
     'concat',
+    'chocolately',
     'docker_platform',
     'dsc',
     'f5_rest',
@@ -37,7 +38,7 @@ class OctokitUtils
     'puppet_authorization',
     'reboot',
     'registry',
-    'satellite',
+    'satellite_pe_tools',
     'sqlserver',
     'stdlib',
     'tagmail',
@@ -45,7 +46,7 @@ class OctokitUtils
     'vcsrepo',
     'vsphere',
     'websphere_application_server',
-    'wsus_client'
+    'wsus_client',
   ]
 
   SUPPORTED_MODULES_REGEX = "^(puppetlabs-(#{SUPPORTED_MODULES.join('|')})|modulesync_configs)$"
