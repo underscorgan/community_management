@@ -16,6 +16,11 @@ parser = OptionParser.new do |opts|
   opts.on('-t', '--oauth-token TOKEN', 'OAuth token. Required.') { |v| options[:oauth] = v }
   opts.on('-v', '--verbose', 'More output') { options[:verbose] = true }
   opts.on('-o', '--output', 'Creates html output') { options[:output] = true }
+
+  opts.on('--puppetlabs-supported', 'Select only Puppet Labs\' supported modules') {
+    options[:namespace] = 'puppetlabs'
+    options[:repo_regex] = OctokitUtils::SUPPORTED_MODULES_REGEX
+  }
 end
 
 parser.parse!
@@ -74,11 +79,10 @@ end
 
 html = []
 html.push("<html>")
-html.push("<head><link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'></head>")
+html.push("<head><script src='./web_libraries/sorttable.js'></script><link rel='stylesheet' href='./web_libraries/bootstrap.min.css'></head>")
 html.push("<body>")
 html.push("<h2>Modules Requiring Release</h2>")
-html.push("<table cellpadding=\"20\">")
-html.push("<tr>")
+html.push("<table border='1' style='width:100%' class='sortable table table-hover'> <tr>")
 html.push("<th>Module Name</th>")
 html.push("<th>Last Release Tag Date</th>")
 html.push("<th>Commits Since Then</th>")
