@@ -15,7 +15,7 @@ parser = OptionParser.new do |opts|
   opts.on('-r', '--repo-regex REGEX', 'Repository regex') { |v| options[:repo_regex] = v }
   opts.on('-t', '--oauth-token TOKEN', 'OAuth token. Required.') { |v| options[:oauth] = v }
   opts.on('-v', '--verbose', 'More output') { options[:verbose] = true }
-  opts.on('-o', '--output', 'Creates html output') { options[:output] = true }
+  opts.on('-o', '--output', 'Creates html+json output') { options[:output] = true }
 
   opts.on('--puppetlabs-supported', 'Select only Puppet Labs\' supported modules') {
     options[:namespace] = 'puppetlabs'
@@ -100,5 +100,9 @@ html.push("</html>")
 if options[:output]
   File.open("ModulesRelease.html", "w+") do |f|
     f.puts(html)
+  end
+
+  File.open("ModulesRelease.json", "w") do |f|
+    JSON.dump(due_for_release, f)
   end
 end  
