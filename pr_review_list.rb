@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 
 require 'optparse'
-require 'csv'
 require_relative 'octokit_utils'
 
 options = {}
@@ -129,4 +128,8 @@ end
 
 File.open("report.html", "w+") do |f|
   f.puts(html)
+end
+
+File.open("report.json", "w") do |f|
+  JSON.dump(open_prs, f)
 end
