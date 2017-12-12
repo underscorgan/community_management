@@ -394,9 +394,24 @@ class OctokitUtils
     returnVal
   end
 
+  def fetch_repo_extra_labels(repo, required_labels)
+    repo_labels = client.labels(repo, {}).map(&:name)
+    keep_labels = required_labels.collect.map { |l| l[:name] }
+
+    repo_labels.each_with_object([]) do |existing_label, memo|
+      memo.push existing_label unless keep_labels.include?(existing_label)
+    end
+  end
+
   def add_repo_labels(repo, required_labels)
     required_labels.each do |required_label|
       client.add_label(repo, required_label[:name], required_label[:color])
+    end
+  end
+
+  def delete_repo_labels(repo, extra_labels)
+    extra_labels.each do |extra_label|
+      client.delete_label!(repo, extra_label)
     end
   end
 
