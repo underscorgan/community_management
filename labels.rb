@@ -12,6 +12,7 @@ parser = OptionParser.new do |opts|
   opts.on('-r', '--repo-regex REGEX', 'Repository regex') { |v| options[:repo_regex] = v }
   opts.on('-t', '--oauth-token TOKEN', 'OAuth token. Required.') { |v| options[:oauth] = v }
   opts.on('-f', '--fix-labels', 'Add the missing labels to repo') { options[:fix_labels] = true}
+  opts.on('-d', '--delete-labels', 'Delete unwanted labels from repo') { options[:delete_labels] = true }
 
   # default filters
   opts.on('--puppetlabs', 'Select Puppet Labs\' modules') {
@@ -56,8 +57,13 @@ puts "Checking for the following labels: #{label_names}"
 
 repos.each do |repo|
   missing_labels = util.fetch_repo_missing_labels("#{options[:namespace]}/#{repo}", wanted_labels)
-  puts "#{options[:namespace]}/#{repo}, #{missing_labels}"
-  if options[:fix_labels]
+  extra_labels = util.fetch_repo_extra_labels("#{options[:namespace]}/#{repo}", wanted_labels)
+  puts "Delete: #{options[:namespace]}/#{repo}, #{extra_labels}"
+  puts "Fix: #{options[:namespace]}/#{repo}, #{missing_labels}"
+  if options[:delete_labels] and ! extra_labels.empty?
+    util.delete_repo_labels("#{options[:namespace]}/#{repo}", extra_labels)
+  end
+  if options[:fix_labels] and ! missing_labels.empty?
     util.add_repo_labels("#{options[:namespace]}/#{repo}", missing_labels)
   end
 end
