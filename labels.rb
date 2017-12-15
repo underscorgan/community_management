@@ -56,14 +56,18 @@ end
 puts "Checking for the following labels: #{label_names}"
 
 repos.each do |repo|
-  missing_labels = util.fetch_repo_missing_labels("#{options[:namespace]}/#{repo}", wanted_labels)
-  extra_labels = util.fetch_repo_extra_labels("#{options[:namespace]}/#{repo}", wanted_labels)
-  puts "Delete: #{options[:namespace]}/#{repo}, #{extra_labels}"
-  puts "Fix: #{options[:namespace]}/#{repo}, #{missing_labels}"
-  if options[:delete_labels] and ! extra_labels.empty?
-    util.delete_repo_labels("#{options[:namespace]}/#{repo}", extra_labels)
+  repo_name = "#{options[:namespace]}/#{repo}"
+  missing_labels = util.fetch_repo_missing_labels(repo_name, wanted_labels)
+  incorrect_labels = util.fetch_repo_incorrect_labels(repo_name, wanted_labels)
+  extra_labels = util.fetch_repo_extra_labels(repo_name, wanted_labels)
+  puts "Delete: #{repo_name}, #{extra_labels}"
+  puts "Create: #{repo_name}, #{missing_labels}"
+  puts "Fix: #{repo_name}, #{incorrect_labels}"
+  if options[:delete_labels]
+    util.delete_repo_labels(repo_name, extra_labels) unless extra_labels.empty?
   end
-  if options[:fix_labels] and ! missing_labels.empty?
-    util.add_repo_labels("#{options[:namespace]}/#{repo}", missing_labels)
+  if options[:fix_labels]
+    util.update_repo_labels(repo_name, incorrect_labels) unless incorrect_labels.empty?
+    util.add_repo_labels(repo_name, missing_labels) unless missing_labels.empty?
   end
 end
