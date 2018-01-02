@@ -394,6 +394,17 @@ class OctokitUtils
     returnVal
   end
 
+  def fetch_repo_incorrect_labels(repo, required_labels)
+    client.labels(repo, {}).map do |label|
+      matching_label = required_labels.find { |l| l[:name] == label.name }
+      if matching_label and matching_label[:color] != label.color
+        { :name => label.name, :color => matching_label[:color] }
+      else
+        nil
+      end
+    end.compact
+  end
+
   def fetch_repo_extra_labels(repo, required_labels)
     repo_labels = client.labels(repo, {}).map(&:name)
     keep_labels = required_labels.collect.map { |l| l[:name] }
@@ -406,6 +417,12 @@ class OctokitUtils
   def add_repo_labels(repo, required_labels)
     required_labels.each do |required_label|
       client.add_label(repo, required_label[:name], required_label[:color])
+    end
+  end
+
+  def update_repo_labels(repo, incorrect_labels)
+    incorrect_labels.each do |incorrect_label|
+      client.update_label(repo, incorrect_label[:name], { :color => incorrect_label[:color] })
     end
   end
 
