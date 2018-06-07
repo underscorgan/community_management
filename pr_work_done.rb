@@ -77,7 +77,7 @@ repos.each do |repo|
   all_merged_pulls.concat(util.fetch_merged_pull_requests(closed_pr_information_cache))
   #find organisation members, if we havent already
   if members_of_organisation.size == 0
-    members_of_organisation = util.puppet_organisation_members(all_merged_pulls)
+    members_of_organisation = util.puppet_organisation_members(all_merged_pulls) unless all_merged_pulls.size.zero?
   end
   #all comments made by organisation members
   closed_pr_information_cache.each do |pull|

@@ -13,7 +13,6 @@ class OctokitUtils
     'cisco',
     'concat',
     'exec',
-    'f5_rest',
     'facter_task',
     'firewall',
     'haproxy',
