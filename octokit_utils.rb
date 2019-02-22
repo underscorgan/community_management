@@ -26,7 +26,6 @@ class OctokitUtils
     'package',
     'postgresql',
     'puppet_conf',
-    'reboot',
     'resource',
     'satellite_pe_tools',
     'service',
