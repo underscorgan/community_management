@@ -33,6 +33,7 @@ class OctokitUtils
     'stdlib',
     'tagmail',
     'tomcat',
+    'translate',
     'vcsrepo',
     'vsphere',
     'websphere_application_server',
