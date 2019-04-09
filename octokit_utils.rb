@@ -37,6 +37,23 @@ class OctokitUtils
     'vcsrepo',
     'vsphere',
     'websphere_application_server',
+    'docker',
+    'helm',
+    'kubernetes',
+    'rook',
+    'amazon_aws',
+    'azure_arm',
+    'acl',
+    'chocolatey',
+    'dsc',
+    'dsc_lite',
+    'iis',
+    'powershell',
+    'reboot',
+    'registry',
+    'scheduled_task',
+    'sqlserver',
+    'wsus_client',
   ]
 
   SUPPORTED_MODULES_REGEX = "^(puppetlabs-(#{SUPPORTED_MODULES.join('|')})|modulesync_configs)$"
