@@ -8,10 +8,8 @@ class OctokitUtils
   SUPPORTED_MODULES = [
     'accounts',
 'acl',
-'amazon_aws',
 'apache',
 'apt',
-'azure_arm',
 'bootstrap',
 'chocolatey',
 'concat',
