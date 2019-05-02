@@ -66,14 +66,27 @@ class OctokitUtils
     @pr_cache = {}
   end
 
-  def list_repos(organization, options)
+  # Octokit uses a different method for getting the repositories of an
+  # orginazation than it does for getting the repositories of a user. This
+  # method checks the "type" of a given namespace and uses the value to
+  # determine the method to call.
+  def ns_repos(namespace)
+    ns_type = (client.user "#{namespace}").type
+    if ns_type.eql? 'Organization'
+      client.organization_repositories(namespace)
+    else
+      client.repositories(namespace)
+    end
+  end
+
+  def list_repos(namespace, options)
     if not options[:repo_regex]
       regex = '.*'
     else
       regex = options[:repo_regex]
     end
 
-    repos ||= client.organization_repositories(organization).collect {|org| org[:name] if org[:name] =~ /#{regex}/}
+    repos ||= ns_repos(namespace).collect {|ns_repo| ns_repo[:name] if ns_repo[:name] =~ /#{regex}/}
     # The collection leaves nil entries in for non-matches
     repos = repos.select {|repo| repo }
     return repos.sort.uniq
