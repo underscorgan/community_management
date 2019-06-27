@@ -353,7 +353,16 @@ class OctokitUtils
     end
 
     tags ||= client.tags(repo)
-    tags.select {|tag| tag[:name] =~ /#{regex}/}
+
+    sort_client_tags tags
+  end
+
+  def sort_client_tags(tags)
+    pattern = /(\d+\.\d+\.\d+)/
+
+    numeric_tags = tags.select { |t| t.name.match(pattern) }
+
+    numeric_tags.sort_by { |t| Gem::Version.new(t.name.match(pattern)) }.reverse!
   end
 
   def ref_from_tag(tag)
