@@ -38,7 +38,6 @@ parser = OptionParser.new do |opts|
     options[:namespace] = 'puppetlabs'
     options[:repo_regex] = '^puppetlabs-'
   }
-
   opts.on('--puppetlabs-supported', 'Select only Puppet Labs\' supported modules') {
     options[:namespace] = 'puppetlabs'
     options[:repo_regex] = OctokitUtils::SUPPORTED_MODULES_REGEX
