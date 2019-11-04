@@ -2,12 +2,14 @@
 
 require 'optparse'
 require_relative 'octokit_utils'
+require_relative 'release_planning/pupet_module'
+require_relative 'release_planning/puppet_module_augmenter'
 
-options = {}
-options[:oauth] = ENV['GITHUB_COMMUNITY_TOKEN'] if ENV['GITHUB_COMMUNITY_TOKEN']
-parser = OptionParser.new do |opts|
+  options = {}
+  options[:oauth] = ENV['GITHUB_COMMUNITY_TOKEN'] if ENV['GITHUB_COMMUNITY_TOKEN']
+  parser = OptionParser.new do |opts|
+
   opts.banner = 'Usage: release_planning.rb [options]'
-
   opts.on('-c', '--commit-threshold NUM', 'Number of commits since release') { |v| options[:commits] = v.to_i }
   opts.on('-g', '--tag-regex REGEX', 'Tag regex') { |v| options[:tag_regex] = v }
   opts.on('-m', '--time-threshold DAYS', 'Days since release') { |v| options[:time] = v.to_i }
@@ -41,6 +43,7 @@ options[:tag_regex] = '.*' if options[:tag_regex].nil?
 util = OctokitUtils.new(options[:oauth])
 repos = util.list_repos(options[:namespace], options)
 
+puppet_modules = []
 repo_data = []
 
 repos.each do |repo|
@@ -50,11 +53,18 @@ repos.each do |repo|
     date_of_tag = util.date_of_ref("#{options[:namespace]}/#{repo}", tag_ref)
     commits_since_tag = util.commits_since_date("#{options[:namespace]}/#{repo}", date_of_tag)
 
+
     repo_data << { 'repo' => "#{options[:namespace]}/#{repo}", 'date' => date_of_tag, 'commits' => commits_since_tag }
+     puppet_modules << PuppetModule.new(repo , "#{options[:namespace]}/#{repo}", date_of_tag, commits_since_tag)
   rescue
     puts "Unable to fetch tags for #{options[:namespace]}/#{repo}" if options[:verbose]
   end
 end
+
+puppet_modules.each {|puppet_module| puts puppet_modules }
+
+PuppetModuleAugmenter.new.augment!(puppet_modules)
+puts puppet_modules
 
 if options[:commits]
   due_by_commit = repo_data.select { |x| x['commits'] > options[:commits] }
@@ -74,25 +84,37 @@ else
 end
 
 due_for_release.each do |entry|
-  puts "#{entry['repo']} is due for release. Last release was tagged on #{entry['date']} and there have been #{entry['commits']} commits since then."
+  puts "#{entry['repo']} is due_for_release. Last release was tagged on #{entry['date']} and there have been #{entry['commits']} commits since then."
 end
 
 html = []
+
 html.push("<html>")
-html.push("<head><script src='./web_libraries/sorttable.js'></script><link rel='stylesheet' href='./web_libraries/bootstrap.min.css'></head>")
+html.push("<head>")
+html.push("<script src='http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js' type='text/javascript'></script>")
+html.push("<script src='./web_libraries/sorttable.js'></script><link rel='stylesheet' href='./web_libraries/bootstrap.min.css'>")
+html.push("<script src='https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js'></script>") 
+html.push("<link rel='stylesheet' type='text/css' href='https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css'>")
+html.push("<script type= 'text/javascript'> $(document).ready( function () {$('#id_table').DataTable();} ); </script>")
+html.push("</head>")
+
+
 html.push("<body>")
 html.push("<h2>Modules Requiring Release</h2>")
-html.push("<table border='1' style='width:100%' class='sortable table table-hover'> <tr>")
+html.push("<thead>")
+html.push("<table border='1'  id = 'id_table' style='width:100%' class='sortable table table-hover'> <tr>")
 html.push("<th>Module Name</th>")
 html.push("<th>Last Release Tag Date</th>")
 html.push("<th>Commits Since Then</th>")
+html.push("<th>Number of downloads</th>")
 html.push("</tr>")
-due_for_release.each do |entry|
+html.push("</thead>")    
+puppet_modules.each do |puppet_module|
   html.push("<tr>")
-  html.push("<td>#{entry['repo']}</td>")
-  html.push("<td>#{entry['date']}</td>")
-  html.push("<td align=\"center\">#{entry['commits']}</td>")
-  html.push("</tr>")
+  html.push("<td>#{puppet_module.namespace}</td>")
+  html.push("<td>#{puppet_module.tag_date}</td>")
+  html.push("<td align=\"center\">#{puppet_module.commits}</td>")
+  html.push("<td align=\"center\">#{puppet_module.downloads}</td>")
 end
 html.push("</body>")
 html.push("</html>")

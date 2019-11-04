@@ -110,7 +110,7 @@ open = []
 end
 
 #Creates the CSV files
-CSV.open("daily_open_prs.csv", "w") do |csv|
+CSV.open("pr_work_done.csv", "w") do |csv|
   csv << ["date", "community", "puppet", "total"]
   days.each do |day|
     csv << [day["date"], day["community"], day["puppet"], day["total"]]
