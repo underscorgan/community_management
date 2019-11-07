@@ -6,7 +6,10 @@ class OctokitUtils
   attr_accessor :client
 
   SUPPORTED_MODULES = [
-    'puppetlabs-accounts',
+'cisco-network-puppet-module',
+'cisco_ios-private',
+'cisco_ios',
+'puppetlabs-accounts',
 'puppetlabs-acl',
 'puppetlabs-apache',
 'puppetlabs-apt',
@@ -55,9 +58,6 @@ class OctokitUtils
 'puppetlabs-panos',
 'puppetlabs-resource_api',
 'puppetlabs-test_device',
- 'cisco-network-puppet-module',
- 'cisco_ios-private',
-'cisco_ios',
 
   ]
 

@@ -3,6 +3,45 @@
 require 'optparse'
 require_relative 'octokit_utils'
 
+
+class PuppetModule
+attr_accessor :name, :namespace, :tag_date, :commits, :downloads
+  def initialize(name, namespace, tag_date, commits, downloads = 0)
+    @name = name
+    @namespace = namespace
+    @tag_date = tag_date
+    @commits = commits
+    @downloads = downloads
+  end
+end
+
+puppet_modules = []  
+
+class PuppetModuleAugmenter
+  def augment!(puppet_modules)
+    puppet_modules.each do |puppet_module|
+       if puppet_module.name == "cisco_ios"
+      uri = URI.parse("https://forgeapi.puppetlabs.com/v3/modules/puppetlabs-cisco_ios")
+    else
+      uri = URI.parse("https://forgeapi.puppetlabs.com/v3/modules/#{puppet_module.name}")
+end
+      request =  Net::HTTP::Get.new(uri.path)
+      response = Net::HTTP.start(uri.host, uri.port, use_ssl: true, verify_mode: OpenSSL::SSL::VERIFY_NONE) do |http| # pay attention to use_ssl if you need it
+        http.request(request)
+      end
+      output = response.body
+      parsed = JSON.parse(output)
+
+      begin
+        puppet_module.downloads = parsed['current_release']['downloads']
+      rescue NoMethodError
+        puts "Error number of downloads #{puppet_module.name}"
+      end
+    end
+  end
+end
+
+
 options = {}
 options[:oauth] = ENV['GITHUB_COMMUNITY_TOKEN'] if ENV['GITHUB_COMMUNITY_TOKEN']
 parser = OptionParser.new do |opts|
@@ -41,6 +80,7 @@ options[:tag_regex] = '.*' if options[:tag_regex].nil?
 util = OctokitUtils.new(options[:oauth])
 repos = util.list_repos(options[:namespace], options)
 
+
 repo_data = []
 
 repos.each do |repo|
@@ -51,10 +91,15 @@ repos.each do |repo|
     commits_since_tag = util.commits_since_date("#{options[:namespace]}/#{repo}", date_of_tag)
 
     repo_data << { 'repo' => "#{options[:namespace]}/#{repo}", 'date' => date_of_tag, 'commits' => commits_since_tag }
+    puppet_modules << PuppetModule.new(repo , "#{options[:namespace]}/#{repo}", date_of_tag, commits_since_tag)
   rescue
     puts "Unable to fetch tags for #{options[:namespace]}/#{repo}" if options[:verbose]
   end
 end
+
+puppet_modules.each {|puppet_module| puts puppet_modules }
+
+PuppetModuleAugmenter.new.augment!(puppet_modules) 
 
 if options[:commits]
   due_by_commit = repo_data.select { |x| x['commits'] > options[:commits] }
@@ -86,12 +131,14 @@ html.push("<table border='1' style='width:100%' class='sortable table table-hove
 html.push("<th>Module Name</th>")
 html.push("<th>Last Release Tag Date</th>")
 html.push("<th>Commits Since Then</th>")
+html.push("<th>Number of downloads</th>")
 html.push("</tr>")
-due_for_release.each do |entry|
+puppet_modules.each do |puppet_module|
   html.push("<tr>")
-  html.push("<td>#{entry['repo']}</td>")
-  html.push("<td>#{entry['date']}</td>")
-  html.push("<td align=\"center\">#{entry['commits']}</td>")
+  html.push("<td>#{puppet_module.namespace}</td>")
+  html.push("<td>#{puppet_module.tag_date}</td>")
+  html.push("<td align=\"center\">#{puppet_module.commits}</td>")
+  html.push("<td align=\"center\">#{puppet_module.downloads}</td>")
   html.push("</tr>")
 end
 html.push("</body>")
