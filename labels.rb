@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 require 'optparse'
 require_relative 'octokit_utils'
@@ -11,24 +12,24 @@ parser = OptionParser.new do |opts|
   opts.on('-n', '--namespace NAME', 'GitHub namespace. Required.') { |v| options[:namespace] = v }
   opts.on('-r', '--repo-regex REGEX', 'Repository regex') { |v| options[:repo_regex] = v }
   opts.on('-t', '--oauth-token TOKEN', 'OAuth token. Required.') { |v| options[:oauth] = v }
-  opts.on('-f', '--fix-labels', 'Add the missing labels to repo') { options[:fix_labels] = true}
+  opts.on('-f', '--fix-labels', 'Add the missing labels to repo') { options[:fix_labels] = true }
   opts.on('-d', '--delete-labels', 'Delete unwanted labels from repo') { options[:delete_labels] = true }
 
   # default filters
-  opts.on('--puppetlabs', 'Select Puppet Labs\' modules') {
+  opts.on('--puppetlabs', 'Select Puppet Labs\' modules') do
     options[:namespace] = 'puppetlabs'
     options[:repo_regex] = '^puppetlabs-'
-  }
+  end
 
-  opts.on('--puppetlabs-supported', 'Select only Puppet Labs\' supported modules') {
+  opts.on('--puppetlabs-supported', 'Select only Puppet Labs\' supported modules') do
     options[:namespace] = 'puppetlabs'
     options[:repo_regex] = OctokitUtils::SUPPORTED_MODULES_REGEX
-  }
+  end
 
-  opts.on('--voxpupuli', 'Select voxpupuli modules') {
+  opts.on('--voxpupuli', 'Select voxpupuli modules') do
     options[:namespace] = 'voxpupuli'
     options[:repo_regex] = '^puppet-'
-  }
+  end
 end
 
 parser.parse!
@@ -36,7 +37,7 @@ parser.parse!
 missing = []
 missing << '-n' if options[:namespace].nil?
 missing << '-t' if options[:oauth].nil?
-if not missing.empty?
+unless missing.empty?
   puts "Missing options: #{missing.join(', ')}"
   puts parser
   exit
@@ -47,11 +48,11 @@ options[:repo_regex] = '.*' if options[:repo_regex].nil?
 util = OctokitUtils.new(options[:oauth])
 repos = util.list_repos(options[:namespace], options)
 
-wanted_labels = [{:name=>'needs-squash', :color=>'bfe5bf'}, {:name=>'needs-rebase', :color=>'3880ff'}, {:name=>'needs-tests', :color=>'ff8091'}, {:name=>'needs-docs', :color=>'149380'}, {:name=>'bugfix', :color=>'00d87b'}, {:name=>'feature', :color=>'222222'}, {:name=>'tests-fail', :color=>'e11d21'}, {:name=>'backwards-incompatible', :color=>'d63700'}, {:name=>'maintenance', :color=>'ffd86e'}]
+wanted_labels = [{ name: 'needs-squash', color: 'bfe5bf' }, { name: 'needs-rebase', color: '3880ff' }, { name: 'needs-tests', color: 'ff8091' }, { name: 'needs-docs', color: '149380' }, { name: 'bugfix', color: '00d87b' }, { name: 'feature', color: '222222' }, { name: 'tests-fail', color: 'e11d21' }, { name: 'backwards-incompatible', color: 'd63700' }, { name: 'maintenance', color: 'ffd86e' }]
 
 label_names = []
 wanted_labels.each do |wanted_label|
-  label_names.push (wanted_label[:name])
+  label_names.push(wanted_label[:name])
 end
 puts "Checking for the following labels: #{label_names}"
 
@@ -66,8 +67,8 @@ repos.each do |repo|
   if options[:delete_labels]
     util.delete_repo_labels(repo_name, extra_labels) unless extra_labels.empty?
   end
-  if options[:fix_labels]
-    util.update_repo_labels(repo_name, incorrect_labels) unless incorrect_labels.empty?
-    util.add_repo_labels(repo_name, missing_labels) unless missing_labels.empty?
-  end
+  next unless options[:fix_labels]
+
+  util.update_repo_labels(repo_name, incorrect_labels) unless incorrect_labels.empty?
+  util.add_repo_labels(repo_name, missing_labels) unless missing_labels.empty?
 end
