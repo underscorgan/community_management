@@ -1,0 +1,358 @@
+[{
+    "repo_name": "puppetlabs-apache",
+    "github_namespace": "puppetlabs",
+    "forge_namespace": "puppetlabs",
+    "module_name": "apache"
+  },
+
+  {
+    "repo_name": "cisco-network-puppet-module",
+    "github_namespace": "cisco",
+    "forge_namespace": "cisco",
+    "module_name": "network-puppet-module"
+  },
+
+  {
+    "repo_name": "puppetlabs-websphere_application_server",
+    "github_namespace": "puppetlabs",
+    "forge_namespace": "puppetlabs",
+    "module_name": "websphere_application_server"
+  },
+
+  {
+    "repo_name": "puppetlabs-accounts",
+    "github_namespace": "puppetlabs",
+    "forge_namespace": "puppetlabs",
+    "module_name": "accounts"
+  },
+
+  {
+    "repo_name": "puppetlabs-acl",
+    "github_namespace": "puppetlabs",
+    "forge_namespace": "puppetlabs",
+    "module_name": "acl"
+  },
+
+  {
+    "repo_name": "puppetlabs-apache",
+    "github_namespace": "puppetlabs",
+    "forge_namespace": "puppetlabs",
+    "module_name": "apache"
+  },
+
+  {
+    "repo_name": "puppetlabs-apt",
+    "github_namespace": "puppetlabs",
+    "forge_namespace": "puppetlabs",
+    "module_name": "apt"
+  },
+
+  {
+    "repo_name": "puppetlabs-bootstrap",
+    "github_namespace": "puppetlabs",
+    "forge_namespace": "puppetlabs",
+    "module_name": "bootstrap"
+  },
+
+  {
+    "repo_name": "puppetlabs-chocolatey",
+    "github_namespace": "puppetlabs",
+    "forge_namespace": "puppetlabs",
+    "module_name": "chocolatey"
+  },
+
+  {
+    "repo_name": "puppetlabs-concat",
+    "github_namespace": "puppetlabs",
+    "forge_namespace": "puppetlabs",
+    "module_name": "concat"
+  },
+
+  {
+    "repo_name": "puppetlabs-docker",
+    "github_namespace": "puppetlabs",
+    "forge_namespace": "puppetlabs",
+    "module_name": "docker"
+  },
+
+  {
+    "repo_name": "puppetlabs-dsc",
+    "github_namespace": "puppetlabs",
+    "forge_namespace": "puppetlabs",
+    "module_name": "docker"
+  },
+
+  {
+    "repo_name": "puppetlabs-dsc_lite",
+    "github_namespace": "puppetlabs",
+    "forge_namespace": "puppetlabs",
+    "module_name": "docker"
+  },
+
+  {
+    "repo_name": "puppetlabs-exec",
+    "github_namespace": "puppetlabs",
+    "forge_namespace": "puppetlabs",
+    "module_name": "exec"
+  },
+
+  {
+    "repo_name": "puppetlabs-facter_task",
+    "github_namespace": "puppetlabs",
+    "forge_namespace": "puppetlabs",
+    "module_name": "facter_task"
+  },
+
+  {
+    "repo_name": "puppetlabs-firewall",
+    "github_namespace": "puppetlabs",
+    "forge_namespace": "puppetlabs",
+    "module_name": "firewall"
+  },
+
+  {
+    "repo_name": "puppetlabs-haproxy",
+    "github_namespace": "puppetlabs",
+    "forge_namespace": "puppetlabs",
+    "module_name": "haproxy"
+  },
+
+  {
+    "repo_name": "puppetlabs-helm",
+    "github_namespace": "puppetlabs",
+    "forge_namespace": "puppetlabs",
+    "module_name": "helm"
+  },
+
+  {
+    "repo_name": "puppetlabs-hocon",
+    "github_namespace": "puppetlabs",
+    "forge_namespace": "puppetlabs",
+    "module_name": "hocon"
+  },
+
+  {
+    "repo_name": "puppetlabs-ibm_installation_manager",
+    "github_namespace": "puppetlabs",
+    "forge_namespace": "puppetlabs",
+    "module_name": "ibm_installation_manager"
+  },
+
+  {
+    "repo_name": "puppetlabs-iis",
+    "github_namespace": "puppetlabs",
+    "forge_namespace": "puppetlabs",
+    "module_name": "iis"
+  },
+
+  {
+    "repo_name": "puppetlabs-inifile",
+    "github_namespace": "puppetlabs",
+    "forge_namespace": "puppetlabs",
+    "module_name": "inifile"
+  },
+
+  {
+    "repo_name": "puppetlabs-java",
+    "github_namespace": "puppetlabs",
+    "forge_namespace": "puppetlabs",
+    "module_name": "java"
+  },
+
+  {
+    "repo_name": "puppetlabs-java_ks",
+    "github_namespace": "puppetlabs",
+    "forge_namespace": "puppetlabs",
+    "module_name": "java_ks"
+  },
+
+  {
+    "repo_name": "puppetlabs-kubernetes",
+    "github_namespace": "puppetlabs",
+    "forge_namespace": "puppetlabs",
+    "module_name": "kubernetes"
+  },
+
+  {
+    "repo_name": "puppetlabs-motd",
+    "github_namespace": "puppetlabs",
+    "forge_namespace": "puppetlabs",
+    "module_name": "motd"
+  },
+
+  {
+    "repo_name": "puppetlabs-mysql",
+    "github_namespace": "puppetlabs",
+    "forge_namespace": "puppetlabs",
+    "module_name": "puppetlabs-mysql"
+  },
+
+  {
+    "repo_name": "puppetlabs-kubernetes",
+    "github_namespace": "puppetlabs",
+    "forge_namespace": "puppetlabs",
+    "module_name": "kubernetes"
+  },
+
+  {
+    "repo_name": "puppetlabs-ntp",
+    "github_namespace": "puppetlabs",
+    "forge_namespace": "puppetlabs",
+    "module_name": "ntp"
+  },
+
+
+  {
+    "repo_name": "puppetlabs-package",
+    "github_namespace": "puppetlabs",
+    "forge_namespace": "puppetlabs",
+    "module_name": "package"
+  },
+
+  {
+    "repo_name": "puppetlabs-postgresql",
+    "github_namespace": "puppetlabs",
+    "forge_namespace": "puppetlabs",
+    "module_name": "postgresql"
+  },
+
+  {
+    "repo_name": "puppetlabs-powershell",
+    "github_namespace": "puppetlabs",
+    "forge_namespace": "puppetlabs",
+    "module_name": "powershell"
+  },
+
+  {
+    "repo_name": "puppetlabs-puppet_conf",
+    "github_namespace": "puppetlabs",
+    "forge_namespace": "puppetlabs",
+    "module_name": "puppet_conf"
+  },
+
+  {
+    "repo_name": "puppetlabs-reboot",
+    "github_namespace": "puppetlabs",
+    "forge_namespace": "puppetlabs",
+    "module_name": "reboot"
+  },
+
+  {
+    "repo_name": "puppetlabs-registry",
+    "github_namespace": "puppetlabs",
+    "forge_namespace": "puppetlabs",
+    "module_name": "registry"
+  },
+
+  {
+    "repo_name": "puppetlabs-resource",
+    "github_namespace": "puppetlabs",
+    "forge_namespace": "puppetlabs",
+    "module_name": "resource"
+  },
+
+  {
+    "repo_name": "puppetlabs-resource_api",
+    "github_namespace": "puppetlabs",
+    "forge_namespace": "puppetlabs",
+    "module_name": "resource_api"
+  },
+
+  {
+    "repo_name": "puppetlabs-rook",
+    "github_namespace": "puppetlabs",
+    "forge_namespace": "puppetlabs",
+    "module_name": "rook"
+  },
+
+  {
+    "repo_name": "puppetlabs-scheduled_task",
+    "github_namespace": "puppetlabs",
+    "forge_namespace": "puppetlabs",
+    "module_name": "scheduled_task"
+  },
+
+  {
+    "repo_name": "puppetlabs-service",
+    "github_namespace": "puppetlabs",
+    "forge_namespace": "puppetlabs",
+    "module_name": "service"
+  },
+
+  {
+    "repo_name": "puppetlabs-sqlserver",
+    "github_namespace": "puppetlabs",
+    "forge_namespace": "puppetlabs",
+    "module_name": "sqlserver"
+  },
+
+  {
+    "repo_name": "puppetlabs-stdlib",
+    "github_namespace": "puppetlabs",
+    "forge_namespace": "puppetlabs",
+    "module_name": "stlib"
+  },
+
+  {
+    "repo_name": "puppetlabs-tagmail",
+    "github_namespace": "puppetlabs",
+    "forge_namespace": "puppetlabs",
+    "module_name": "tagmail"
+  },
+
+  {
+    "repo_name": "puppetlabs-tomcat",
+    "github_namespace": "puppetlabs",
+    "forge_namespace": "puppetlabs",
+    "module_name": "tomcat"
+  },
+
+  {
+    "repo_name": "puppetlabs-translate",
+    "github_namespace": "puppetlabs",
+    "forge_namespace": "puppetlabs",
+    "module_name": "translate"
+  },
+
+  {
+    "repo_name": "puppetlabs-vcsrepo",
+    "github_namespace": "puppetlabs",
+    "forge_namespace": "puppetlabs",
+    "module_name": "vcsrepo"
+  },
+
+  {
+    "repo_name": "puppetlabs-websphere_application_server",
+    "github_namespace": "puppetlabs",
+    "forge_namespace": "puppetlabs",
+    "module_name": "websphere_application_server"
+  },
+
+  {
+    "repo_name": "puppetlabs-wsus_client",
+    "github_namespace": "puppetlabs",
+    "forge_namespace": "puppetlabs",
+    "module_name": "wsus_client"
+  },
+
+  {
+    "repo_name": "puppetlabs-hue",
+    "github_namespace": "puppetlabs",
+    "forge_namespace": "puppetlabs",
+    "module_name": "hue"
+  },
+
+  {
+    "repo_name": "puppetlabs-panos",
+    "github_namespace": "puppetlabs",
+    "forge_namespace": "puppetlabs",
+    "module_name": "panos"
+  },
+  {
+    "repo_name": "puppetlabs-test_device",
+    "github_namespace": "puppetlabs",
+    "forge_namespace": "puppetlabs",
+    "module_name": "websphere_test_device"
+  }
+
+]
