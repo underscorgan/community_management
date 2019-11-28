@@ -66,7 +66,7 @@ class OctokitUtils
 
     poolsize.times.map do
       Thread.new(prs, pr_information_cache) do |prs1, pr_information_cache1|
-        while pr == mutex.synchronize { prs1.pop }
+        while (pr = mutex.synchronize { prs1.pop })
           pr_information = fetch_pr_information(repo, pr, filter)
           mutex.synchronize { pr_information_cache1 << pr_information }
         end
@@ -75,13 +75,13 @@ class OctokitUtils
     pr_information_cache
   end
 
-  def fetch_pr_information(repo, prs, filter = %i[statuses pull_request_commits issue_comments pull_request])
+  def fetch_pr_information(repo, pull_request, filter = %i[statuses pull_request_commits issue_comments pull_request])
     return_val = {}
-    return_val[:pull] = prs
-    return_val[:statuses] = client.statuses(repo, pr.head.sha) if filter.include? :statuses
-    return_val[:pull_request_commits] = client.pull_request_commits(repo, pr.number) if filter.include? :pull_request_commits
-    return_val[:pull_request] = client.pull_request(repo, pr.number) if filter.include? :pull_request
-    return_val[:issue_comments] = client.issue_comments(repo, pr.number) if filter.include? :issue_comments
+    return_val[:pull] = pull_request
+    return_val[:statuses] = client.statuses(repo, pull_request.head.sha) if filter.include? :statuses
+    return_val[:pull_request_commits] = client.pull_request_commits(repo, pull_request.number) if filter.include? :pull_request_commits
+    return_val[:pull_request] = client.pull_request(repo, pull_request.number) if filter.include? :pull_request
+    return_val[:issue_comments] = client.issue_comments(repo, pull_request.number) if filter.include? :issue_comments
 
     return_val
   end
