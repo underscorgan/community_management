@@ -17,27 +17,9 @@ parser = OptionParser.new do |opts|
   opts.on('-b', '--before DAYS', 'Pull requests that were last updated before DAYS days ago.') { |v| options[:before] = v.to_i }
   opts.on('-c', '--count', 'Only print the count of pull requests.') { options[:count] = true }
   opts.on('-e', '--show-empty', 'List repos with no pull requests') { options[:empty] = true }
-  # opts.on('-n', '--namespace NAME', 'GitHub namespace. Required.') { |v| options[:namespace] = v }
-  # opts.on('-r', '--repo-regex REGEX', 'Repository regex') { |v| options[:repo_regex] = v }
   opts.on('-s', '--sort', 'Sort output based on number of pull requests') { options[:sort] = true }
   opts.on('-t', '--oauth-token TOKEN', 'OAuth token. Required.') { |v| options[:oauth] = v }
   opts.on('-v', '--verbose', 'More output') { options[:verbose] = true }
-
-  # default filters
-  # opts.on('--puppetlabs', 'Select Puppet Labs\' modules') do
-  #   options[:namespace] = 'puppetlabs'
-  #   options[:repo_regex] = '^puppetlabs-'
-  # end
-
-  # opts.on('--puppetlabs-supported', 'Select only Puppet Labs\' supported modules') do
-  #   options[:namespace] = 'puppetlabs'
-  #   options[:repo_regex] = OctokitUtils::SUPPORTED_MODULES_REGEX
-  # end
-
-  # opts.on('--voxpupuli', 'Select Voxpupuli modules') do
-  #   options[:namespace] = 'voxpupuli'
-  #   options[:repo_regex] = '^puppet-'
-  # end
 
   opts.on('--no-response', 'Select PRs which had no response in the last 30 days') do
     options[:before] = 30
@@ -80,7 +62,6 @@ end
 parser.parse!
 
 missing = []
-missing << '-n' if options[:namespace].nil?
 missing << '-t' if options[:oauth].nil?
 unless missing.empty?
   puts "Missing options: #{missing.join(', ')}"
@@ -92,14 +73,11 @@ if options[:before] && options[:after]
   exit
 end
 
-options[:repo_regex] = '.*' if options[:repo_regex].nil?
-
 util = OctokitUtils.new(options[:oauth])
-#repos = util.list_repos(options[:namespace], options)
 
 repo_data = []
 
- parsed.each do |repo|
+parsed.each do |m|
   pr_information_cache = util.fetch_async("#{m['github_namespace']}/#{m['repo_name']}")
   begin
     pulls = if options[:last_comment] == :owner
@@ -135,12 +113,12 @@ repo_data = []
     next if !(options[:empty]) && pulls.empty?
 
     repo_data << if options[:count]
-                   { 'repo' => "#{options[:namespace]}/#{repo}", 'pulls' => nil, 'pull_count' => pulls.length }
+                   { 'repo' => "#{m['github_namespace']}/#{m['repo_name']}", 'pulls' => nil, 'pull_count' => pulls.length }
                  else
-                   { 'repo' => "#{options[:namespace]}/#{repo}", 'pulls' => pulls, 'pull_count' => pulls.length }
+                   { 'repo' => "#{m['github_namespace']}/#{m['repo_name']}", 'pulls' => pulls, 'pull_count' => pulls.length }
                  end
   rescue StandardError
-    puts "Unable to fetch pull requests for #{options[:namespace]}/#{repo}" if options[:verbose]
+    puts "Unable to fetch pull requests for #{m['github_namespace']}/#{m['repo_name']}" if options[:verbose]
   end
 end
 

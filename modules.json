@@ -14,20 +14,6 @@
   },
 
   {
-    "repo_name": "puppetlabs-apache",
-    "github_namespace": "puppetlabs",
-    "forge_namespace": "puppetlabs",
-    "module_name": "apache"
-  },
-
-  {
-    "repo_name": "puppetlabs-websphere_application_server",
-    "github_namespace": "puppetlabs",
-    "forge_namespace": "puppetlabs",
-    "module_name": "websphere_application_server"
-  },
-
-  {
     "repo_name": "puppetlabs-accounts",
     "github_namespace": "puppetlabs",
     "forge_namespace": "puppetlabs",

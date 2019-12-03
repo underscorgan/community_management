@@ -5,7 +5,7 @@ require 'optparse'
 require_relative 'octokit_utils'
 
 output = File.read('modules.json')
-parsed1 = JSON.parse(output)
+parsed = JSON.parse(output)
 
 class PuppetModule
   attr_accessor :name, :namespace, :tag_date, :commits, :downloads
@@ -30,9 +30,9 @@ def number_of_downloads(module_name)
   puts parsed
 
   begin
-    return parsed['current_release']['downloads']
+    parsed['current_release']['downloads']
   rescue NoMethodError
-    return "Error number of downloads #{module_name}"
+    "Error number of downloads #{module_name}"
   end
 end
 
@@ -67,7 +67,7 @@ util = OctokitUtils.new(options[:oauth])
 
 repo_data = []
 
-parsed1.each do |m|
+parsed.each do |m|
   begin
     latest_tag = util.fetch_tags("#{m['github_namespace']}/#{m['repo_name']}", options).first
     tag_ref = util.ref_from_tag(latest_tag)
@@ -114,7 +114,7 @@ html.push('<th>Number of downloads</th>')
 html.push('</tr>')
 repo_data.each do |puppet_module|
   html.push('<tr>')
-  html.push("<td>#{puppet_module['repo']}</td>")
+  html.push("<td><a href='https://github.com/#{puppet_module['repo']}'>#{puppet_module['repo']}</a></td>")
   html.push("<td>#{puppet_module['date']}</td>")
   html.push("<td align=\"center\">#{puppet_module['commits']}</td>")
   html.push("<td align=\"center\">#{puppet_module['downloads']}</td>")

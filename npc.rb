@@ -45,7 +45,6 @@ parsed.each do |m|
     # do we already have a label ?
     pr_merges = util.does_pr_merge("#{m['github_namespace']}/#{m['repo_name']}", pr.number)
     puts pr_merges
-    puts "XXX #{pr.number}"
     pr_has_label = util.does_pr_have_label("#{m['github_namespace']}/#{m['repo_name']}", pr.number, 'needs-rebase')
     if pr_merges
       # pr merges

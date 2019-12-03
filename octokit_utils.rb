@@ -20,18 +20,6 @@ class OctokitUtils
   # method checks the "type" of a given namespace and uses the value to
   # determine the method to call.
 
-  def list_repos(namespace, options)
-    regex = if !(options[:repo_regex])
-              '.*'
-            else
-              options[:repo_regex]
-            end
-    repos ||= ns_repos(namespace).collect { |ns_repo| ns_repo[:name] if ns_repo[:name] =~ /#{regex}/ }
-    # The collection leaves nil entries in for non-matches
-    repos = repos.select { |repo| repo }
-    repos.sort.uniq
-  end
-
   def pulls(repo, options)
     @pr_cache[[repo, options]] ||= client.pulls(repo, options)
   end
