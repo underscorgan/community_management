@@ -7,36 +7,22 @@ require 'optparse'
 require 'csv'
 require 'octokit'
 require_relative 'octokit_utils'
+require 'json'
+
+output = File.read('modules.json')
+parsed = JSON.parse(output)
 
 options = {}
 options[:oauth] = ENV['GITHUB_COMMUNITY_TOKEN'] if ENV['GITHUB_COMMUNITY_TOKEN']
 parser = OptionParser.new do |opts|
   opts.banner = 'Usage: open_and_created.rb [options]'
-
-  opts.on('-n', '--namespace NAME', 'GitHub namespace. Required.') { |v| options[:namespace] = v }
-  opts.on('-r', '--repo-regex REGEX', 'Repository regex') { |v| options[:repo_regex] = v }
   opts.on('-t', '--oauth-token TOKEN', 'OAuth token. Required.') { |v| options[:oauth] = v }
   opts.on('-o', '--overview', 'Output overview, summary totals to csv') { options[:display_overview] = true }
-
-  # default filters
-  opts.on('--puppetlabs', 'Select Puppet Labs\' modules') do
-    options[:namespace] = 'puppetlabs'
-    options[:repo_regex] = '^puppetlabs-'
-  end
-  opts.on('--puppetlabs-supported', 'Select only Puppet Labs\' supported modules') do
-    options[:namespace] = 'puppetlabs'
-    options[:repo_regex] = OctokitUtils::SUPPORTED_MODULES_REGEX
-  end
-  opts.on('--community', 'Select community modules') do
-    options[:namespace] = 'voxpupuli'
-    options[:repo_regex] = '^puppet-'
-  end
 end
 
 parser.parse!
 
 missing = []
-missing << '-n' if options[:namespace].nil?
 missing << '-t' if options[:oauth].nil?
 unless missing.empty?
   puts "Missing options: #{missing.join(', ')}"
@@ -44,18 +30,15 @@ unless missing.empty?
   exit
 end
 
-options[:repo_regex] = '.*' if options[:repo_regex].nil?
-
 util = OctokitUtils.new(options[:oauth])
-repos = util.list_repos(options[:namespace], options)
 
 all_pulls = []
 pr_cache = []
 
-repos.each do |repo|
+parsed.each do |m|
   # Retrieves all PRs for the repo
-  pr_cache = util.fetch_async("#{options[:namespace]}/#{repo}", search_with, filter)
-  pr_cache.concat(util.fetch_async("#{options[:namespace]}/#{repo}", search_with, filter))
+  pr_cache = util.fetch_async("#{m['github_namespace']}/#{m['repo_name']}", { state: 'open' }, [])
+  pr_cache.concat(util.fetch_async("#{m['github_namespace']}/#{m['repo_name']}", { state: 'closed' }, []))
 
   pr_cache.each do |pr|
     all_pulls.push(pr[:pull])

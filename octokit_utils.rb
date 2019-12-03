@@ -19,14 +19,6 @@ class OctokitUtils
   # orginazation than it does for getting the repositories of a user. This
   # method checks the "type" of a given namespace and uses the value to
   # determine the method to call.
-  def ns_repos(namespace)
-    ns_type = (client.user namespace.to_s).type
-    if ns_type.eql? 'Organization'
-      client.organization_repositories(namespace)
-    else
-      client.repositories(namespace)
-    end
-  end
 
   def list_repos(namespace, options)
     regex = if !(options[:repo_regex])

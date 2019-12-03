@@ -9,37 +9,22 @@
 require 'optparse'
 require 'csv'
 require_relative 'octokit_utils'
+require 'json'
+
+output = File.read('modules.json')
+parsed = JSON.parse(output)
 
 options = {}
 options[:oauth] = ENV['GITHUB_COMMUNITY_TOKEN'] if ENV['GITHUB_COMMUNITY_TOKEN']
 parser = OptionParser.new do |opts|
   opts.banner = 'Usage: pr_work_done.rb [options]'
-
-  opts.on('-n', '--namespace NAME', 'GitHub namespace. Required.') { |v| options[:namespace] = v }
-  opts.on('-r', '--repo-regex REGEX', 'Repository regex') { |v| options[:repo_regex] = v }
   opts.on('-t', '--oauth-token TOKEN', 'OAuth token. Required.') { |v| options[:oauth] = v }
-
-  # default filters
-  opts.on('--puppetlabs', 'Select Puppet Labs\' modules') do
-    options[:namespace] = 'puppetlabs'
-    options[:repo_regex] = '^puppetlabs-'
-  end
-
-  opts.on('--puppetlabs-supported', 'Select only Puppet Labs\' supported modules') do
-    options[:namespace] = 'puppetlabs'
-    options[:repo_regex] = OctokitUtils::SUPPORTED_MODULES_REGEX
-  end
-
-  opts.on('--voxpupuli', 'Select Voxpupuli modules') do
-    options[:namespace] = 'voxpupuli'
-    options[:repo_regex] = '^puppet-'
-  end
 end
 
 parser.parse!
 
 missing = []
-missing << '-n' if options[:namespace].nil?
+# missing << '-n' if options[:namespace].nil?
 missing << '-t' if options[:oauth].nil?
 unless missing.empty?
   puts "Missing options: #{missing.join(', ')}"
@@ -47,10 +32,7 @@ unless missing.empty?
   exit
 end
 
-options[:repo_regex] = '.*' if options[:repo_regex].nil?
-
 util = OctokitUtils.new(options[:oauth])
-repos = util.list_repos(options[:namespace], options)
 
 number_of_weeks_to_show = 10
 
@@ -63,7 +45,7 @@ end
 # find next wedenesday, set boundries
 right_bound = date_of_next 'Wednesday'
 left_bound = right_bound - 7
-# since = (right_bound - (number_of_weeks_to_show * 7))
+since = (right_bound - (number_of_weeks_to_show * 7))
 
 all_merged_pulls = []
 all_closed_pulls = []
@@ -71,8 +53,8 @@ comments = []
 members_of_organisation = {}
 
 # gather all commments / merges / closed in our time range (since)
-repos.each do |repo|
-  closed_pr_information_cache = util.fetch_async("#{options[:namespace]}/#{repo}} ")
+parsed.each do |m|
+  closed_pr_information_cache = util.fetch_async("#{m['github_namespace']}/#{m['repo_name']}", { state: 'closed' }, [:issue_comments], attribute: 'closed_at', date: since)
   # closed prs
   all_closed_pulls.concat(util.fetch_unmerged_pull_requests(closed_pr_information_cache))
   # merged prs
@@ -90,7 +72,7 @@ repos.each do |repo|
     end
   end
 
-  puts "repo #{repo}"
+  puts "repo #{m}"
 end
 
 week_data = []

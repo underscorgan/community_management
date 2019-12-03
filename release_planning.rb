@@ -44,7 +44,7 @@ parser = OptionParser.new do |opts|
   opts.on('-c', '--commit-threshold NUM', 'Number of commits since release') { |v| options[:commits] = v.to_i }
   opts.on('-g', '--tag-regex REGEX', 'Tag regex') { |v| options[:tag_regex] = v }
   opts.on('-m', '--time-threshold DAYS', 'Days since release') { |v| options[:time] = v.to_i }
-  opts.on('-n', '--namespace NAME', 'GitHub namespace. Required.') { |v| options[:namespace] = v }
+
   opts.on('-t', '--oauth-token TOKEN', 'OAuth token. Required.') { |v| options[:oauth] = v }
   opts.on('-v', '--verbose', 'More output') { options[:verbose] = true }
   opts.on('-o', '--output', 'Creates html+json output') { options[:output] = true }
@@ -53,7 +53,6 @@ end
 parser.parse!
 
 missing = []
-missing << '-n' if options[:namespace].nil?
 missing << '-t' if options[:oauth].nil?
 missing << '-m or -c' if options[:time].nil? && options[:commits].nil?
 unless missing.empty?
@@ -62,11 +61,9 @@ unless missing.empty?
   exit
 end
 
-# options[:repo_regex] = '.*' if options[:repo_regex].nil?
 options[:tag_regex] = '.*' if options[:tag_regex].nil?
 
 util = OctokitUtils.new(options[:oauth])
-# repos = util.list_repos(options[:namespace], options)
 
 repo_data = []
 

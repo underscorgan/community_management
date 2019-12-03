@@ -82,26 +82,26 @@ def prs_currently_open_per_day_graph
   graph.write('daily_open_prs.png')
 end
 
-option_selected.zero
+option_selected = 0
 parser = OptionParser.new do |opts|
   opts.banner = 'Usage: graph.rb [options]'
   opts.on('--pr_work_done', 'Generate PR work done') do
     generate_pr_work_done_graph
-    option_selected + 1
+    option_selected
   end
   opts.on('--created_prs_per_day', 'Generate PRs raised per day') do
     prs_created_per_day_graph
-    option_selected + 1
+    option_selected += 1
   end
   opts.on('--open_prs_per_day', 'Generate PRs currently open per day') do
     prs_currently_open_per_day_graph
-    option_selected + 1
+    option_selected += 1
   end
 end
 
 parser.parse!
 
-if option_selected.zero
+if option_selected.zero?
   puts 'Missing options, please pick at least one'
   puts parser
   exit

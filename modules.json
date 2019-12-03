@@ -1,8 +1,9 @@
-[{
-    "repo_name": "puppetlabs-apache",
+ [
+  {
+    "repo_name": "cisco_ios",
     "github_namespace": "puppetlabs",
-    "forge_namespace": "puppetlabs",
-    "module_name": "apache"
+    "forge_namespace": "cisco",
+    "module_name": "ios"
   },
 
   {
@@ -10,6 +11,13 @@
     "github_namespace": "cisco",
     "forge_namespace": "cisco",
     "module_name": "network-puppet-module"
+  },
+
+  {
+    "repo_name": "puppetlabs-apache",
+    "github_namespace": "puppetlabs",
+    "forge_namespace": "puppetlabs",
+    "module_name": "apache"
   },
 
   {
@@ -70,20 +78,6 @@
 
   {
     "repo_name": "puppetlabs-docker",
-    "github_namespace": "puppetlabs",
-    "forge_namespace": "puppetlabs",
-    "module_name": "docker"
-  },
-
-  {
-    "repo_name": "puppetlabs-dsc",
-    "github_namespace": "puppetlabs",
-    "forge_namespace": "puppetlabs",
-    "module_name": "docker"
-  },
-
-  {
-    "repo_name": "puppetlabs-dsc_lite",
     "github_namespace": "puppetlabs",
     "forge_namespace": "puppetlabs",
     "module_name": "docker"
@@ -184,7 +178,7 @@
     "repo_name": "puppetlabs-mysql",
     "github_namespace": "puppetlabs",
     "forge_namespace": "puppetlabs",
-    "module_name": "puppetlabs-mysql"
+    "module_name": "mysql"
   },
 
   {
@@ -293,7 +287,7 @@
     "module_name": "stlib"
   },
 
-  {
+ {
     "repo_name": "puppetlabs-tagmail",
     "github_namespace": "puppetlabs",
     "forge_namespace": "puppetlabs",

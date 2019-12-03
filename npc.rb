@@ -3,39 +3,23 @@
 
 require 'optparse'
 require_relative 'octokit_utils'
+require 'json'
+
+output = File.read('modules.json')
+parsed = JSON.parse(output)
 
 options = {}
 options[:oauth] = ENV['GITHUB_COMMUNITY_TOKEN'] if ENV['GITHUB_COMMUNITY_TOKEN']
 parser = OptionParser.new do |opts|
   opts.banner = 'Usage: npc.rb [options]'
-
-  opts.on('-n', '--namespace NAME', 'GitHub namespace. Required.') { |v| options[:namespace] = v }
-  opts.on('-r', '--repo-regex REGEX', 'Repository regex') { |v| options[:repo_regex] = v }
   opts.on('-t', '--oauth-token TOKEN', 'OAuth token. Required.') { |v| options[:oauth] = v }
   opts.on('-m', '--merge-conflicts', 'Comment / label PRs that have merge conflicts') { options[:merge_conflicts] = true }
   opts.on('-N', '--no-op', 'No-op, dont actually edit the PRs') { options[:no_op] = true }
-
-  # default filters
-  opts.on('--puppetlabs', 'Select Puppet Labs\' modules') do
-    options[:namespace] = 'puppetlabs'
-    options[:repo_regex] = '^puppetlabs-'
-  end
-
-  opts.on('--puppetlabs-supported', 'Select only Puppet Labs\' supported modules') do
-    options[:namespace] = 'puppetlabs'
-    options[:repo_regex] = OctokitUtils::SUPPORTED_MODULES_REGEX
-  end
-
-  opts.on('--voxpupuli', 'Select Voxpupuli modules') do
-    options[:namespace] = 'voxpupuli'
-    options[:repo_regex] = '^puppet-'
-  end
 end
 
 parser.parse!
 
 missing = []
-missing << '-n' if options[:namespace].nil?
 missing << '-t' if options[:oauth].nil?
 unless missing.empty?
   puts "Missing options: #{missing.join(', ')}"
@@ -52,36 +36,37 @@ else
 end
 
 util = OctokitUtils.new(options[:oauth])
-repos = util.list_repos(options[:namespace], options)
 
-repos.each do |repo|
+parsed.each do |m|
   next unless options[:merge_conflicts]
 
-  prs = util.fetch_pull_requests("#{options[:namespace]}/#{repo}")
+  prs = util.fetch_pull_requests("#{m['github_namespace']}/#{m['repo_name']}")
   prs.each do |pr|
     # do we already have a label ?
-    pr_merges = util.does_pr_merge("#{options[:namespace]}/#{repo}", pr.number)
-    pr_has_label = util.does_pr_have_label("#{options[:namespace]}/#{repo}", pr.number, 'needs-rebase')
+    pr_merges = util.does_pr_merge("#{m['github_namespace']}/#{m['repo_name']}", pr.number)
+    puts pr_merges
+    puts "XXX #{pr.number}"
+    pr_has_label = util.does_pr_have_label("#{m['github_namespace']}/#{m['repo_name']}", pr.number, 'needs-rebase')
     if pr_merges
       # pr merges
       # we have a label. should we remove the label if it is mergable
       if pr_has_label
-        puts "#{options[:namespace]}/#{repo} #{pr.number} removing label"
-        util.remove_label_from_pr("#{options[:namespace]}/#{repo}", pr.number, 'needs-rebase') unless options[:no_op]
+        puts "#{m['github_namespace']}/#{m['repo_name']} #{pr.number} removing label"
+        util.remove_label_from_pr("#{m['github_namespace']}/#{m['repo_name']}", pr.number, 'needs-rebase') unless options[:no_op]
       end
 
       # pr does not merge
     elsif pr_has_label
       # has label
-      puts "#{options[:namespace]}/#{repo} #{pr.number} already labeled"
+      puts "#{m['github_namespace']}/#{m['repo_name']} #{pr.number} already labeled"
     else
       # pr does not have a label
-      puts "#{options[:namespace]}/#{repo} #{pr.number} adding comment and label"
+      puts "#{m['github_namespace']}/#{m['repo_name']} #{pr.number} adding comment and label"
       unless options[:no_op]
         # do comment
-        util.add_comment_to_pr("#{options[:namespace]}/#{repo}", pr.number, "Thanks @#{pr.user.login} for your work, but can't be merged as it has conflicts. Please rebase them on the current master, fix the conflicts and repush here. https://git-scm.com/book/en/v2/Git-Branching-Rebasing")
+        util.add_comment_to_pr("#{m['github_namespace']}/#{m['repo_name']}", pr.number, "Thanks @#{pr.user.login} for your work, but can't be merged as it has conflicts. Please rebase them on the current master, fix the conflicts and repush here. https://git-scm.com/book/en/v2/Git-Branching-Rebasing")
         # do label
-        util.add_label_to_pr("#{options[:namespace]}/#{repo}", pr.number, 'needs-rebase')
+        util.add_label_to_pr("#{m['github_namespace']}/#{m['repo_name']}", pr.number, 'needs-rebase')
       end
     end
   end

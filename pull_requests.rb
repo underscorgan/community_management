@@ -3,6 +3,10 @@
 
 require 'optparse'
 require_relative 'octokit_utils'
+require 'json'
+
+output = File.read('modules.json')
+parsed = JSON.parse(output)
 
 options = {}
 options[:oauth] = ENV['GITHUB_COMMUNITY_TOKEN'] if ENV['GITHUB_COMMUNITY_TOKEN']
@@ -13,27 +17,27 @@ parser = OptionParser.new do |opts|
   opts.on('-b', '--before DAYS', 'Pull requests that were last updated before DAYS days ago.') { |v| options[:before] = v.to_i }
   opts.on('-c', '--count', 'Only print the count of pull requests.') { options[:count] = true }
   opts.on('-e', '--show-empty', 'List repos with no pull requests') { options[:empty] = true }
-  opts.on('-n', '--namespace NAME', 'GitHub namespace. Required.') { |v| options[:namespace] = v }
-  opts.on('-r', '--repo-regex REGEX', 'Repository regex') { |v| options[:repo_regex] = v }
+  # opts.on('-n', '--namespace NAME', 'GitHub namespace. Required.') { |v| options[:namespace] = v }
+  # opts.on('-r', '--repo-regex REGEX', 'Repository regex') { |v| options[:repo_regex] = v }
   opts.on('-s', '--sort', 'Sort output based on number of pull requests') { options[:sort] = true }
   opts.on('-t', '--oauth-token TOKEN', 'OAuth token. Required.') { |v| options[:oauth] = v }
   opts.on('-v', '--verbose', 'More output') { options[:verbose] = true }
 
   # default filters
-  opts.on('--puppetlabs', 'Select Puppet Labs\' modules') do
-    options[:namespace] = 'puppetlabs'
-    options[:repo_regex] = '^puppetlabs-'
-  end
+  # opts.on('--puppetlabs', 'Select Puppet Labs\' modules') do
+  #   options[:namespace] = 'puppetlabs'
+  #   options[:repo_regex] = '^puppetlabs-'
+  # end
 
-  opts.on('--puppetlabs-supported', 'Select only Puppet Labs\' supported modules') do
-    options[:namespace] = 'puppetlabs'
-    options[:repo_regex] = OctokitUtils::SUPPORTED_MODULES_REGEX
-  end
+  # opts.on('--puppetlabs-supported', 'Select only Puppet Labs\' supported modules') do
+  #   options[:namespace] = 'puppetlabs'
+  #   options[:repo_regex] = OctokitUtils::SUPPORTED_MODULES_REGEX
+  # end
 
-  opts.on('--voxpupuli', 'Select Voxpupuli modules') do
-    options[:namespace] = 'voxpupuli'
-    options[:repo_regex] = '^puppet-'
-  end
+  # opts.on('--voxpupuli', 'Select Voxpupuli modules') do
+  #   options[:namespace] = 'voxpupuli'
+  #   options[:repo_regex] = '^puppet-'
+  # end
 
   opts.on('--no-response', 'Select PRs which had no response in the last 30 days') do
     options[:before] = 30
@@ -91,12 +95,12 @@ end
 options[:repo_regex] = '.*' if options[:repo_regex].nil?
 
 util = OctokitUtils.new(options[:oauth])
-repos = util.list_repos(options[:namespace], options)
+#repos = util.list_repos(options[:namespace], options)
 
 repo_data = []
 
-repos.each do |repo|
-  pr_information_cache = util.fetch_async("#{options[:namespace]}/#{repo}")
+ parsed.each do |repo|
+  pr_information_cache = util.fetch_async("#{m['github_namespace']}/#{m['repo_name']}")
   begin
     pulls = if options[:last_comment] == :owner
               util.fetch_pull_requests_with_last_owner_comment(pr_information_cache)
@@ -115,7 +119,7 @@ repos.each do |repo|
             elsif options[:no_activity_40]
               util.fetch_pull_requests_with_no_activity_40_days(pr_information_cache)
             else
-              util.fetch_pull_requests("#{options[:namespace]}/#{repo}")
+              util.fetch_pull_requests("#{m['github_namespace']}/#{m['repo_name']}")
             end
 
     if options[:before]

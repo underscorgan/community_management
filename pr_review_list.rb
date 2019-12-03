@@ -3,37 +3,22 @@
 
 require 'optparse'
 require_relative 'octokit_utils'
+require 'json'
+
+output = File.read('modules.json')
+parsed = JSON.parse(output)
 
 options = {}
 options[:oauth] = ENV['GITHUB_COMMUNITY_TOKEN'] if ENV['GITHUB_COMMUNITY_TOKEN']
 parser = OptionParser.new do |opts|
   opts.banner = 'Usage: stats.rb [options]'
 
-  opts.on('-n', '--namespace NAME', 'GitHub namespace. Required.') { |v| options[:namespace] = v }
-  opts.on('-r', '--repo-regex REGEX', 'Repository regex') { |v| options[:repo_regex] = v }
   opts.on('-t', '--oauth-token TOKEN', 'OAuth token. Required.') { |v| options[:oauth] = v }
-
-  # default filters
-  opts.on('--puppetlabs', 'Select Puppet Labs\' modules') do
-    options[:namespace] = 'puppetlabs'
-    options[:repo_regex] = '^puppetlabs-'
-  end
-
-  opts.on('--puppetlabs-supported', 'Select only Puppet Labs\' supported modules') do
-    options[:namespace] = 'puppetlabs'
-    options[:repo_regex] = OctokitUtils::SUPPORTED_MODULES_REGEX
-  end
-
-  opts.on('--voxpupuli', 'Select Voxpupuli modules') do
-    options[:namespace] = 'voxpupuli'
-    options[:repo_regex] = '^puppet-'
-  end
 end
 
 parser.parse!
 
 missing = []
-missing << '-n' if options[:namespace].nil?
 missing << '-t' if options[:oauth].nil?
 unless missing.empty?
   puts "Missing options: #{missing.join(', ')}"
@@ -41,10 +26,7 @@ unless missing.empty?
   exit
 end
 
-options[:repo_regex] = '.*' if options[:repo_regex].nil?
-
 util = OctokitUtils.new(options[:oauth])
-repos = util.list_repos(options[:namespace], options)
 
 open_prs = []
 
@@ -56,8 +38,8 @@ def does_array_have_pr(array, pr_number)
   found
 end
 
-repos.each do |repo|
-  pr_information_cache = util.fetch_async("#{options[:namespace]}/#{repo}")
+parsed.each do |m|
+  pr_information_cache = util.fetch_async("#{m['github_namespace']}/#{m['repo_name']}")
   # no comment from a puppet employee
   puppet_uncommented_pulls = util.fetch_pull_requests_with_no_puppet_personnel_comments(pr_information_cache)
   # last comment mentions a puppet person
@@ -66,7 +48,8 @@ repos.each do |repo|
   # loop through open pr's and create a row that has all the pertinant info
   pr_information_cache.each do |pr|
     row = {}
-    row[:repo] = repo
+    row[:repo] = m['repo_name']
+    row[:address] = "https://github.com/#{m['github_namespace']}/#{m['repo_name']}"
     row[:pr] = pr[:pull].number
     row[:age] = ((Time.now - pr[:pull].created_at) / 60 / 60 / 24).round
     row[:owner] = pr[:pull].user.login
@@ -101,17 +84,18 @@ html.push('<body>')
 html.push('<h1>PRs that require review</h1>')
 html.push("<table border='1' style='width:100%' class='sortable table table-hover'> <tr>")
 open_prs.first.keys.each do |header|
-  html.push("<td>#{header}</td>")
+  html.push("<td>#{header}</td>") unless header == :address
 end
 html.push('</tr>')
 open_prs.each do |row|
   html.push('<tr>')
   row.each do |key, value|
     if key == :pr
-      repo_name = row[:repo]
-      html.push("<td><a href='https://github.com/#{options[:namespace]}/#{repo_name}/pull/#{value}'>#{value}</a></td>")
+      html.push("<td><a href='#{row[:address]}/pull/#{value}'>#{value}</a></td>")
+    elsif key == :repo
+      html.push("<td><a href='#{row[:address]}'>#{value}</a></td>")
     else
-      html.push("<td>#{value}</td>")
+      html.push("<td>#{value}</td>") unless key == :address
     end
   end
   html.push('</tr>')
