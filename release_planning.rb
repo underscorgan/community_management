@@ -73,7 +73,7 @@ parsed.each do |m|
     tag_ref = util.ref_from_tag(latest_tag)
     date_of_tag = util.date_of_ref("#{m['github_namespace']}/#{m['repo_name']}", tag_ref)
     commits_since_tag = util.commits_since_date("#{m['github_namespace']}/#{m['repo_name']}", date_of_tag)
-    repo_data << { 'repo' => "#{m['github_namespace']}/#{m['repo_name']}", 'date' => date_of_tag, 'commits' => commits_since_tag, 'downloads' => number_of_downloads(m['repo_name']) }
+    repo_data << { 'repo' => "#{m['github_namespace']}/#{m['repo_name']}", 'date' => date_of_tag, 'commits' => commits_since_tag, 'downloads' => number_of_downloads(m['forge_name']) }
     puppet_modules << PuppetModule.new(repo, "#{m['github_namespace']}/#{m['repo_name']}", date_of_tag, commits_since_tag)
   rescue StandardError
     puts "Unable to fetch tags for #{options[:namespace]}/#{repo}" if options[:verbose]
@@ -103,10 +103,18 @@ end
 
 html = []
 html.push('<html>')
-html.push("<head><script src='./web_libraries/sorttable.js'></script><link rel='stylesheet' href='./web_libraries/bootstrap.min.css'></head>")
+html.push("<head>")
+html.push("<script src='./web_libraries/jquery.min.js' type='text/javascript'></script>")
+html.push("<script src='./web_libraries/sorttable.js'></script><link rel='stylesheet' href='./web_libraries/bootstrap.min.css'>")
+html.push("<script src='./web_libraries/DataTables/datatables.js'></script><link rel='stylesheet' href='./web_libraries/DataTables/datatables.css'>")
+
+html.push("<script type= 'text/javascript'> $(document).ready( function () {$('#id_table').DataTable();} ); </script>")
+html.push("</head>")
+
+
 html.push('<body>')
 html.push('<h2>Modules Requiring Release</h2>')
-html.push("<table border='1' style='width:100%' class='sortable table table-hover'> <tr>")
+html.push("<table border='1' id = 'id_table' style='width:100%' class='sortable table table-hover'> <tr>")
 html.push('<th>Module Name</th>')
 html.push('<th>Last Release Tag Date</th>')
 html.push('<th>Commits Since Then</th>')

@@ -24,7 +24,6 @@ end
 parser.parse!
 
 missing = []
-# missing << '-n' if options[:namespace].nil?
 missing << '-t' if options[:oauth].nil?
 unless missing.empty?
   puts "Missing options: #{missing.join(', ')}"
