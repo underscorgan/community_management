@@ -6,18 +6,17 @@ require 'optparse'
 require_relative 'octokit_utils'
 require 'json'
 
-output = File.read('modules.json')
-parsed = JSON.parse(output)
-
 options = {}
 options[:oauth] = ENV['GITHUB_COMMUNITY_TOKEN'] if ENV['GITHUB_COMMUNITY_TOKEN']
 parser = OptionParser.new do |opts|
   opts.banner = 'Usage: stats.rb [options]'
-
+  opts.on('-f', '--file NAME', String, 'Module file list') { |v| options[:file] = v }
   opts.on('-t', '--oauth-token TOKEN', 'OAuth token. Required.') { |v| options[:oauth] = v }
 end
 
 parser.parse!
+
+options[:file] = 'modules.json' if options[:file].nil?
 
 missing = []
 missing << '-t' if options[:oauth].nil?
@@ -28,6 +27,7 @@ unless missing.empty?
 end
 
 util = OctokitUtils.new(options[:oauth])
+parsed = util.load_module_list(options[:file])
 
 open_prs = []
 

@@ -15,6 +15,12 @@ class OctokitUtils
     @pr_cache = {}
   end
 
+  def load_module_list(modulefile)
+    output = File.read(modulefile)
+    parsed = JSON.parse(output)
+    parsed
+  end
+
   # Octokit uses a different method for getting the repositories of an
   # orginazation than it does for getting the repositories of a user. This
   # method checks the "type" of a given namespace and uses the value to

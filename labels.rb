@@ -4,8 +4,6 @@
 require 'optparse'
 require_relative 'octokit_utils'
 require 'json'
-output = File.read('modules.json')
-parsed = JSON.parse(output)
 
 options = {}
 options[:oauth] = ENV['GITHUB_COMMUNITY_TOKEN'] if ENV['GITHUB_COMMUNITY_TOKEN']
@@ -14,9 +12,11 @@ parser = OptionParser.new do |opts|
   opts.on('-t', '--oauth-token TOKEN', 'OAuth token. Required.') { |v| options[:oauth] = v }
   opts.on('-f', '--fix-labels', 'Add the missing labels to repo') { options[:fix_labels] = true }
   opts.on('-d', '--delete-labels', 'Delete unwanted labels from repo') { options[:delete_labels] = true }
+  opts.on('-f', '--file NAME', String, 'Module file list') { |v| options[:file] = v }
 end
 
 parser.parse!
+options[:file] = 'modules.json' if options[:file].nil?
 
 missing = []
 missing << '-t' if options[:oauth].nil?
@@ -28,6 +28,7 @@ end
 
 util = OctokitUtils.new(options[:oauth])
 wanted_labels = [{ name: 'needs-squash', color: 'bfe5bf' }, { name: 'needs-rebase', color: '3880ff' }, { name: 'needs-tests', color: 'ff8091' }, { name: 'needs-docs', color: '149380' }, { name: 'bugfix', color: '00d87b' }, { name: 'feature', color: '222222' }, { name: 'tests-fail', color: 'e11d21' }, { name: 'backwards-incompatible', color: 'd63700' }, { name: 'maintenance', color: 'ffd86e' }]
+parsed = util.load_module_list(options[:file])
 
 label_names = []
 wanted_labels.each do |wanted_label|

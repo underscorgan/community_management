@@ -5,9 +5,6 @@ require 'erb'
 require 'optparse'
 require_relative 'octokit_utils'
 
-output = File.read('modules.json')
-parsed = JSON.parse(output)
-
 class PuppetModule
   attr_accessor :name, :namespace, :tag_date, :commits, :downloads
   def initialize(name, namespace, tag_date, commits, downloads = 0)
@@ -45,13 +42,15 @@ parser = OptionParser.new do |opts|
   opts.on('-c', '--commit-threshold NUM', 'Number of commits since release') { |v| options[:commits] = v.to_i }
   opts.on('-g', '--tag-regex REGEX', 'Tag regex') { |v| options[:tag_regex] = v }
   opts.on('-m', '--time-threshold DAYS', 'Days since release') { |v| options[:time] = v.to_i }
-
+  opts.on('-f', '--file NAME', String, 'Module file list') { |v| options[:file] = v }
   opts.on('-t', '--oauth-token TOKEN', 'OAuth token. Required.') { |v| options[:oauth] = v }
   opts.on('-v', '--verbose', 'More output') { options[:verbose] = true }
   opts.on('-o', '--output', 'Creates html+json output') { options[:output] = true }
 end
 
 parser.parse!
+
+options[:file] = 'modules.json' if options[:file].nil?
 
 missing = []
 missing << '-t' if options[:oauth].nil?
@@ -65,6 +64,7 @@ end
 options[:tag_regex] = '.*' if options[:tag_regex].nil?
 
 util = OctokitUtils.new(options[:oauth])
+parsed = util.load_module_list(options[:file])
 
 repo_data = []
 
@@ -103,7 +103,6 @@ due_for_release.each do |entry|
 end
 
 html = ERB.new(File.read('release_planning.html.erb')).result(binding)
-
 
 if options[:output]
   File.open('ModulesRelease.html', 'w+') do |f|
