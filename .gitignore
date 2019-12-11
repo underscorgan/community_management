@@ -34,8 +34,3 @@ build/
 .rvmrc
 
 /Gemfile.lock
-*.csv
-*.png
-*.html
-.DS_Store
-
