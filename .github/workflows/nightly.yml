@@ -1,6 +1,8 @@
 name: "Nightly"
 
-on: [push]
+on:
+  schedule:
+    - cron: '0 0 * * *'
 
 jobs:
   generate:
