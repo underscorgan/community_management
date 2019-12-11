@@ -3,7 +3,6 @@
 
 require 'optparse'
 require_relative 'octokit_utils'
-require 'json'
 
 options = {}
 options[:oauth] = ENV['GITHUB_COMMUNITY_TOKEN'] if ENV['GITHUB_COMMUNITY_TOKEN']
@@ -27,6 +26,7 @@ unless missing.empty?
 end
 
 util = OctokitUtils.new(options[:oauth])
+
 wanted_labels = [{ name: 'needs-squash', color: 'bfe5bf' }, { name: 'needs-rebase', color: '3880ff' }, { name: 'needs-tests', color: 'ff8091' }, { name: 'needs-docs', color: '149380' }, { name: 'bugfix', color: '00d87b' }, { name: 'feature', color: '222222' }, { name: 'tests-fail', color: 'e11d21' }, { name: 'backwards-incompatible', color: 'd63700' }, { name: 'maintenance', color: 'ffd86e' }]
 parsed = util.load_module_list(options[:file])
 

@@ -105,11 +105,11 @@ end
 html = ERB.new(File.read('release_planning.html.erb')).result(binding)
 
 if options[:output]
-  File.open('ModulesRelease.html', 'w+') do |f|
+  File.open('ModulesRelease.html', 'wb') do |f|
     f.puts(html)
   end
 
-  File.open('ModulesRelease.json', 'w') do |f|
+  File.open('ModulesRelease.json', 'wb') do |f|
     JSON.dump(due_for_release, f)
   end
 end

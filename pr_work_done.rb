@@ -103,7 +103,7 @@ end
 # reverse week_data to give it in chronological order
 week_data = week_data.reverse
 
-CSV.open('pr_work_done.csv', 'w') do |csv|
+CSV.open('pr_work_done.csv', 'wb') do |csv|
   csv << ['week ending on', 'closed', 'commented', 'merged']
   week_data.each do |week|
     csv << [week['week ending on'], week['closed'], week['commented'], week['merged']]

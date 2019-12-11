@@ -59,7 +59,9 @@ parsed.each do |m|
     row[:title] = pr[:pull].title
 
     if !pr[:issue_comments].empty?
-      row[:last_comment] = pr[:issue_comments].last.body
+
+      row[:last_comment] = pr[:issue_comments].last.body.gsub(%r{</?[^>]*>}, '')
+
       row[:by] = pr[:issue_comments].last.user.login
       row[:age_comment] = ((Time.now - pr[:issue_comments].last.updated_at) / 60 / 60 / 24).round
     else
@@ -84,10 +86,10 @@ open_prs.each do |row|
   puts(row)
 end
 
-File.open('report.html', 'w+') do |f|
+File.open('report.html', 'wb') do |f|
   f.puts(html)
 end
 
-File.open('report.json', 'w') do |f|
+File.open('report.json', 'wb') do |f|
   JSON.dump(open_prs, f)
 end

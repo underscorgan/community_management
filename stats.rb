@@ -51,11 +51,9 @@ total_mentioned_pulls = 0
 puts 'repo, last comment, needs rebase, fails test, needs squash, no comments, total open, has mention, no activty 40 days'
 parsed.each do |m|
   # Disbled because default value on filter causes github api issues
-  # rubocop:disable Lint/UselessAssignment
-  pr_information_cache = util.fetch_async("#{m['github_namespace']}/#{m['repo_name']}", search_with = { state: 'open', sort: 'updated' }, filter = %i[statuses pull_request_commits issue_comments pull_request])
+  pr_information_cache = util.fetch_async("#{m['github_namespace']}/#{m['repo_name']}", { state: 'open', sort: 'updated' }, %i[statuses pull_request_commits issue_comments pull_request])
 
-  closed_pr_information_cache = util.fetch_async("#{m['github_namespace']}/#{m['repo_name']}", search_with = { state: 'closed', sort: 'updated' }, filter = [])
-  # rubocop:enable Lint/UselessAssignment
+  closed_pr_information_cache = util.fetch_async("#{m['github_namespace']}/#{m['repo_name']}", { state: 'closed', sort: 'updated' }, [])
 
   # these are arrays used in generating the report
   # no comment from contributer in 30 days
@@ -106,11 +104,11 @@ parsed.each do |m|
 end
 
 if options[:display_overview]
-  CSV.open('overview.csv', 'w') do |csv|
+  CSV.open('overview.csv', 'wb') do |csv|
     csv << ['needs closed', 'needs rebase', 'fails tests', 'needs squashed', 'total PRs', 'uncommented']
     csv << [array_last_comment_pulls.size, total_rebase_pulls, total_bad_status_pulls, total_squashed_pulls, total_open_pulls, array_uncommented_pulls.size]
   end
-  CSV.open('totals.csv', 'w') do |csv|
+  CSV.open('totals.csv', 'wb') do |csv|
     csv << ['total unmerged PRs', 'total merged PRs', 'total open PRs', 'total uncommented open PRs']
     csv << [total_unmerged_pulls, total_merged_pulls, total_open_pulls, array_uncommented_pulls.size]
   end
@@ -129,7 +127,7 @@ stats_data = {
 html = ERB.new(File.read('stats.html.erb')).result(binding)
 
 if options[:work]
-  File.open('report.html', 'w+') do |f|
+  File.open('report.html', 'wb') do |f|
     f.puts(html)
   end
 end
