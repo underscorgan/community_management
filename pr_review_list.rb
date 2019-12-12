@@ -4,7 +4,6 @@
 require 'erb'
 require 'optparse'
 require_relative 'octokit_utils'
-require 'json'
 
 options = {}
 options[:oauth] = ENV['GITHUB_COMMUNITY_TOKEN'] if ENV['GITHUB_COMMUNITY_TOKEN']
