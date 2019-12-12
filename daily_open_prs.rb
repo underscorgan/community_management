@@ -7,7 +7,6 @@ require 'optparse'
 require 'csv'
 require 'octokit'
 require_relative 'octokit_utils'
-require 'json'
 
 options = {}
 options[:oauth] = ENV['GITHUB_COMMUNITY_TOKEN'] if ENV['GITHUB_COMMUNITY_TOKEN']
