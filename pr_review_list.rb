@@ -1,135 +1,95 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
+require 'erb'
 require 'optparse'
 require_relative 'octokit_utils'
+require 'json'
 
 options = {}
 options[:oauth] = ENV['GITHUB_COMMUNITY_TOKEN'] if ENV['GITHUB_COMMUNITY_TOKEN']
 parser = OptionParser.new do |opts|
   opts.banner = 'Usage: stats.rb [options]'
-
-  opts.on('-n', '--namespace NAME', 'GitHub namespace. Required.') { |v| options[:namespace] = v }
-  opts.on('-r', '--repo-regex REGEX', 'Repository regex') { |v| options[:repo_regex] = v }
+  opts.on('-f', '--file NAME', String, 'Module file list') { |v| options[:file] = v }
   opts.on('-t', '--oauth-token TOKEN', 'OAuth token. Required.') { |v| options[:oauth] = v }
-
-  # default filters
-  opts.on('--puppetlabs', 'Select Puppet Labs\' modules') {
-    options[:namespace] = 'puppetlabs'
-    options[:repo_regex] = '^puppetlabs-'
-  }
-
-  opts.on('--puppetlabs-supported', 'Select only Puppet Labs\' supported modules') {
-    options[:namespace] = 'puppetlabs'
-    options[:repo_regex] = OctokitUtils::SUPPORTED_MODULES_REGEX
-  }
-
-  opts.on('--voxpupuli', 'Select Voxpupuli modules') {
-    options[:namespace] = 'voxpupuli'
-    options[:repo_regex] = '^puppet-'
-  }
 end
 
 parser.parse!
 
+options[:file] = 'modules.json' if options[:file].nil?
+
 missing = []
-missing << '-n' if options[:namespace].nil?
 missing << '-t' if options[:oauth].nil?
-if not missing.empty?
+unless missing.empty?
   puts "Missing options: #{missing.join(', ')}"
   puts parser
   exit
 end
 
-options[:repo_regex] = '.*' if options[:repo_regex].nil?
-
 util = OctokitUtils.new(options[:oauth])
-repos = util.list_repos(options[:namespace], options)
+parsed = util.load_module_list(options[:file])
 
 open_prs = []
 
 def does_array_have_pr(array, pr_number)
   found = false
   array.each do |entry|
-    if pr_number == entry.number
-      found = true
-    end
+    found = true if pr_number == entry.number
   end
   found
 end
 
-repos.each do |repo|
-  pr_information_cache = util.fetch_async("#{options[:namespace]}/#{repo}", search_with={:state=>'open', :sort=>'updated'}, filter=[:statuses, :pull_request_commits, :issue_comments, :pull_request])
-  #no comment from a puppet employee
+parsed.each do |m|
+  pr_information_cache = util.fetch_async("#{m['github_namespace']}/#{m['repo_name']}")
+  # no comment from a puppet employee
   puppet_uncommented_pulls = util.fetch_pull_requests_with_no_puppet_personnel_comments(pr_information_cache)
-  #last comment mentions a puppet person
+  # last comment mentions a puppet person
   mentioned_pulls = util.fetch_pull_requests_mention_member(pr_information_cache)
 
   # loop through open pr's and create a row that has all the pertinant info
   pr_information_cache.each do |pr|
     row = {}
-    row[:repo] = repo
+    row[:repo] = m['repo_name']
+    row[:address] = "https://github.com/#{m['github_namespace']}/#{m['repo_name']}"
     row[:pr] = pr[:pull].number
     row[:age] = ((Time.now - pr[:pull].created_at) / 60 / 60 / 24).round
     row[:owner] = pr[:pull].user.login
-    if util.client.organization_member?("puppetlabs", pr[:pull].user.login)
-      row[:owner] += " <span class='label label-warning'>puppet</span>"
-    end
-    if util.client.organization_member?("voxpupuli", pr[:pull].user.login)
-      row[:owner] += " <span class='label label-primary'>vox</span>"
-    end
+    row[:owner] += " <span class='label label-warning'>puppet</span>" if util.client.organization_member?('puppetlabs', pr[:pull].user.login)
+    row[:owner] += " <span class='label label-primary'>vox</span>" if util.client.organization_member?('voxpupuli', pr[:pull].user.login)
     row[:title] = pr[:pull].title
 
-    if pr[:issue_comments].size > 0 
-      row[:last_comment] = pr[:issue_comments].last.body
+    if !pr[:issue_comments].empty?
+
+      row[:last_comment] = pr[:issue_comments].last.body.gsub(%r{</?[^>]*>}, '')
+
       row[:by] = pr[:issue_comments].last.user.login
       row[:age_comment] = ((Time.now - pr[:issue_comments].last.updated_at) / 60 / 60 / 24).round
     else
-      row[:last_comment] = ""
-      row[:by] = ""
+      row[:last_comment] = ''
+      row[:by] = ''
       row[:age_comment] = 0
     end
     row[:num_comments] = pr[:issue_comments].size
 
-    #find prs not commented by puppet
+    # find prs not commented by puppet
     row[:no_comment_from_puppet] = does_array_have_pr(puppet_uncommented_pulls, pr[:pull].number)
-    #last comment mentions puppet member
+    # last comment mentions puppet member
     row[:last_comment_mentions_puppet] = does_array_have_pr(mentioned_pulls, pr[:pull].number)
 
     open_prs.push(row)
   end
 end
 
-html = []
-html.push("<html><title>PRs that require review</title>")
-html.push("<head><script src='./web_libraries/sorttable.js'></script><link rel='stylesheet' href='./web_libraries/bootstrap.min.css'></head>")
-html.push("<body>")
-html.push("<h1>PRs that require review</h1>")
-html.push("<table border='1' style='width:100%' class='sortable table table-hover'> <tr>")
-open_prs.first.keys.each do |header|
-  html.push("<td>#{header}</td>")
-end
-html.push("</tr>")
-open_prs.each do |row|
-  html.push("<tr>")
-  row.each do |key, value|
-    unless key == :pr
-      html.push("<td>#{value}</td>")
-    else
-      repo_name = row[:repo]
-      html.push("<td><a href='https://github.com/#{options[:namespace]}/#{repo_name}/pull/#{value}'>#{value}</a></td>")
-    end
-  end
-  html.push("</tr>")
-end
-html.push("</table>")
+html = ERB.new(File.read('pr_review_list.html.erb')).result(binding)
+
 open_prs.each do |row|
   puts(row)
 end
 
-File.open("report.html", "w+") do |f|
+File.open('report.html', 'wb') do |f|
   f.puts(html)
 end
 
-File.open("report.json", "w") do |f|
+File.open('report.json', 'wb') do |f|
   JSON.dump(open_prs, f)
 end

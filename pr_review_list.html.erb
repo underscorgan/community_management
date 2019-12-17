@@ -1,0 +1,32 @@
+<html>
+<title>PRs that require review</title>
+<head><script src='./web_libraries/sorttable.js'></script><link rel='stylesheet' href='./web_libraries/bootstrap.min.css'></head>
+<body>
+<h1>PRs that require review</h1>
+<table border='1' style='width:100%' class='sortable table table-hover'> 
+<tr>
+<% open_prs.first.keys.each do |header| %>
+  <% if header != :address %>
+    <td> <%= header %></td> 
+  <% end %> 
+<% end %>
+</tr>
+
+<% open_prs.each do |row| %>
+  <tr>
+  <% row.each do |key, value| %>
+  <%  if key == :pr %>
+      <td><a href='<%= row[:address] %>/pull/<%= value %>'><%= value %></a></td>
+  <%  elsif key == :repo %>
+      <td><a href='<%= row[:address] %>'><%= value %></a></td>
+  <%  else %>
+      <% if key != :address %>
+        <td><%= value %></td>
+      <% end %>
+  <%  end %>
+  <% end %>
+  </tr>
+<% end %> 
+</table>
+</body>
+</html>

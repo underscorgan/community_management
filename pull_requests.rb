@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 require 'optparse'
 require_relative 'octokit_utils'
@@ -12,138 +13,116 @@ parser = OptionParser.new do |opts|
   opts.on('-b', '--before DAYS', 'Pull requests that were last updated before DAYS days ago.') { |v| options[:before] = v.to_i }
   opts.on('-c', '--count', 'Only print the count of pull requests.') { options[:count] = true }
   opts.on('-e', '--show-empty', 'List repos with no pull requests') { options[:empty] = true }
-  opts.on('-n', '--namespace NAME', 'GitHub namespace. Required.') { |v| options[:namespace] = v }
-  opts.on('-r', '--repo-regex REGEX', 'Repository regex') { |v| options[:repo_regex] = v }
   opts.on('-s', '--sort', 'Sort output based on number of pull requests') { options[:sort] = true }
+  opts.on('-f', '--file NAME', String, 'Module file list') { |v| options[:file] = v }
   opts.on('-t', '--oauth-token TOKEN', 'OAuth token. Required.') { |v| options[:oauth] = v }
   opts.on('-v', '--verbose', 'More output') { options[:verbose] = true }
 
-  # default filters
-  opts.on('--puppetlabs', 'Select Puppet Labs\' modules') {
-    options[:namespace] = 'puppetlabs'
-    options[:repo_regex] = '^puppetlabs-'
-  }
-
-  opts.on('--puppetlabs-supported', 'Select only Puppet Labs\' supported modules') {
-    options[:namespace] = 'puppetlabs'
-    options[:repo_regex] = OctokitUtils::SUPPORTED_MODULES_REGEX
-  }
-
-  opts.on('--voxpupuli', 'Select Voxpupuli modules') {
-    options[:namespace] = 'voxpupuli'
-    options[:repo_regex] = '^puppet-'
-  }
-
-  opts.on('--no-response', 'Select PRs which had no response in the last 30 days') {
+  opts.on('--no-response', 'Select PRs which had no response in the last 30 days') do
     options[:before] = 30
-  }
+  end
 
-  opts.on('--needs-closing', 'Select PRs where the last response is from an owner, but no further activity for the last 30 days') {
+  opts.on('--needs-closing', 'Select PRs where the last response is from an owner, but no further activity for the last 30 days') do
     options[:before] = 30
     options[:last_comment] = :owner
-  }
+  end
 
-  opts.on('--bad-status', 'Select PRs where the status is bad') {
+  opts.on('--bad-status', 'Select PRs where the status is bad') do
     options[:bad_status] = 1
-  }
+  end
 
-  opts.on('--needs-squashed', 'Select PRs that need squashed') {
+  opts.on('--needs-squashed', 'Select PRs that need squashed') do
     options[:needs_squashed] = 1
-  }
+  end
 
-  opts.on('--needs-rebase', 'Select PRs where they need a rebase') {
+  opts.on('--needs-rebase', 'Select PRs where they need a rebase') do
     options[:needs_rebase] = 1
-  }
+  end
 
-  opts.on('--no-comments', 'Select PRs where there are no comments') {
+  opts.on('--no-comments', 'Select PRs where there are no comments') do
     options[:no_comments] = 1
-  }
+  end
 
-  opts.on('--no-puppet-comments', 'Select PRs where there are no comments from puppet members') {
+  opts.on('--no-puppet-comments', 'Select PRs where there are no comments from puppet members') do
     options[:no_puppet_comments] = 1
-  }
+  end
 
-  opts.on('--last-comment-mention-member', 'Select PRs where the last comment mentions a puppet members') {
+  opts.on('--last-comment-mention-member', 'Select PRs where the last comment mentions a puppet members') do
     options[:comment_mention_member] = 1
-  }
+  end
 
-  opts.on('--no-activity-40-days', 'Select PRs where there has been no activity in 40 days') {
+  opts.on('--no-activity-40-days', 'Select PRs where there has been no activity in 40 days') do
     options[:no_activity_40] = 1
-  }
+  end
 end
 
 parser.parse!
 
+options[:file] = 'modules.json' if options[:file].nil?
+
 missing = []
-missing << '-n' if options[:namespace].nil?
 missing << '-t' if options[:oauth].nil?
-if not missing.empty?
+unless missing.empty?
   puts "Missing options: #{missing.join(', ')}"
   puts parser
   exit
 end
-if options[:before] and options[:after]
-  puts "Only one of -a and -b can be specified"
+if options[:before] && options[:after]
+  puts 'Only one of -a and -b can be specified'
   exit
 end
 
-options[:repo_regex] = '.*' if options[:repo_regex].nil?
-
 util = OctokitUtils.new(options[:oauth])
-repos = util.list_repos(options[:namespace], options)
+parsed = util.load_module_list(options[:file])
 
 repo_data = []
 
-repos.each do |repo|
-  pr_information_cache = util.fetch_async("#{options[:namespace]}/#{repo}", search_with={:state=>'open', :sort=>'updated'}, filter=[:statuses, :pull_request_commits, :issue_comments, :pull_request])
+parsed.each do |m|
+  pr_information_cache = util.fetch_async("#{m['github_namespace']}/#{m['repo_name']}")
   begin
-    if options[:last_comment] == :owner
-      pulls = util.fetch_pull_requests_with_last_owner_comment(pr_information_cache)
-    elsif options[:needs_rebase]
-      pulls = util.fetch_pull_requests_which_need_rebase(pr_information_cache)
-    elsif options[:bad_status]
-      pulls = util.fetch_pull_requests_with_bad_status(pr_information_cache)
-    elsif options[:needs_squashed]
-      pulls = util.fetch_pull_requests_which_need_squashed(pr_information_cache)
-    elsif options[:no_comments]
-      pulls = util.fetch_uncommented_pull_requests(pr_information_cache)
-    elsif options[:comment_mention_member]
-      pulls = util.fetch_pull_requests_mention_member(pr_information_cache)
-    elsif options[:no_puppet_comments]
-      pulls = util.fetch_pull_requests_with_no_puppet_personnel_comments(pr_information_cache)
-    elsif options[:no_activity_40]
-      pulls = util.fetch_pull_requests_with_no_activity_40_days(pr_information_cache)
-    else
-      pulls = util.fetch_pull_requests("#{options[:namespace]}/#{repo}")
-    end
+    pulls = if options[:last_comment] == :owner
+              util.fetch_pull_requests_with_last_owner_comment(pr_information_cache)
+            elsif options[:needs_rebase]
+              util.fetch_pull_requests_which_need_rebase(pr_information_cache)
+            elsif options[:bad_status]
+              util.fetch_pull_requests_with_bad_status(pr_information_cache)
+            elsif options[:needs_squashed]
+              util.fetch_pull_requests_which_need_squashed(pr_information_cache)
+            elsif options[:no_comments]
+              util.fetch_uncommented_pull_requests(pr_information_cache)
+            elsif options[:comment_mention_member]
+              util.fetch_pull_requests_mention_member(pr_information_cache)
+            elsif options[:no_puppet_comments]
+              util.fetch_pull_requests_with_no_puppet_personnel_comments(pr_information_cache)
+            elsif options[:no_activity_40]
+              util.fetch_pull_requests_with_no_activity_40_days(pr_information_cache)
+            else
+              util.fetch_pull_requests("#{m['github_namespace']}/#{m['repo_name']}")
+            end
 
     if options[:before]
-      opts = { :pulls => pulls }
+      opts = { pulls: pulls }
       start_time = (DateTime.now - options[:before]).to_time
       pulls = util.pulls_older_than(start_time, opts)
     elsif options[:after]
-      opts = { :pulls => pulls }
+      opts = { pulls: pulls }
       end_time = (DateTime.now - options[:after]).to_time
       pulls = util.pulls_newer_than(end_time, opts)
     end
 
-    if not options[:empty] and pulls.empty?
-      next
-    end
+    next if !(options[:empty]) && pulls.empty?
 
-    if options[:count]
-      repo_data << { 'repo' => "#{options[:namespace]}/#{repo}", 'pulls' => nil, 'pull_count' => pulls.length }
-    else
-      repo_data << { 'repo' => "#{options[:namespace]}/#{repo}", 'pulls' => pulls, 'pull_count' => pulls.length }
-    end
-  rescue
-    puts "Unable to fetch pull requests for #{options[:namespace]}/#{repo}" if options[:verbose]
+    repo_data << if options[:count]
+                   { 'repo' => "#{m['github_namespace']}/#{m['repo_name']}", 'pulls' => nil, 'pull_count' => pulls.length }
+                 else
+                   { 'repo' => "#{m['github_namespace']}/#{m['repo_name']}", 'pulls' => pulls, 'pull_count' => pulls.length }
+                 end
+  rescue StandardError
+    puts "Unable to fetch pull requests for #{m['github_namespace']}/#{m['repo_name']}" if options[:verbose]
   end
 end
 
-if options[:sort]
-  repo_data.sort_by! { |x| -x['pull_count'] }
-end
+repo_data.sort_by! { |x| -x['pull_count'] } if options[:sort]
 
 repo_data.each do |entry|
   puts "=== #{entry['repo']} ==="
@@ -155,9 +134,9 @@ repo_data.each do |entry|
   else
     puts "  #{entry['pull_count']} open pull requests"
   end
-  unless options[:count]
-    entry['pulls'].each do |pull|
-      puts "  #{pull[:html_url]} - #{pull[:title]}"
-    end
+  next if options[:count]
+
+  entry['pulls'].each do |pull|
+    puts "  #{pull[:html_url]} - #{pull[:title]}"
   end
 end
