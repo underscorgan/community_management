@@ -21,13 +21,13 @@ jobs:
           gem install bundler
           ### generate pr graphs
           bundle install --path .bundle/gems/
-          bundle exec ruby pr_work_done.rb -n puppetlabs --puppet-supported -t $token
-          bundle exec ruby daily_open_prs.rb -n puppetlabs --puppet-supported -t $token
+          bundle exec ruby pr_work_done.rb -t $token
+          bundle exec ruby daily_open_prs.rb -t $token
           bundle exec ruby graph.rb --pr_work_done --created_prs_per_day --open_prs_per_day
           ### generate prs for triage report
-          bundle exec ruby pr_review_list.rb -n puppetlabs --puppetlabs-supported -t $token
+          bundle exec ruby pr_review_list.rb -t $token
           ### generate release planning
-          bundle exec ruby release_planning.rb -c 20 -g '^v*\d*\.\d*\.\d*' -m 14 --puppetlabs-supported -n puppetlabs -t $token -o
+          bundle exec ruby release_planning.rb -c 0 -g '^v*\d*\.\d*\.\d*' -m 0 -t $token -o
       - name: List files
         run: |
           ls -la
