@@ -1,9 +1,14 @@
 <html>
 <title>PRs that require review</title>
-<head><script src='./web_libraries/sorttable.js'></script><link rel='stylesheet' href='./web_libraries/bootstrap.min.css'></head>
+<head>
+<script src='./web_libraries/jquery.min.js' type='text/javascript'></script>
+<script src='./web_libraries/sorttable.js'></script><link rel='stylesheet' href='./web_libraries/bootstrap.min.css'>
+<script src='./web_libraries/DataTables/datatables.js'></script><link rel='stylesheet' href='./web_libraries/DataTables/datatables.css'>
+<script type= 'text/javascript'> $(document).ready( function () {$('#reviews').DataTable();} ); </script>
+</head>
 <body>
 <h1>PRs that require review</h1>
-<table border='1' style='width:100%' class='sortable table table-hover'> 
+<table border='1' id='reviews' style='width:100%' class='sortable table table-hover'> 
 <tr>
 <% open_prs.first.keys.each do |header| %>
   <% if header != :address %>

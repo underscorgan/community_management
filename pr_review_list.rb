@@ -4,7 +4,6 @@
 require 'erb'
 require 'optparse'
 require_relative 'octokit_utils'
-require 'json'
 
 options = {}
 options[:oauth] = ENV['GITHUB_COMMUNITY_TOKEN'] if ENV['GITHUB_COMMUNITY_TOKEN']
@@ -60,7 +59,7 @@ parsed.each do |m|
 
     if !pr[:issue_comments].empty?
 
-      row[:last_comment] = pr[:issue_comments].last.body.gsub(%r{</?[^>]*>}, '')
+      row[:last_comment] = pr[:issue_comments].last.body.gsub(%r{<\/?[^>]*>}, '')
 
       row[:by] = pr[:issue_comments].last.user.login
       row[:age_comment] = ((Time.now - pr[:issue_comments].last.updated_at) / 60 / 60 / 24).round
