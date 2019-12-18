@@ -1,281 +1,970 @@
-<html><title>PRs that require review</title>
-<head><script src='./web_libraries/sorttable.js'></script><link rel='stylesheet' href='./web_libraries/bootstrap.min.css'></head>
+<html>
+<title>PRs that require review</title>
+<head>
+<script src='./web_libraries/jquery.min.js' type='text/javascript'></script>
+<script src='./web_libraries/sorttable.js'></script><link rel='stylesheet' href='./web_libraries/bootstrap.min.css'>
+<script src='./web_libraries/DataTables/datatables.js'></script><link rel='stylesheet' href='./web_libraries/DataTables/datatables.css'>
+<script type= 'text/javascript'> $(document).ready( function () {$('#reviews').DataTable();} ); </script>
+</head>
 <body>
 <h1>PRs that require review</h1>
-<table border='1' style='width:100%' class='sortable table table-hover'> <tr>
-<td>repo</td>
-<td>pr</td>
-<td>age</td>
-<td>owner</td>
-<td>title</td>
-<td>last_comment</td>
-<td>by</td>
-<td>age_comment</td>
-<td>num_comments</td>
-<td>no_comment_from_puppet</td>
-<td>last_comment_mentions_puppet</td>
-</tr>
+<table border='1' id='reviews' style='width:100%' class='sortable table table-hover'> 
 <tr>
-<td>cisco_ios</td>
-<td><a href='https://github.com/puppetlabs/cisco_ios/pull/415'>415</a></td>
-<td>0</td>
-<td>DavidS <span class='label label-warning'>puppet</span></td>
-<td>pdksync - (maint) travis updates: bundler and slack</td>
-<td></td>
-<td></td>
-<td>0</td>
-<td>0</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-accounts</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-accounts/pull/283'>283</a></td>
-<td>0</td>
-<td>DavidS <span class='label label-warning'>puppet</span></td>
-<td>pdksync - (maint) travis updates: bundler and slack</td>
-<td></td>
-<td></td>
-<td>0</td>
-<td>0</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-acl</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-acl/pull/172'>172</a></td>
-<td>0</td>
-<td>DavidS <span class='label label-warning'>puppet</span></td>
-<td>pdksync - (maint) travis updates: bundler and slack</td>
-<td># [Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-acl/pull/172?src=pr&el=h1) Report
-> Merging [#172](https://codecov.io/gh/puppetlabs/puppetlabs-acl/pull/172?src=pr&el=desc) into [master](https://codecov.io/gh/puppetlabs/puppetlabs-acl/commit/ae562c8e66193b00a826c1964e9920fd8f7abee5?src=pr&el=desc) will **not change** coverage.
-> The diff coverage is `n/a`.
 
-[![Impacted file tree graph](https://codecov.io/gh/puppetlabs/puppetlabs-acl/pull/172/graphs/tree.svg?width=650&token=93S4Kgv0UW&height=150&src=pr)](https://codecov.io/gh/puppetlabs/puppetlabs-acl/pull/172?src=pr&el=tree)
+  
+    <td> repo</td> 
+   
 
-```diff
-@@           Coverage Diff           @@
-##           master     #172   +/-   ##
-=======================================
-  Coverage   84.39%   84.39%           
-=======================================
-  Files           5        5           
-  Lines         705      705           
-=======================================
-  Hits          595      595           
-  Misses        110      110
-```
+   
+
+  
+    <td> pr</td> 
+   
+
+  
+    <td> age</td> 
+   
+
+  
+    <td> owner</td> 
+   
+
+  
+    <td> title</td> 
+   
+
+  
+    <td> last_comment</td> 
+   
+
+  
+    <td> by</td> 
+   
+
+  
+    <td> age_comment</td> 
+   
+
+  
+    <td> num_comments</td> 
+   
+
+  
+    <td> no_comment_from_puppet</td> 
+   
+
+  
+    <td> last_comment_mentions_puppet</td> 
+   
+
+</tr>
 
 
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-apache'>puppetlabs-apache</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-apache/pull/1943'>1943</a></td>
+  
+  
+  
+      
+        <td>104</td>
+      
+  
+  
+  
+      
+        <td>treydock</td>
+      
+  
+  
+  
+      
+        <td>Set package name for proxy_html and xml2enc modules</td>
+      
+  
+  
+  
+      
+        <td>Shouldn't it introduce a `apache::mod::xml2enc` and include that where it now instantiates `apache::mod { 'xml2enc': }`? Then you can use hiera to override as well.</td>
+      
+  
+  
+  
+      
+        <td>ekohl</td>
+      
+  
+  
+  
+      
+        <td>85</td>
+      
+  
+  
+  
+      
+        <td>5</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
 
-------
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-apt'>puppetlabs-apt</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-apt/pull/891'>891</a></td>
+  
+  
+  
+      
+        <td>41</td>
+      
+  
+  
+  
+      
+        <td>zivis</td>
+      
+  
+  
+  
+      
+        <td>Include apt in apt::backports</td>
+      
+  
+  
+  
+      
+        <td>thanks for notifying, now travis builds without any errors :)</td>
+      
+  
+  
+  
+      
+        <td>zivis</td>
+      
+  
+  
+  
+      
+        <td>8</td>
+      
+  
+  
+  
+      
+        <td>6</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
 
-[Continue to review full report at Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-acl/pull/172?src=pr&el=continue).
-> **Legend** - [Click here to learn more](https://docs.codecov.io/docs/codecov-delta)
-> `Δ = absolute <relative> (impact)`, `ø = not affected`, `? = missing data`
-> Powered by [Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-acl/pull/172?src=pr&el=footer). Last update [ae562c8...7042166](https://codecov.io/gh/puppetlabs/puppetlabs-acl/pull/172?src=pr&el=lastupdated). Read the [comment docs](https://docs.codecov.io/docs/pull-request-comments).
-</td>
-<td>codecov-io</td>
-<td>0</td>
-<td>1</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-apache</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-apache/pull/1986'>1986</a></td>
-<td>0</td>
-<td>DavidS <span class='label label-warning'>puppet</span></td>
-<td>pdksync - (maint) travis updates: bundler and slack</td>
-<td></td>
-<td></td>
-<td>0</td>
-<td>0</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-apache</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-apache/pull/1943'>1943</a></td>
-<td>103</td>
-<td>treydock</td>
-<td>Set package name for proxy_html and xml2enc modules</td>
-<td>Shouldn't it introduce a `apache::mod::xml2enc` and include that where it now instantiates `apache::mod { 'xml2enc': }`? Then you can use hiera to override as well.</td>
-<td>ekohl</td>
-<td>84</td>
-<td>5</td>
-<td>false</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-apt</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-apt/pull/891'>891</a></td>
-<td>40</td>
-<td>zivis</td>
-<td>Include apt in apt::backports</td>
-<td>thanks for notifying, now travis builds without any errors :)</td>
-<td>zivis</td>
-<td>7</td>
-<td>6</td>
-<td>false</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-apt</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-apt/pull/850'>850</a></td>
-<td>251</td>
-<td>dkrand</td>
-<td>Allow URI escaping in any user/pass in the URL</td>
-<td>@dkrand Could you please rebase with the master so we can the tests in litmus. This module is ported to litmus now. Thank you.</td>
-<td>sheenaajay</td>
-<td>26</td>
-<td>5</td>
-<td>false</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-apt</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-apt/pull/899'>899</a></td>
-<td>0</td>
-<td>DavidS <span class='label label-warning'>puppet</span></td>
-<td>pdksync - (maint) travis updates: bundler and slack</td>
-<td></td>
-<td></td>
-<td>0</td>
-<td>0</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-bootstrap</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-bootstrap/pull/121'>121</a></td>
-<td>0</td>
-<td>DavidS <span class='label label-warning'>puppet</span></td>
-<td>pdksync - (maint) travis updates: bundler and slack</td>
-<td></td>
-<td></td>
-<td>0</td>
-<td>0</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-bootstrap</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-bootstrap/pull/89'>89</a></td>
-<td>206</td>
-<td>greglarkin <span class='label label-warning'>puppet</span></td>
-<td>Enable TLS 1.2 to allow connection to the master and downloading the …</td>
-<td>Hello @greglarkin ,
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-apt'>puppetlabs-apt</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-apt/pull/850'>850</a></td>
+  
+  
+  
+      
+        <td>252</td>
+      
+  
+  
+  
+      
+        <td>dkrand</td>
+      
+  
+  
+  
+      
+        <td>Allow URI escaping in any user/pass in the URL</td>
+      
+  
+  
+  
+      
+        <td>@dkrand Could you please rebase with the master so we can the tests in litmus. This module is ported to litmus now. Thank you.</td>
+      
+  
+  
+  
+      
+        <td>sheenaajay</td>
+      
+  
+  
+  
+      
+        <td>27</td>
+      
+  
+  
+  
+      
+        <td>5</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-bootstrap'>puppetlabs-bootstrap</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-bootstrap/pull/89'>89</a></td>
+  
+  
+  
+      
+        <td>207</td>
+      
+  
+  
+  
+      
+        <td>greglarkin <span class='label label-warning'>puppet</span></td>
+      
+  
+  
+  
+      
+        <td>Enable TLS 1.2 to allow connection to the master and downloading the …</td>
+      
+  
+  
+  
+      
+        <td>Hello @greglarkin ,
 
  Please let us know if you're still working on this PR and if we can help you! Thanks! 
 
 Cheers!</td>
-<td>lionce</td>
-<td>35</td>
-<td>1</td>
-<td>false</td>
-<td>true</td>
-</tr>
-<tr>
-<td>puppetlabs-chocolatey</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-chocolatey/pull/197'>197</a></td>
-<td>0</td>
-<td>DavidS <span class='label label-warning'>puppet</span></td>
-<td>pdksync - (maint) travis updates: bundler and slack</td>
-<td></td>
-<td></td>
-<td>0</td>
-<td>0</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-chocolatey</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-chocolatey/pull/167'>167</a></td>
-<td>138</td>
-<td>RandomNoun7 <span class='label label-warning'>puppet</span></td>
-<td>(FM-8179) Set up CI with Azure Pipelines</td>
-<td>@RandomNoun7 Could you please check if we need this PR. Thank you.</td>
-<td>sheenaajay</td>
-<td>13</td>
-<td>1</td>
-<td>false</td>
-<td>true</td>
-</tr>
-<tr>
-<td>puppetlabs-concat</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-concat/pull/619'>619</a></td>
-<td>0</td>
-<td>DavidS <span class='label label-warning'>puppet</span></td>
-<td>pdksync - (maint) travis updates: bundler and slack</td>
-<td></td>
-<td></td>
-<td>0</td>
-<td>0</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-docker</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-docker/pull/559'>559</a></td>
-<td>0</td>
-<td>DavidS <span class='label label-warning'>puppet</span></td>
-<td>pdksync - (maint) travis updates: bundler and slack</td>
-<td># [Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-docker/pull/559?src=pr&el=h1) Report
-> Merging [#559](https://codecov.io/gh/puppetlabs/puppetlabs-docker/pull/559?src=pr&el=desc) into [master](https://codecov.io/gh/puppetlabs/puppetlabs-docker/commit/e917a88f783ab44ad596c8ad3da6dbc2739c35d2?src=pr&el=desc) will **not change** coverage.
-> The diff coverage is `n/a`.
+      
+  
+  
+  
+      
+        <td>lionce</td>
+      
+  
+  
+  
+      
+        <td>36</td>
+      
+  
+  
+  
+      
+        <td>1</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>true</td>
+      
+  
+  
+  </tr>
 
-[![Impacted file tree graph](https://codecov.io/gh/puppetlabs/puppetlabs-docker/pull/559/graphs/tree.svg?width=650&token=j1eaJwVJRE&height=150&src=pr)](https://codecov.io/gh/puppetlabs/puppetlabs-docker/pull/559?src=pr&el=tree)
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-chocolatey'>puppetlabs-chocolatey</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-chocolatey/pull/167'>167</a></td>
+  
+  
+  
+      
+        <td>139</td>
+      
+  
+  
+  
+      
+        <td>RandomNoun7 <span class='label label-warning'>puppet</span></td>
+      
+  
+  
+  
+      
+        <td>(FM-8179) Set up CI with Azure Pipelines</td>
+      
+  
+  
+  
+      
+        <td>@RandomNoun7 Could you please check if we need this PR. Thank you.</td>
+      
+  
+  
+  
+      
+        <td>sheenaajay</td>
+      
+  
+  
+  
+      
+        <td>14</td>
+      
+  
+  
+  
+      
+        <td>1</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>true</td>
+      
+  
+  
+  </tr>
 
-```diff
-@@           Coverage Diff           @@
-##           master     #559   +/-   ##
-=======================================
-  Coverage   28.02%   28.02%           
-=======================================
-  Files          19       19           
-  Lines         685      685           
-=======================================
-  Hits          192      192           
-  Misses        493      493
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-concat'>puppetlabs-concat</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-concat/pull/619'>619</a></td>
+  
+  
+  
+      
+        <td>1</td>
+      
+  
+  
+  
+      
+        <td>DavidS <span class='label label-warning'>puppet</span></td>
+      
+  
+  
+  
+      
+        <td>pdksync - (maint) travis updates: bundler and slack</td>
+      
+  
+  
+  
+      
+        <td></td>
+      
+  
+  
+  
+      
+        <td></td>
+      
+  
+  
+  
+      
+        <td>0</td>
+      
+  
+  
+  
+      
+        <td>0</td>
+      
+  
+  
+  
+      
+        <td>true</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-docker'>puppetlabs-docker</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-docker/pull/477'>477</a></td>
+  
+  
+  
+      
+        <td>236</td>
+      
+  
+  
+  
+      
+        <td>esalberg <span class='label label-primary'>vox</span></td>
+      
+  
+  
+  
+      
+        <td>Allow bypassing curl package ensure if needed</td>
+      
+  
+  
+  
+      
+        <td>Hello @esalberg ,
+
+Please let us know if you're still working on this PR and if we can help you! Thanks!
+
+Cheers!</td>
+      
+  
+  
+  
+      
+        <td>lionce</td>
+      
+  
+  
+  
+      
+        <td>40</td>
+      
+  
+  
+  
+      
+        <td>6</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-docker'>puppetlabs-docker</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-docker/pull/551'>551</a></td>
+  
+  
+  
+      
+        <td>32</td>
+      
+  
+  
+  
+      
+        <td>mgrzybowski</td>
+      
+  
+  
+  
+      
+        <td>Workaround for hangs of the docker_client in the facts genereation</td>
+      
+  
+  
+  
+      
+        <td>@mgrzybowski The quoted section in the docs reads `Facter::Core::Execution.execute('sleep 10', options = {:timeout => 5})`, not `Facter::Util::Resolution.execute`. I tried that with the example given there and that did work:
 ```
+david@davids:~/tmp$ cat facts/sleep.rb 
+Facter.add(:sleep) do
+  setcode do
+    begin
+      Facter::Core::Execution.execute('sleep 10', options = {:timeout => 5})
+      'did not timeout!'
+    rescue Facter::Core::Execution::ExecutionFailure
+      'timeout!'
+    end
+  end
+end
 
+david@davids:~/tmp$ date; facter --custom-dir ./facts/ sleep; date
+Tue 17 Dec 17:39:12 GMT 2019
+timeout!
+Tue 17 Dec 17:39:17 GMT 2019
+david@davids:~/tmp$ 
+```
+can you confirm that this example is working for you and that the same fact code calling to docker instead is not working?</td>
+      
+  
+  
+  
+      
+        <td>DavidS</td>
+      
+  
+  
+  
+      
+        <td>0</td>
+      
+  
+  
+  
+      
+        <td>3</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
 
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-docker'>puppetlabs-docker</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-docker/pull/522'>522</a></td>
+  
+  
+  
+      
+        <td>113</td>
+      
+  
+  
+  
+      
+        <td>davejrt</td>
+      
+  
+  
+  
+      
+        <td>(WIP) updating compose type/provider to restart services </td>
+      
+  
+  
+  
+      
+        <td>Tests to come</td>
+      
+  
+  
+  
+      
+        <td>davejrt</td>
+      
+  
+  
+  
+      
+        <td>113</td>
+      
+  
+  
+  
+      
+        <td>1</td>
+      
+  
+  
+  
+      
+        <td>true</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
 
-------
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-docker'>puppetlabs-docker</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-docker/pull/460'>460</a></td>
+  
+  
+  
+      
+        <td>274</td>
+      
+  
+  
+  
+      
+        <td>SmithJosh</td>
+      
+  
+  
+  
+      
+        <td>WIP: Allow use of .env configuration file when running docker-compose</td>
+      
+  
+  
+  
+      
+        <td></td>
+      
+  
+  
+  
+      
+        <td></td>
+      
+  
+  
+  
+      
+        <td>0</td>
+      
+  
+  
+  
+      
+        <td>0</td>
+      
+  
+  
+  
+      
+        <td>true</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
 
-[Continue to review full report at Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-docker/pull/559?src=pr&el=continue).
-> **Legend** - [Click here to learn more](https://docs.codecov.io/docs/codecov-delta)
-> `Δ = absolute <relative> (impact)`, `ø = not affected`, `? = missing data`
-> Powered by [Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-docker/pull/559?src=pr&el=footer). Last update [e917a88...3113684](https://codecov.io/gh/puppetlabs/puppetlabs-docker/pull/559?src=pr&el=lastupdated). Read the [comment docs](https://docs.codecov.io/docs/pull-request-comments).
-</td>
-<td>codecov-io</td>
-<td>0</td>
-<td>1</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-docker</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-docker/pull/551'>551</a></td>
-<td>31</td>
-<td>mgrzybowski</td>
-<td>Workaround for hangs of the docker_client in the facts genereation</td>
-<td>@mgrzybowski Thanks for submitting the PR. Could you try adding the timeout to facts. Example here https://puppet.com/docs/facter/3.7/custom_facts.html#execution-timeouts.
-</td>
-<td>sheenaajay</td>
-<td>12</td>
-<td>1</td>
-<td>false</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-docker</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-docker/pull/554'>554</a></td>
-<td>26</td>
-<td>khaefeli</td>
-<td>Add Docker service (create, remote, scale) tasks</td>
-<td># [Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-docker/pull/554?src=pr&el=h1) Report
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-docker'>puppetlabs-docker</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-docker/pull/546'>546</a></td>
+  
+  
+  
+      
+        <td>44</td>
+      
+  
+  
+  
+      
+        <td>khaefeli</td>
+      
+  
+  
+  
+      
+        <td>Rename service_update to swarm_update for consistency</td>
+      
+  
+  
+  
+      
+        <td>Same here - we're only running skeleton crew over the holidays.
+
+Guten Rutsch!</td>
+      
+  
+  
+  
+      
+        <td>DavidS</td>
+      
+  
+  
+  
+      
+        <td>0</td>
+      
+  
+  
+  
+      
+        <td>3</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-docker'>puppetlabs-docker</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-docker/pull/517'>517</a></td>
+  
+  
+  
+      
+        <td>131</td>
+      
+  
+  
+  
+      
+        <td>vchepkov</td>
+      
+  
+  
+  
+      
+        <td>(MODULES-9696) remove docker_home_dirs fact</td>
+      
+  
+  
+  
+      
+        <td>@vchepkov Sorry it took a little while to get back to you. I think I see a little bit better now how you have that parameter set up, so that part looks good. Any progress on writing tests?</td>
+      
+  
+  
+  
+      
+        <td>RandomNoun7</td>
+      
+  
+  
+  
+      
+        <td>111</td>
+      
+  
+  
+  
+      
+        <td>4</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-docker'>puppetlabs-docker</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-docker/pull/554'>554</a></td>
+  
+  
+  
+      
+        <td>27</td>
+      
+  
+  
+  
+      
+        <td>khaefeli</td>
+      
+  
+  
+  
+      
+        <td>Add Docker service (create, remote, scale) tasks</td>
+      
+  
+  
+  
+      
+        <td># [Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-docker/pull/554?src=pr&el=h1) Report
 > :exclamation: No coverage uploaded for pull request base (`master@7748f7f`). [Click here to learn what that means](https://docs.codecov.io/docs/error-reference#section-missing-base-commit).
 > The diff coverage is `n/a`.
 
@@ -302,228 +991,368 @@ Cheers!</td>
 
 [Continue to review full report at Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-docker/pull/554?src=pr&el=continue).
 > **Legend** - [Click here to learn more](https://docs.codecov.io/docs/codecov-delta)
-> `Δ = absolute <relative> (impact)`, `ø = not affected`, `? = missing data`
+> `Δ = absolute  (impact)`, `ø = not affected`, `? = missing data`
 > Powered by [Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-docker/pull/554?src=pr&el=footer). Last update [7748f7f...8202da8](https://codecov.io/gh/puppetlabs/puppetlabs-docker/pull/554?src=pr&el=lastupdated). Read the [comment docs](https://docs.codecov.io/docs/pull-request-comments).
 </td>
-<td>codecov-io</td>
-<td>4</td>
-<td>3</td>
-<td>false</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-docker</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-docker/pull/546'>546</a></td>
-<td>43</td>
-<td>khaefeli</td>
-<td>Rename service_update to swarm_update for consistency</td>
-<td>Thanks @khaefeli for submitting the PR.
-Could you please add the deprecation warning to the old task so the current users will be automatically redirected to the renamed task. Thank you.</td>
-<td>sheenaajay</td>
-<td>7</td>
-<td>1</td>
-<td>false</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-docker</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-docker/pull/522'>522</a></td>
-<td>112</td>
-<td>davejrt</td>
-<td>(WIP) updating compose type/provider to restart services </td>
-<td>Tests to come</td>
-<td>davejrt</td>
-<td>112</td>
-<td>1</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-docker</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-docker/pull/477'>477</a></td>
-<td>235</td>
-<td>esalberg <span class='label label-primary'>vox</span></td>
-<td>Allow bypassing curl package ensure if needed</td>
-<td>Hello @esalberg ,
+      
+  
+  
+  
+      
+        <td>codecov-io</td>
+      
+  
+  
+  
+      
+        <td>5</td>
+      
+  
+  
+  
+      
+        <td>3</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
 
-Please let us know if you're still working on this PR and if we can help you! Thanks!
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-docker'>puppetlabs-docker</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-docker/pull/307'>307</a></td>
+  
+  
+  
+      
+        <td>498</td>
+      
+  
+  
+  
+      
+        <td>hesco</td>
+      
+  
+  
+  
+      
+        <td>RFC: WIP: Feature/gh296 play well with firewall</td>
+      
+  
+  
+  
+      
+        <td></td>
+      
+  
+  
+  
+      
+        <td></td>
+      
+  
+  
+  
+      
+        <td>0</td>
+      
+  
+  
+  
+      
+        <td>0</td>
+      
+  
+  
+  
+      
+        <td>true</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-facter_task'>puppetlabs-facter_task</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-facter_task/pull/99'>99</a></td>
+  
+  
+  
+      
+        <td>34</td>
+      
+  
+  
+  
+      
+        <td>glennsarti <span class='label label-warning'>puppet</span></td>
+      
+  
+  
+  
+      
+        <td>(maint) MODULES-10104 - Update PDK Templates to faf9e8b and disable forge deploy</td>
+      
+  
+  
+  
+      
+        <td>Ref - MODULES-10104</td>
+      
+  
+  
+  
+      
+        <td>glennsarti</td>
+      
+  
+  
+  
+      
+        <td>34</td>
+      
+  
+  
+  
+      
+        <td>1</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-firewall'>puppetlabs-firewall</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-firewall/pull/877'>877</a></td>
+  
+  
+  
+      
+        <td>30</td>
+      
+  
+  
+  
+      
+        <td>atarax</td>
+      
+  
+  
+  
+      
+        <td>(MODULES-10113) add option to ignore chains</td>
+      
+  
+  
+  
+      
+        <td>@sheenaajay this is currently a work-in-progress, i hope i will find time to work on this soon</td>
+      
+  
+  
+  
+      
+        <td>atarax</td>
+      
+  
+  
+  
+      
+        <td>2</td>
+      
+  
+  
+  
+      
+        <td>2</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>true</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-firewall'>puppetlabs-firewall</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-firewall/pull/830'>830</a></td>
+  
+  
+  
+      
+        <td>266</td>
+      
+  
+  
+  
+      
+        <td>raphink <span class='label label-warning'>puppet</span> <span class='label label-primary'>vox</span></td>
+      
+  
+  
+  
+      
+        <td>Support ctdir</td>
+      
+  
+  
+  
+      
+        <td>Hello @raphink ,
+
+Thank you for this contribution. It looks good, but the existing acceptance tests (firewall_attributes_happy_path_spec.rb) are failing on multiple platforms:
+redhat5, redhat6, redhat7, centos6, oracle6, scientific6
+ 
+![Screenshot 2019-11-28 at 11 26 23](https://user-images.githubusercontent.com/42546087/69793873-ee2d3a80-11d1-11ea-8e5c-26154c5fc47e.png)
+
+
 
 Cheers!</td>
-<td>lionce</td>
-<td>39</td>
-<td>6</td>
-<td>false</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-docker</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-docker/pull/307'>307</a></td>
-<td>497</td>
-<td>hesco</td>
-<td>RFC: WIP: Feature/gh296 play well with firewall</td>
-<td></td>
-<td></td>
-<td>0</td>
-<td>0</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-docker</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-docker/pull/460'>460</a></td>
-<td>273</td>
-<td>SmithJosh</td>
-<td>WIP: Allow use of .env configuration file when running docker-compose</td>
-<td></td>
-<td></td>
-<td>0</td>
-<td>0</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-docker</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-docker/pull/517'>517</a></td>
-<td>130</td>
-<td>vchepkov</td>
-<td>(MODULES-9696) remove docker_home_dirs fact</td>
-<td>@vchepkov Sorry it took a little while to get back to you. I think I see a little bit better now how you have that parameter set up, so that part looks good. Any progress on writing tests?</td>
-<td>RandomNoun7</td>
-<td>110</td>
-<td>4</td>
-<td>false</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-dsc</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-dsc/pull/422'>422</a></td>
-<td>123</td>
-<td>RandomNoun7 <span class='label label-warning'>puppet</span></td>
-<td>(FM-8179) Set up CI with Azure Pipelines</td>
-<td></td>
-<td></td>
-<td>0</td>
-<td>0</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-dsc_lite</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-dsc_lite/pull/140'>140</a></td>
-<td>0</td>
-<td>DavidS <span class='label label-warning'>puppet</span></td>
-<td>pdksync - (maint) travis updates: bundler and slack</td>
-<td># [Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-dsc_lite/pull/140?src=pr&el=h1) Report
-> Merging [#140](https://codecov.io/gh/puppetlabs/puppetlabs-dsc_lite/pull/140?src=pr&el=desc) into [master](https://codecov.io/gh/puppetlabs/puppetlabs-dsc_lite/commit/d8948ac91d1c94804bbd63b0244d4638ffa35cfe?src=pr&el=desc) will **decrease** coverage by `5.28%`.
-> The diff coverage is `n/a`.
+      
+  
+  
+  
+      
+        <td>lionce</td>
+      
+  
+  
+  
+      
+        <td>20</td>
+      
+  
+  
+  
+      
+        <td>6</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>true</td>
+      
+  
+  
+  </tr>
 
-[![Impacted file tree graph](https://codecov.io/gh/puppetlabs/puppetlabs-dsc_lite/pull/140/graphs/tree.svg?width=650&token=OrCO2HSzZ0&height=150&src=pr)](https://codecov.io/gh/puppetlabs/puppetlabs-dsc_lite/pull/140?src=pr&el=tree)
-
-```diff
-@@            Coverage Diff             @@
-##           master     #140      +/-   ##
-==========================================
-- Coverage   56.72%   51.43%   -5.29%     
-==========================================
-  Files           7        7              
-  Lines         275      278       +3     
-==========================================
-- Hits          156      143      -13     
-- Misses        119      135      +16
-```
-
-
-| [Impacted Files](https://codecov.io/gh/puppetlabs/puppetlabs-dsc_lite/pull/140?src=pr&el=tree) | Coverage Δ | |
-|---|---|---|
-| [lib/facter/powershell\_version.rb](https://codecov.io/gh/puppetlabs/puppetlabs-dsc_lite/pull/140/diff?src=pr&el=tree#diff-bGliL2ZhY3Rlci9wb3dlcnNoZWxsX3ZlcnNpb24ucmI=) | `0% <0%> (-100%)` | :arrow_down: |
-| [lib/puppet/feature/dsc\_lite.rb](https://codecov.io/gh/puppetlabs/puppetlabs-dsc_lite/pull/140/diff?src=pr&el=tree#diff-bGliL3B1cHBldC9mZWF0dXJlL2RzY19saXRlLnJi) | `20% <0%> (-50%)` | :arrow_down: |
-| [lib/puppet/provider/base\_dsc\_lite/powershell.rb](https://codecov.io/gh/puppetlabs/puppetlabs-dsc_lite/pull/140/diff?src=pr&el=tree#diff-bGliL3B1cHBldC9wcm92aWRlci9iYXNlX2RzY19saXRlL3Bvd2Vyc2hlbGwucmI=) | `32.14% <0%> (-2.39%)` | :arrow_down: |
-
-------
-
-[Continue to review full report at Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-dsc_lite/pull/140?src=pr&el=continue).
-> **Legend** - [Click here to learn more](https://docs.codecov.io/docs/codecov-delta)
-> `Δ = absolute <relative> (impact)`, `ø = not affected`, `? = missing data`
-> Powered by [Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-dsc_lite/pull/140?src=pr&el=footer). Last update [d8948ac...cae0d44](https://codecov.io/gh/puppetlabs/puppetlabs-dsc_lite/pull/140?src=pr&el=lastupdated). Read the [comment docs](https://docs.codecov.io/docs/pull-request-comments).
-</td>
-<td>codecov-io</td>
-<td>0</td>
-<td>1</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-exec</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-exec/pull/107'>107</a></td>
-<td>0</td>
-<td>DavidS <span class='label label-warning'>puppet</span></td>
-<td>pdksync - (maint) travis updates: bundler and slack</td>
-<td></td>
-<td></td>
-<td>0</td>
-<td>0</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-facter_task</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-facter_task/pull/103'>103</a></td>
-<td>0</td>
-<td>DavidS <span class='label label-warning'>puppet</span></td>
-<td>pdksync - (maint) travis updates: bundler and slack</td>
-<td></td>
-<td></td>
-<td>0</td>
-<td>0</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-facter_task</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-facter_task/pull/99'>99</a></td>
-<td>33</td>
-<td>glennsarti <span class='label label-warning'>puppet</span></td>
-<td>(maint) MODULES-10104 - Update PDK Templates to faf9e8b and disable forge deploy</td>
-<td>Ref - MODULES-10104</td>
-<td>glennsarti</td>
-<td>33</td>
-<td>1</td>
-<td>false</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-firewall</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-firewall/pull/883'>883</a></td>
-<td>0</td>
-<td>DavidS <span class='label label-warning'>puppet</span></td>
-<td>pdksync - (maint) travis updates: bundler and slack</td>
-<td></td>
-<td></td>
-<td>0</td>
-<td>0</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-firewall</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-firewall/pull/877'>877</a></td>
-<td>29</td>
-<td>atarax</td>
-<td>(MODULES-10113) add option to ignore chains</td>
-<td>@sheenaajay this is currently a work-in-progress, i hope i will find time to work on this soon</td>
-<td>atarax</td>
-<td>1</td>
-<td>2</td>
-<td>false</td>
-<td>true</td>
-</tr>
-<tr>
-<td>puppetlabs-firewall</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-firewall/pull/872'>872</a></td>
-<td>39</td>
-<td>haught</td>
-<td>Support conntrack module</td>
-<td>I can get ctorigdst/ctorigdstport et al. working by adding whitespace to the end of the include? comparison in the module argument mapping. There _should_ be a space after every iptables argument it is matching, and it makes it unique. It is not very elegant... is there a better way? It would apply to every module.
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-firewall'>puppetlabs-firewall</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-firewall/pull/872'>872</a></td>
+  
+  
+  
+      
+        <td>40</td>
+      
+  
+  
+  
+      
+        <td>haught</td>
+      
+  
+  
+  
+      
+        <td>Support conntrack module</td>
+      
+  
+  
+  
+      
+        <td>I can get ctorigdst/ctorigdstport et al. working by adding whitespace to the end of the include? comparison in the module argument mapping. There _should_ be a space after every iptables argument it is matching, and it makes it unique. It is not very elegant... is there a better way? It would apply to every module.
 
 ```diff
 diff --git a/lib/puppet/provider/firewall/iptables.rb b/lib/puppet/provider/firewall/iptables.rb
@@ -542,83 +1371,146 @@ index c1cba9d..98716f8 100644
 ```
 
 </td>
-<td>haught</td>
-<td>34</td>
-<td>2</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-firewall</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-firewall/pull/830'>830</a></td>
-<td>265</td>
-<td>raphink <span class='label label-warning'>puppet</span> <span class='label label-primary'>vox</span></td>
-<td>Support ctdir</td>
-<td>Hello @raphink ,
+      
+  
+  
+  
+      
+        <td>haught</td>
+      
+  
+  
+  
+      
+        <td>35</td>
+      
+  
+  
+  
+      
+        <td>2</td>
+      
+  
+  
+  
+      
+        <td>true</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
 
-Thank you for this contribution. It looks good, but the existing acceptance tests (firewall_attributes_happy_path_spec.rb) are failing on multiple platforms:
-redhat5, redhat6, redhat7, centos6, oracle6, scientific6
- 
-![Screenshot 2019-11-28 at 11 26 23](https://user-images.githubusercontent.com/42546087/69793873-ee2d3a80-11d1-11ea-8e5c-26154c5fc47e.png)
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-haproxy'>puppetlabs-haproxy</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-haproxy/pull/385'>385</a></td>
+  
+  
+  
+      
+        <td>81</td>
+      
+  
+  
+  
+      
+        <td>kasimon</td>
+      
+  
+  
+  
+      
+        <td>Make haproxy.cfg comment a proper sentence</td>
+      
+  
+  
+  
+      
+        <td></td>
+      
+  
+  
+  
+      
+        <td></td>
+      
+  
+  
+  
+      
+        <td>0</td>
+      
+  
+  
+  
+      
+        <td>0</td>
+      
+  
+  
+  
+      
+        <td>true</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
 
-
-
-Cheers!</td>
-<td>lionce</td>
-<td>19</td>
-<td>6</td>
-<td>false</td>
-<td>true</td>
-</tr>
-<tr>
-<td>puppetlabs-haproxy</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-haproxy/pull/403'>403</a></td>
-<td>0</td>
-<td>DavidS <span class='label label-warning'>puppet</span></td>
-<td>pdksync - (maint) travis updates: bundler and slack</td>
-<td># [Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-haproxy/pull/403?src=pr&el=h1) Report
-> :exclamation: No coverage uploaded for pull request base (`master@364be83`). [Click here to learn what that means](https://docs.codecov.io/docs/error-reference#section-missing-base-commit).
-> The diff coverage is `n/a`.
-
-[![Impacted file tree graph](https://codecov.io/gh/puppetlabs/puppetlabs-haproxy/pull/403/graphs/tree.svg?width=650&token=VUKIUs8OFa&height=150&src=pr)](https://codecov.io/gh/puppetlabs/puppetlabs-haproxy/pull/403?src=pr&el=tree)
-
-```diff
-@@            Coverage Diff            @@
-##             master     #403   +/-   ##
-=========================================
-  Coverage          ?   16.66%           
-=========================================
-  Files             ?        1           
-  Lines             ?        6           
-  Branches          ?        0           
-=========================================
-  Hits              ?        1           
-  Misses            ?        5           
-  Partials          ?        0
-```
-
-
-
-------
-
-[Continue to review full report at Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-haproxy/pull/403?src=pr&el=continue).
-> **Legend** - [Click here to learn more](https://docs.codecov.io/docs/codecov-delta)
-> `Δ = absolute <relative> (impact)`, `ø = not affected`, `? = missing data`
-> Powered by [Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-haproxy/pull/403?src=pr&el=footer). Last update [364be83...2e500ed](https://codecov.io/gh/puppetlabs/puppetlabs-haproxy/pull/403?src=pr&el=lastupdated). Read the [comment docs](https://docs.codecov.io/docs/pull-request-comments).
-</td>
-<td>codecov-io</td>
-<td>0</td>
-<td>1</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-haproxy</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-haproxy/pull/402'>402</a></td>
-<td>3</td>
-<td>bastelfreak <span class='label label-primary'>vox</span></td>
-<td>add Archlinux compatiblity</td>
-<td># [Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-haproxy/pull/402?src=pr&el=h1) Report
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-haproxy'>puppetlabs-haproxy</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-haproxy/pull/402'>402</a></td>
+  
+  
+  
+      
+        <td>4</td>
+      
+  
+  
+  
+      
+        <td>bastelfreak <span class='label label-primary'>vox</span></td>
+      
+  
+  
+  
+      
+        <td>add Archlinux compatiblity</td>
+      
+  
+  
+  
+      
+        <td># [Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-haproxy/pull/402?src=pr&el=h1) Report
 > :exclamation: No coverage uploaded for pull request base (`master@364be83`). [Click here to learn what that means](https://docs.codecov.io/docs/error-reference#section-missing-base-commit).
 > The diff coverage is `n/a`.
 
@@ -645,177 +1537,153 @@ Cheers!</td>
 
 [Continue to review full report at Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-haproxy/pull/402?src=pr&el=continue).
 > **Legend** - [Click here to learn more](https://docs.codecov.io/docs/codecov-delta)
-> `Δ = absolute <relative> (impact)`, `ø = not affected`, `? = missing data`
+> `Δ = absolute  (impact)`, `ø = not affected`, `? = missing data`
 > Powered by [Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-haproxy/pull/402?src=pr&el=footer). Last update [364be83...e385a96](https://codecov.io/gh/puppetlabs/puppetlabs-haproxy/pull/402?src=pr&el=lastupdated). Read the [comment docs](https://docs.codecov.io/docs/pull-request-comments).
 </td>
-<td>codecov-io</td>
-<td>3</td>
-<td>1</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-haproxy</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-haproxy/pull/348'>348</a></td>
-<td>321</td>
-<td>surprisingb</td>
-<td>Modify check on standard instance</td>
-<td>Hello @surprisingb ,
+      
+  
+  
+  
+      
+        <td>codecov-io</td>
+      
+  
+  
+  
+      
+        <td>4</td>
+      
+  
+  
+  
+      
+        <td>1</td>
+      
+  
+  
+  
+      
+        <td>true</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-haproxy'>puppetlabs-haproxy</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-haproxy/pull/348'>348</a></td>
+  
+  
+  
+      
+        <td>322</td>
+      
+  
+  
+  
+      
+        <td>surprisingb</td>
+      
+  
+  
+  
+      
+        <td>Modify check on standard instance</td>
+      
+  
+  
+  
+      
+        <td>Hello @surprisingb ,
 
 Please let us know if you're still working on this PR! If you need any help don't hesitate to ask. Thanks!
 
 Cheers!</td>
-<td>lionce</td>
-<td>39</td>
-<td>9</td>
-<td>false</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-haproxy</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-haproxy/pull/385'>385</a></td>
-<td>80</td>
-<td>kasimon</td>
-<td>Make haproxy.cfg comment a proper sentence</td>
-<td></td>
-<td></td>
-<td>0</td>
-<td>0</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-helm</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-helm/pull/103'>103</a></td>
-<td>0</td>
-<td>DavidS <span class='label label-warning'>puppet</span></td>
-<td>pdksync - (maint) travis updates: bundler and slack</td>
-<td># [Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-helm/pull/103?src=pr&el=h1) Report
-> Merging [#103](https://codecov.io/gh/puppetlabs/puppetlabs-helm/pull/103?src=pr&el=desc) into [master](https://codecov.io/gh/puppetlabs/puppetlabs-helm/commit/a53ae42510d9d16b15790c0091bd1f58f7b85822?src=pr&el=desc) will **not change** coverage.
-> The diff coverage is `n/a`.
+      
+  
+  
+  
+      
+        <td>lionce</td>
+      
+  
+  
+  
+      
+        <td>40</td>
+      
+  
+  
+  
+      
+        <td>9</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
 
-[![Impacted file tree graph](https://codecov.io/gh/puppetlabs/puppetlabs-helm/pull/103/graphs/tree.svg?width=650&token=ORehw7OevE&height=150&src=pr)](https://codecov.io/gh/puppetlabs/puppetlabs-helm/pull/103?src=pr&el=tree)
-
-```diff
-@@          Coverage Diff          @@
-##           master   #103   +/-   ##
-=====================================
-  Coverage       0%     0%           
-=====================================
-  Files          10     10           
-  Lines         259    259           
-=====================================
-  Misses        259    259
-```
-
-
-
-------
-
-[Continue to review full report at Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-helm/pull/103?src=pr&el=continue).
-> **Legend** - [Click here to learn more](https://docs.codecov.io/docs/codecov-delta)
-> `Δ = absolute <relative> (impact)`, `ø = not affected`, `? = missing data`
-> Powered by [Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-helm/pull/103?src=pr&el=footer). Last update [a53ae42...a51ea9e](https://codecov.io/gh/puppetlabs/puppetlabs-helm/pull/103?src=pr&el=lastupdated). Read the [comment docs](https://docs.codecov.io/docs/pull-request-comments).
-</td>
-<td>codecov-io</td>
-<td>0</td>
-<td>1</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-ibm_installation_manager</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-ibm_installation_manager/pull/140'>140</a></td>
-<td>0</td>
-<td>DavidS <span class='label label-warning'>puppet</span></td>
-<td>pdksync - (maint) travis updates: bundler and slack</td>
-<td># [Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-ibm_installation_manager/pull/140?src=pr&el=h1) Report
-> :exclamation: No coverage uploaded for pull request base (`master@86efa7d`). [Click here to learn what that means](https://docs.codecov.io/docs/error-reference#section-missing-base-commit).
-> The diff coverage is `n/a`.
-
-[![Impacted file tree graph](https://codecov.io/gh/puppetlabs/puppetlabs-ibm_installation_manager/pull/140/graphs/tree.svg?width=650&token=px86S0fnoG&height=150&src=pr)](https://codecov.io/gh/puppetlabs/puppetlabs-ibm_installation_manager/pull/140?src=pr&el=tree)
-
-```diff
-@@            Coverage Diff            @@
-##             master     #140   +/-   ##
-=========================================
-  Coverage          ?   44.23%           
-=========================================
-  Files             ?        2           
-  Lines             ?      208           
-  Branches          ?        0           
-=========================================
-  Hits              ?       92           
-  Misses            ?      116           
-  Partials          ?        0
-```
-
-
-
-------
-
-[Continue to review full report at Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-ibm_installation_manager/pull/140?src=pr&el=continue).
-> **Legend** - [Click here to learn more](https://docs.codecov.io/docs/codecov-delta)
-> `Δ = absolute <relative> (impact)`, `ø = not affected`, `? = missing data`
-> Powered by [Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-ibm_installation_manager/pull/140?src=pr&el=footer). Last update [86efa7d...9c3714d](https://codecov.io/gh/puppetlabs/puppetlabs-ibm_installation_manager/pull/140?src=pr&el=lastupdated). Read the [comment docs](https://docs.codecov.io/docs/pull-request-comments).
-</td>
-<td>codecov-io</td>
-<td>0</td>
-<td>1</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-iis</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-iis/pull/251'>251</a></td>
-<td>0</td>
-<td>DavidS <span class='label label-warning'>puppet</span></td>
-<td>pdksync - (maint) travis updates: bundler and slack</td>
-<td># [Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-iis/pull/251?src=pr&el=h1) Report
-> Merging [#251](https://codecov.io/gh/puppetlabs/puppetlabs-iis/pull/251?src=pr&el=desc) into [master](https://codecov.io/gh/puppetlabs/puppetlabs-iis/commit/f2fcc4f2fa4c4d43a9b75e44ba89dd599811a97c?src=pr&el=desc) will **increase** coverage by `0.13%`.
-> The diff coverage is `n/a`.
-
-[![Impacted file tree graph](https://codecov.io/gh/puppetlabs/puppetlabs-iis/pull/251/graphs/tree.svg?width=650&token=EZt9SxJXmM&height=150&src=pr)](https://codecov.io/gh/puppetlabs/puppetlabs-iis/pull/251?src=pr&el=tree)
-
-```diff
-@@            Coverage Diff             @@
-##           master     #251      +/-   ##
-==========================================
-+ Coverage   60.56%   60.69%   +0.13%     
-==========================================
-  Files          28       28              
-  Lines        1529     1529              
-==========================================
-+ Hits          926      928       +2     
-+ Misses        603      601       -2
-```
-
-
-| [Impacted Files](https://codecov.io/gh/puppetlabs/puppetlabs-iis/pull/251?src=pr&el=tree) | Coverage Δ | |
-|---|---|---|
-| [lib/puppet\_x/puppetlabs/iis/iis\_version.rb](https://codecov.io/gh/puppetlabs/puppetlabs-iis/pull/251/diff?src=pr&el=tree#diff-bGliL3B1cHBldF94L3B1cHBldGxhYnMvaWlzL2lpc192ZXJzaW9uLnJi) | `100% <0%> (+3.33%)` | :arrow_up: |
-| [lib/puppet\_x/puppetlabs/iis/powershell\_common.rb](https://codecov.io/gh/puppetlabs/puppetlabs-iis/pull/251/diff?src=pr&el=tree#diff-bGliL3B1cHBldF94L3B1cHBldGxhYnMvaWlzL3Bvd2Vyc2hlbGxfY29tbW9uLnJi) | `100% <0%> (+6.66%)` | :arrow_up: |
-
-------
-
-[Continue to review full report at Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-iis/pull/251?src=pr&el=continue).
-> **Legend** - [Click here to learn more](https://docs.codecov.io/docs/codecov-delta)
-> `Δ = absolute <relative> (impact)`, `ø = not affected`, `? = missing data`
-> Powered by [Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-iis/pull/251?src=pr&el=footer). Last update [f2fcc4f...cdf9c0b](https://codecov.io/gh/puppetlabs/puppetlabs-iis/pull/251?src=pr&el=lastupdated). Read the [comment docs](https://docs.codecov.io/docs/pull-request-comments).
-</td>
-<td>codecov-io</td>
-<td>0</td>
-<td>1</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-iis</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-iis/pull/249'>249</a></td>
-<td>7</td>
-<td>florindragos <span class='label label-warning'>puppet</span></td>
-<td>(FM-8195) Convert to Litmus</td>
-<td># [Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-iis/pull/249?src=pr&el=h1) Report
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-iis'>puppetlabs-iis</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-iis/pull/249'>249</a></td>
+  
+  
+  
+      
+        <td>8</td>
+      
+  
+  
+  
+      
+        <td>florindragos <span class='label label-warning'>puppet</span></td>
+      
+  
+  
+  
+      
+        <td>(FM-8195) Convert to Litmus</td>
+      
+  
+  
+  
+      
+        <td># [Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-iis/pull/249?src=pr&el=h1) Report
 > Merging [#249](https://codecov.io/gh/puppetlabs/puppetlabs-iis/pull/249?src=pr&el=desc) into [master](https://codecov.io/gh/puppetlabs/puppetlabs-iis/commit/7835dd53b9a71d6c57265358cd5a06c3fe3d4f35?src=pr&el=desc) will **increase** coverage by `0.13%`.
 > The diff coverage is `n/a`.
 
@@ -837,457 +1705,1882 @@ Cheers!</td>
 
 | [Impacted Files](https://codecov.io/gh/puppetlabs/puppetlabs-iis/pull/249?src=pr&el=tree) | Coverage Δ | |
 |---|---|---|
-| [lib/puppet\_x/puppetlabs/iis/iis\_version.rb](https://codecov.io/gh/puppetlabs/puppetlabs-iis/pull/249/diff?src=pr&el=tree#diff-bGliL3B1cHBldF94L3B1cHBldGxhYnMvaWlzL2lpc192ZXJzaW9uLnJi) | `100% <0%> (+3.33%)` | :arrow_up: |
-| [lib/puppet\_x/puppetlabs/iis/powershell\_common.rb](https://codecov.io/gh/puppetlabs/puppetlabs-iis/pull/249/diff?src=pr&el=tree#diff-bGliL3B1cHBldF94L3B1cHBldGxhYnMvaWlzL3Bvd2Vyc2hlbGxfY29tbW9uLnJi) | `100% <0%> (+6.66%)` | :arrow_up: |
+| [lib/puppet\_x/puppetlabs/iis/iis\_version.rb](https://codecov.io/gh/puppetlabs/puppetlabs-iis/pull/249/diff?src=pr&el=tree#diff-bGliL3B1cHBldF94L3B1cHBldGxhYnMvaWlzL2lpc192ZXJzaW9uLnJi) | `100%  (+3.33%)` | :arrow_up: |
+| [lib/puppet\_x/puppetlabs/iis/powershell\_common.rb](https://codecov.io/gh/puppetlabs/puppetlabs-iis/pull/249/diff?src=pr&el=tree#diff-bGliL3B1cHBldF94L3B1cHBldGxhYnMvaWlzL3Bvd2Vyc2hlbGxfY29tbW9uLnJi) | `100%  (+6.66%)` | :arrow_up: |
 
 ------
 
 [Continue to review full report at Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-iis/pull/249?src=pr&el=continue).
 > **Legend** - [Click here to learn more](https://docs.codecov.io/docs/codecov-delta)
-> `Δ = absolute <relative> (impact)`, `ø = not affected`, `? = missing data`
+> `Δ = absolute  (impact)`, `ø = not affected`, `? = missing data`
 > Powered by [Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-iis/pull/249?src=pr&el=footer). Last update [7835dd5...5eb1189](https://codecov.io/gh/puppetlabs/puppetlabs-iis/pull/249?src=pr&el=lastupdated). Read the [comment docs](https://docs.codecov.io/docs/pull-request-comments).
 </td>
-<td>codecov-io</td>
-<td>7</td>
-<td>1</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-iis</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-iis/pull/233'>233</a></td>
-<td>140</td>
-<td>RandomNoun7 <span class='label label-warning'>puppet</span></td>
-<td>(FM-8179) Test Azure Devops Pipeliens</td>
-<td></td>
-<td></td>
-<td>0</td>
-<td>0</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-iis</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-iis/pull/219'>219</a></td>
-<td>243</td>
-<td>ThoughtCrhyme</td>
-<td>WIP(MODULES-8955) add type and provider for webhandler</td>
-<td></td>
-<td></td>
-<td>0</td>
-<td>0</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-iis</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-iis/pull/215'>215</a></td>
-<td>243</td>
-<td>ThoughtCrhyme</td>
-<td>WIP(MODULES-8951) Add type and provider for iis_httperror</td>
-<td></td>
-<td></td>
-<td>0</td>
-<td>0</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-iis</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-iis/pull/217'>217</a></td>
-<td>243</td>
-<td>ThoughtCrhyme</td>
-<td>WIP(MODULES-8953) add type and provider for mimetype</td>
-<td></td>
-<td></td>
-<td>0</td>
-<td>0</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-iis</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-iis/pull/218'>218</a></td>
-<td>243</td>
-<td>ThoughtCrhyme</td>
-<td>WIP(MODULES-8954) add type and provider for webconfigurationproperty</td>
-<td></td>
-<td></td>
-<td>0</td>
-<td>0</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-iis</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-iis/pull/216'>216</a></td>
-<td>243</td>
-<td>ThoughtCrhyme</td>
-<td>WIP(MODULES-8952) add isapfilter type and provider</td>
-<td></td>
-<td></td>
-<td>0</td>
-<td>0</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-iis</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-iis/pull/247'>247</a></td>
-<td>10</td>
-<td>david22swan <span class='label label-warning'>puppet</span></td>
-<td>(WIP) (FM 8426) - Replace Library Code</td>
-<td>Waiting on litmusify</td>
-<td>david22swan</td>
-<td>7</td>
-<td>2</td>
-<td>false</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-iis</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-iis/pull/226'>226</a></td>
-<td>164</td>
-<td>lmayala</td>
-<td>MODULES-9492. Patching 'exist ?' method before trying to create VD</td>
-<td>Hello @lmayala ,
+      
+  
+  
+  
+      
+        <td>codecov-io</td>
+      
+  
+  
+  
+      
+        <td>8</td>
+      
+  
+  
+  
+      
+        <td>1</td>
+      
+  
+  
+  
+      
+        <td>true</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-iis'>puppetlabs-iis</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-iis/pull/217'>217</a></td>
+  
+  
+  
+      
+        <td>244</td>
+      
+  
+  
+  
+      
+        <td>ThoughtCrhyme</td>
+      
+  
+  
+  
+      
+        <td>WIP(MODULES-8953) add type and provider for mimetype</td>
+      
+  
+  
+  
+      
+        <td></td>
+      
+  
+  
+  
+      
+        <td></td>
+      
+  
+  
+  
+      
+        <td>0</td>
+      
+  
+  
+  
+      
+        <td>0</td>
+      
+  
+  
+  
+      
+        <td>true</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-iis'>puppetlabs-iis</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-iis/pull/218'>218</a></td>
+  
+  
+  
+      
+        <td>244</td>
+      
+  
+  
+  
+      
+        <td>ThoughtCrhyme</td>
+      
+  
+  
+  
+      
+        <td>WIP(MODULES-8954) add type and provider for webconfigurationproperty</td>
+      
+  
+  
+  
+      
+        <td></td>
+      
+  
+  
+  
+      
+        <td></td>
+      
+  
+  
+  
+      
+        <td>0</td>
+      
+  
+  
+  
+      
+        <td>0</td>
+      
+  
+  
+  
+      
+        <td>true</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-iis'>puppetlabs-iis</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-iis/pull/226'>226</a></td>
+  
+  
+  
+      
+        <td>165</td>
+      
+  
+  
+  
+      
+        <td>lmayala</td>
+      
+  
+  
+  
+      
+        <td>MODULES-9492. Patching 'exist ?' method before trying to create VD</td>
+      
+  
+  
+  
+      
+        <td>Hello @lmayala ,
 
 As Bill responded in the ticket, please do continue your work on the existing PR as you have time available. Since there is a workaround available it's ok for us to wait for a while for you to finish this code. If you need any help, please let us know. 
 
 Cheers! </td>
-<td>lionce</td>
-<td>147</td>
-<td>4</td>
-<td>false</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-inifile</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-inifile/pull/371'>371</a></td>
-<td>0</td>
-<td>DavidS <span class='label label-warning'>puppet</span></td>
-<td>pdksync - (maint) travis updates: bundler and slack</td>
-<td># [Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-inifile/pull/371?src=pr&el=h1) Report
-> Merging [#371](https://codecov.io/gh/puppetlabs/puppetlabs-inifile/pull/371?src=pr&el=desc) into [master](https://codecov.io/gh/puppetlabs/puppetlabs-inifile/commit/bfb725a77ac82003ea5d18a875ca4ac664bef50c?src=pr&el=desc) will **increase** coverage by `0.16%`.
+      
+  
+  
+  
+      
+        <td>lionce</td>
+      
+  
+  
+  
+      
+        <td>148</td>
+      
+  
+  
+  
+      
+        <td>4</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-iis'>puppetlabs-iis</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-iis/pull/219'>219</a></td>
+  
+  
+  
+      
+        <td>244</td>
+      
+  
+  
+  
+      
+        <td>ThoughtCrhyme</td>
+      
+  
+  
+  
+      
+        <td>WIP(MODULES-8955) add type and provider for webhandler</td>
+      
+  
+  
+  
+      
+        <td></td>
+      
+  
+  
+  
+      
+        <td></td>
+      
+  
+  
+  
+      
+        <td>0</td>
+      
+  
+  
+  
+      
+        <td>0</td>
+      
+  
+  
+  
+      
+        <td>true</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-iis'>puppetlabs-iis</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-iis/pull/215'>215</a></td>
+  
+  
+  
+      
+        <td>244</td>
+      
+  
+  
+  
+      
+        <td>ThoughtCrhyme</td>
+      
+  
+  
+  
+      
+        <td>WIP(MODULES-8951) Add type and provider for iis_httperror</td>
+      
+  
+  
+  
+      
+        <td></td>
+      
+  
+  
+  
+      
+        <td></td>
+      
+  
+  
+  
+      
+        <td>0</td>
+      
+  
+  
+  
+      
+        <td>0</td>
+      
+  
+  
+  
+      
+        <td>true</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-iis'>puppetlabs-iis</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-iis/pull/233'>233</a></td>
+  
+  
+  
+      
+        <td>141</td>
+      
+  
+  
+  
+      
+        <td>RandomNoun7 <span class='label label-warning'>puppet</span></td>
+      
+  
+  
+  
+      
+        <td>(FM-8179) Test Azure Devops Pipeliens</td>
+      
+  
+  
+  
+      
+        <td></td>
+      
+  
+  
+  
+      
+        <td></td>
+      
+  
+  
+  
+      
+        <td>0</td>
+      
+  
+  
+  
+      
+        <td>0</td>
+      
+  
+  
+  
+      
+        <td>true</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-iis'>puppetlabs-iis</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-iis/pull/216'>216</a></td>
+  
+  
+  
+      
+        <td>244</td>
+      
+  
+  
+  
+      
+        <td>ThoughtCrhyme</td>
+      
+  
+  
+  
+      
+        <td>WIP(MODULES-8952) add isapfilter type and provider</td>
+      
+  
+  
+  
+      
+        <td></td>
+      
+  
+  
+  
+      
+        <td></td>
+      
+  
+  
+  
+      
+        <td>0</td>
+      
+  
+  
+  
+      
+        <td>0</td>
+      
+  
+  
+  
+      
+        <td>true</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-iis'>puppetlabs-iis</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-iis/pull/247'>247</a></td>
+  
+  
+  
+      
+        <td>11</td>
+      
+  
+  
+  
+      
+        <td>david22swan <span class='label label-warning'>puppet</span></td>
+      
+  
+  
+  
+      
+        <td>(WIP) (FM 8426) - Replace Library Code</td>
+      
+  
+  
+  
+      
+        <td>Waiting on litmusify</td>
+      
+  
+  
+  
+      
+        <td>david22swan</td>
+      
+  
+  
+  
+      
+        <td>8</td>
+      
+  
+  
+  
+      
+        <td>2</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-java'>puppetlabs-java</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-java/pull/370'>370</a></td>
+  
+  
+  
+      
+        <td>175</td>
+      
+  
+  
+  
+      
+        <td>timdeluxe</td>
+      
+  
+  
+  
+      
+        <td>Support AdoptOpenJDK</td>
+      
+  
+  
+  
+      
+        <td>Thanks, @timdeluxe for submitting the PR. Could you please do the rebase and resolve the conflicts. Thank you.</td>
+      
+  
+  
+  
+      
+        <td>sheenaajay</td>
+      
+  
+  
+  
+      
+        <td>93</td>
+      
+  
+  
+  
+      
+        <td>9</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-kubernetes'>puppetlabs-kubernetes</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-kubernetes/pull/370'>370</a></td>
+  
+  
+  
+      
+        <td>0</td>
+      
+  
+  
+  
+      
+        <td>carabasdaniel <span class='label label-warning'>puppet</span></td>
+      
+  
+  
+  
+      
+        <td>Fix acceptance tests</td>
+      
+  
+  
+  
+      
+        <td># [Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-kubernetes/pull/370?src=pr&el=h1) Report
+> Merging [#370](https://codecov.io/gh/puppetlabs/puppetlabs-kubernetes/pull/370?src=pr&el=desc) into [master](https://codecov.io/gh/puppetlabs/puppetlabs-kubernetes/commit/04589b9cc35a8d6f36db2a1dd6158d5e39c6164c?src=pr&el=desc) will **not change** coverage.
 > The diff coverage is `n/a`.
 
-[![Impacted file tree graph](https://codecov.io/gh/puppetlabs/puppetlabs-inifile/pull/371/graphs/tree.svg?width=650&token=IDdti7QXUa&height=150&src=pr)](https://codecov.io/gh/puppetlabs/puppetlabs-inifile/pull/371?src=pr&el=tree)
+[![Impacted file tree graph](https://codecov.io/gh/puppetlabs/puppetlabs-kubernetes/pull/370/graphs/tree.svg?width=650&token=dwPmb8g1f6&height=150&src=pr)](https://codecov.io/gh/puppetlabs/puppetlabs-kubernetes/pull/370?src=pr&el=tree)
 
 ```diff
-@@            Coverage Diff             @@
-##           master     #371      +/-   ##
-==========================================
-+ Coverage   89.26%   89.42%   +0.16%     
-==========================================
-  Files           9        9              
-  Lines         596      596              
-==========================================
-+ Hits          532      533       +1     
-+ Misses         64       63       -1
+@@          Coverage Diff          @@
+##           master   #370   +/-   ##
+=====================================
+  Coverage       0%     0%           
+=====================================
+  Files           2      2           
+  Lines          44     44           
+=====================================
+  Misses         44     44
 ```
 
 
-| [Impacted Files](https://codecov.io/gh/puppetlabs/puppetlabs-inifile/pull/371?src=pr&el=tree) | Coverage Δ | |
-|---|---|---|
-| [lib/puppet/type/ini\_subsetting.rb](https://codecov.io/gh/puppetlabs/puppetlabs-inifile/pull/371/diff?src=pr&el=tree#diff-bGliL3B1cHBldC90eXBlL2luaV9zdWJzZXR0aW5nLnJi) | `98.52% <0%> (+1.47%)` | :arrow_up: |
 
 ------
 
-[Continue to review full report at Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-inifile/pull/371?src=pr&el=continue).
+[Continue to review full report at Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-kubernetes/pull/370?src=pr&el=continue).
 > **Legend** - [Click here to learn more](https://docs.codecov.io/docs/codecov-delta)
-> `Δ = absolute <relative> (impact)`, `ø = not affected`, `? = missing data`
-> Powered by [Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-inifile/pull/371?src=pr&el=footer). Last update [bfb725a...bd7e828](https://codecov.io/gh/puppetlabs/puppetlabs-inifile/pull/371?src=pr&el=lastupdated). Read the [comment docs](https://docs.codecov.io/docs/pull-request-comments).
+> `Δ = absolute  (impact)`, `ø = not affected`, `? = missing data`
+> Powered by [Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-kubernetes/pull/370?src=pr&el=footer). Last update [04589b9...e2b2673](https://codecov.io/gh/puppetlabs/puppetlabs-kubernetes/pull/370?src=pr&el=lastupdated). Read the [comment docs](https://docs.codecov.io/docs/pull-request-comments).
 </td>
-<td>codecov-io</td>
-<td>0</td>
-<td>1</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-java</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-java/pull/404'>404</a></td>
-<td>0</td>
-<td>DavidS <span class='label label-warning'>puppet</span></td>
-<td>pdksync - (maint) travis updates: bundler and slack</td>
-<td># [Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-java/pull/404?src=pr&el=h1) Report
-> :exclamation: No coverage uploaded for pull request base (`master@6bdf734`). [Click here to learn what that means](https://docs.codecov.io/docs/error-reference#section-missing-base-commit).
-> The diff coverage is `n/a`.
+      
+  
+  
+  
+      
+        <td>codecov-io</td>
+      
+  
+  
+  
+      
+        <td>0</td>
+      
+  
+  
+  
+      
+        <td>1</td>
+      
+  
+  
+  
+      
+        <td>true</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
 
-[![Impacted file tree graph](https://codecov.io/gh/puppetlabs/puppetlabs-java/pull/404/graphs/tree.svg?width=650&token=EWM3Brnrcx&height=150&src=pr)](https://codecov.io/gh/puppetlabs/puppetlabs-java/pull/404?src=pr&el=tree)
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-kubernetes'>puppetlabs-kubernetes</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-kubernetes/pull/312'>312</a></td>
+  
+  
+  
+      
+        <td>187</td>
+      
+  
+  
+  
+      
+        <td>SimonHoenscheid <span class='label label-warning'>puppet</span></td>
+      
+  
+  
+  
+      
+        <td>implement crio support</td>
+      
+  
+  
+  
+      
+        <td>@SimonHoenscheid Looks like kream is working. Could you please check it. Thank you.</td>
+      
+  
+  
+  
+      
+        <td>sheenaajay</td>
+      
+  
+  
+  
+      
+        <td>93</td>
+      
+  
+  
+  
+      
+        <td>6</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>true</td>
+      
+  
+  
+  </tr>
 
-```diff
-@@            Coverage Diff            @@
-##             master     #404   +/-   ##
-=========================================
-  Coverage          ?   73.21%           
-=========================================
-  Files             ?        5           
-  Lines             ?       56           
-  Branches          ?        0           
-=========================================
-  Hits              ?       41           
-  Misses            ?       15           
-  Partials          ?        0
-```
-
-
-
-------
-
-[Continue to review full report at Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-java/pull/404?src=pr&el=continue).
-> **Legend** - [Click here to learn more](https://docs.codecov.io/docs/codecov-delta)
-> `Δ = absolute <relative> (impact)`, `ø = not affected`, `? = missing data`
-> Powered by [Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-java/pull/404?src=pr&el=footer). Last update [6bdf734...2b641fd](https://codecov.io/gh/puppetlabs/puppetlabs-java/pull/404?src=pr&el=lastupdated). Read the [comment docs](https://docs.codecov.io/docs/pull-request-comments).
-</td>
-<td>codecov-io</td>
-<td>0</td>
-<td>1</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-java</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-java/pull/370'>370</a></td>
-<td>174</td>
-<td>timdeluxe</td>
-<td>Support AdoptOpenJDK</td>
-<td>Thanks, @timdeluxe for submitting the PR. Could you please do the rebase and resolve the conflicts. Thank you.</td>
-<td>sheenaajay</td>
-<td>92</td>
-<td>9</td>
-<td>false</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-java_ks</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-java_ks/pull/299'>299</a></td>
-<td>0</td>
-<td>DavidS <span class='label label-warning'>puppet</span></td>
-<td>pdksync - (maint) travis updates: bundler and slack</td>
-<td></td>
-<td></td>
-<td>0</td>
-<td>0</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-kubernetes</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-kubernetes/pull/323'>323</a></td>
-<td>147</td>
-<td>ynnt</td>
-<td>manage etcd client certificates even if etcd is not managed</td>
-<td>@ynnt Thank you.It looks like its showing all the commits from the master after the rebase.
-Could you please do clean rebase and force push. Thank you.</td>
-<td>sheenaajay</td>
-<td>90</td>
-<td>4</td>
-<td>false</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-kubernetes</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-kubernetes/pull/311'>311</a></td>
-<td>187</td>
-<td>zeysh</td>
-<td>Manage kernel modules for proxy_mode IPVS</td>
-<td>@zeysh Thanks for submitting the PR.Apologies for the delay. Could you please incorporate the comments from @SimonHoenscheid .Thank you.</td>
-<td>sheenaajay</td>
-<td>97</td>
-<td>2</td>
-<td>false</td>
-<td>true</td>
-</tr>
-<tr>
-<td>puppetlabs-kubernetes</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-kubernetes/pull/349'>349</a></td>
-<td>55</td>
-<td>scoopex</td>
-<td>improve package installation and dashboard installation</td>
-<td>> Hello @scoopex, you can grab the PR from here #353 and run the acceptance tests locally using Vagrant. In the README.md you will find information on how to do that. It would be really great to get this merged.
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-kubernetes'>puppetlabs-kubernetes</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-kubernetes/pull/349'>349</a></td>
+  
+  
+  
+      
+        <td>56</td>
+      
+  
+  
+  
+      
+        <td>scoopex</td>
+      
+  
+  
+  
+      
+        <td>improve package installation and dashboard installation</td>
+      
+  
+  
+  
+      
+        <td>> Hello @scoopex, you can grab the PR from here #353 and run the acceptance tests locally using Vagrant. In the README.md you will find information on how to do that. It would be really great to get this merged.
 
 Ah thats cool. I never used litmus before probably it is a good thing to add some documentation to this PR informs the user that there are acceptance tests and how to run them.</td>
-<td>scoopex</td>
-<td>18</td>
-<td>9</td>
-<td>false</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-kubernetes</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-kubernetes/pull/312'>312</a></td>
-<td>186</td>
-<td>SimonHoenscheid <span class='label label-warning'>puppet</span></td>
-<td>implement crio support</td>
-<td>@SimonHoenscheid Looks like kream is working. Could you please check it. Thank you.</td>
-<td>sheenaajay</td>
-<td>92</td>
-<td>6</td>
-<td>false</td>
-<td>true</td>
-</tr>
-<tr>
-<td>puppetlabs-kubernetes</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-kubernetes/pull/318'>318</a></td>
-<td>167</td>
-<td>AlexanderSalmin</td>
-<td>Add choice for architecture</td>
-<td>Thank you @AlexanderSalmin for the PR. Could you please resolve the conflicts too. Thank you.</td>
-<td>sheenaajay</td>
-<td>89</td>
-<td>2</td>
-<td>false</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-motd</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-motd/pull/271'>271</a></td>
-<td>5</td>
-<td>dandrzejewski</td>
-<td>FreeBSD compatibility</td>
-<td></td>
-<td></td>
-<td>0</td>
-<td>0</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-motd</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-motd/pull/269'>269</a></td>
-<td>7</td>
-<td>bastelfreak <span class='label label-primary'>vox</span></td>
-<td>Add Archlinux compatibility</td>
-<td></td>
-<td></td>
-<td>0</td>
-<td>0</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-motd</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-motd/pull/237'>237</a></td>
-<td>137</td>
-<td>RandomNoun7 <span class='label label-warning'>puppet</span></td>
-<td>(FM-8179) Set up CI with Azure Pipelines</td>
-<td></td>
-<td></td>
-<td>0</td>
-<td>0</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-motd</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-motd/pull/273'>273</a></td>
-<td>0</td>
-<td>DavidS <span class='label label-warning'>puppet</span></td>
-<td>pdksync - (maint) travis updates: bundler and slack</td>
-<td></td>
-<td></td>
-<td>0</td>
-<td>0</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-mysql</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-mysql/pull/1272'>1272</a></td>
-<td>0</td>
-<td>DavidS <span class='label label-warning'>puppet</span></td>
-<td>pdksync - (maint) travis updates: bundler and slack</td>
-<td></td>
-<td></td>
-<td>0</td>
-<td>0</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-mysql</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-mysql/pull/1166'>1166</a></td>
-<td>283</td>
-<td>albac</td>
-<td>Darwin OS family support</td>
-<td>@albac Apologies for the bother but I was wondering if you intended to do any further work on this pr?</td>
-<td>david22swan</td>
-<td>47</td>
-<td>3</td>
-<td>false</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-mysql</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-mysql/pull/1196'>1196</a></td>
-<td>213</td>
-<td>Spuffnduff</td>
-<td>Allow backupcompress for xtrabackup profile</td>
-<td>Looking at the current .travis.yml file in my branch, it passes expect for Puppet v.4 which shouldn't matter. The current travis tests don't have that incorporated anymore (looking at the current master branch).</td>
-<td>Spuffnduff</td>
-<td>6</td>
-<td>5</td>
-<td>false</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-mysql</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-mysql/pull/1194'>1194</a></td>
-<td>225</td>
-<td>elfranne</td>
-<td>Debian dirs </td>
-<td>Hello @elfranne ,
+      
+  
+  
+  
+      
+        <td>scoopex</td>
+      
+  
+  
+  
+      
+        <td>19</td>
+      
+  
+  
+  
+      
+        <td>9</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
 
-Currently we're using puppet-litmus for running acceptance tests. This replaces beaker as the test runner. To run the acceptance tests follow the instructions from this point [here](https://github.com/puppetlabs/puppet_litmus/wiki/Tutorial:-use-Litmus-to-execute-acceptance-tests-with-a-sample-module-(MoTD)#install-the-necessary-gems-for-the-module).
-Here is a useful documentation on how to add unit tests using[ rspec-puppet](https://puppet.com/blog/unit-testing-rspec-puppet-for-beginners)
-To add new unit tests for that here is an example for [manage_config_file](https://github.com/puppetlabs/puppetlabs-mysql/blob/178327a897a5122618f058d0a1aac2cbfc618324/spec/classes/mysql_server_spec.rb#L24). Another example for[ mysql::server::backup](https://github.com/puppetlabs/puppetlabs-mysql/blob/178327a897a5122618f058d0a1aac2cbfc618324/spec/classes/mysql_server_backup_spec.rb#L3). I hope these examples will help you. If you need help, please contact us! Thanks!
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-kubernetes'>puppetlabs-kubernetes</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-kubernetes/pull/323'>323</a></td>
+  
+  
+  
+      
+        <td>148</td>
+      
+  
+  
+  
+      
+        <td>ynnt</td>
+      
+  
+  
+  
+      
+        <td>manage etcd client certificates even if etcd is not managed</td>
+      
+  
+  
+  
+      
+        <td>@ynnt Thank you.It looks like its showing all the commits from the master after the rebase.
+Could you please do clean rebase and force push. Thank you.</td>
+      
+  
+  
+  
+      
+        <td>sheenaajay</td>
+      
+  
+  
+  
+      
+        <td>91</td>
+      
+  
+  
+  
+      
+        <td>4</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-kubernetes'>puppetlabs-kubernetes</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-kubernetes/pull/311'>311</a></td>
+  
+  
+  
+      
+        <td>188</td>
+      
+  
+  
+  
+      
+        <td>zeysh</td>
+      
+  
+  
+  
+      
+        <td>Manage kernel modules for proxy_mode IPVS</td>
+      
+  
+  
+  
+      
+        <td>@zeysh Thanks for submitting the PR.Apologies for the delay. Could you please incorporate the comments from @SimonHoenscheid .Thank you.</td>
+      
+  
+  
+  
+      
+        <td>sheenaajay</td>
+      
+  
+  
+  
+      
+        <td>98</td>
+      
+  
+  
+  
+      
+        <td>2</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>true</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-kubernetes'>puppetlabs-kubernetes</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-kubernetes/pull/318'>318</a></td>
+  
+  
+  
+      
+        <td>168</td>
+      
+  
+  
+  
+      
+        <td>AlexanderSalmin</td>
+      
+  
+  
+  
+      
+        <td>Add choice for architecture</td>
+      
+  
+  
+  
+      
+        <td>Thank you @AlexanderSalmin for the PR. Could you please resolve the conflicts too. Thank you.</td>
+      
+  
+  
+  
+      
+        <td>sheenaajay</td>
+      
+  
+  
+  
+      
+        <td>90</td>
+      
+  
+  
+  
+      
+        <td>2</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-motd'>puppetlabs-motd</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-motd/pull/269'>269</a></td>
+  
+  
+  
+      
+        <td>8</td>
+      
+  
+  
+  
+      
+        <td>bastelfreak <span class='label label-primary'>vox</span></td>
+      
+  
+  
+  
+      
+        <td>Add Archlinux compatibility</td>
+      
+  
+  
+  
+      
+        <td></td>
+      
+  
+  
+  
+      
+        <td></td>
+      
+  
+  
+  
+      
+        <td>0</td>
+      
+  
+  
+  
+      
+        <td>0</td>
+      
+  
+  
+  
+      
+        <td>true</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-motd'>puppetlabs-motd</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-motd/pull/271'>271</a></td>
+  
+  
+  
+      
+        <td>6</td>
+      
+  
+  
+  
+      
+        <td>dandrzejewski</td>
+      
+  
+  
+  
+      
+        <td>FreeBSD compatibility</td>
+      
+  
+  
+  
+      
+        <td></td>
+      
+  
+  
+  
+      
+        <td></td>
+      
+  
+  
+  
+      
+        <td>0</td>
+      
+  
+  
+  
+      
+        <td>0</td>
+      
+  
+  
+  
+      
+        <td>true</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-motd'>puppetlabs-motd</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-motd/pull/237'>237</a></td>
+  
+  
+  
+      
+        <td>138</td>
+      
+  
+  
+  
+      
+        <td>RandomNoun7 <span class='label label-warning'>puppet</span></td>
+      
+  
+  
+  
+      
+        <td>(FM-8179) Set up CI with Azure Pipelines</td>
+      
+  
+  
+  
+      
+        <td></td>
+      
+  
+  
+  
+      
+        <td></td>
+      
+  
+  
+  
+      
+        <td>0</td>
+      
+  
+  
+  
+      
+        <td>0</td>
+      
+  
+  
+  
+      
+        <td>true</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-mysql'>puppetlabs-mysql</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-mysql/pull/1272'>1272</a></td>
+  
+  
+  
+      
+        <td>1</td>
+      
+  
+  
+  
+      
+        <td>DavidS <span class='label label-warning'>puppet</span></td>
+      
+  
+  
+  
+      
+        <td>pdksync - (maint) travis updates: bundler and slack</td>
+      
+  
+  
+  
+      
+        <td></td>
+      
+  
+  
+  
+      
+        <td></td>
+      
+  
+  
+  
+      
+        <td>0</td>
+      
+  
+  
+  
+      
+        <td>0</td>
+      
+  
+  
+  
+      
+        <td>true</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-mysql'>puppetlabs-mysql</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-mysql/pull/1196'>1196</a></td>
+  
+  
+  
+      
+        <td>214</td>
+      
+  
+  
+  
+      
+        <td>Spuffnduff</td>
+      
+  
+  
+  
+      
+        <td>Allow backupcompress for xtrabackup profile</td>
+      
+  
+  
+  
+      
+        <td>Looking at the current .travis.yml file in my branch, it passes expect for Puppet v.4 which shouldn't matter. The current travis tests don't have that incorporated anymore (looking at the current master branch).</td>
+      
+  
+  
+  
+      
+        <td>Spuffnduff</td>
+      
+  
+  
+  
+      
+        <td>7</td>
+      
+  
+  
+  
+      
+        <td>5</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-mysql'>puppetlabs-mysql</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-mysql/pull/1166'>1166</a></td>
+  
+  
+  
+      
+        <td>284</td>
+      
+  
+  
+  
+      
+        <td>albac</td>
+      
+  
+  
+  
+      
+        <td>Darwin OS family support</td>
+      
+  
+  
+  
+      
+        <td>@albac Apologies for the bother but I was wondering if you intended to do any further work on this pr?</td>
+      
+  
+  
+  
+      
+        <td>david22swan</td>
+      
+  
+  
+  
+      
+        <td>48</td>
+      
+  
+  
+  
+      
+        <td>3</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-mysql'>puppetlabs-mysql</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-mysql/pull/1260'>1260</a></td>
+  
+  
+  
+      
+        <td>19</td>
+      
+  
+  
+  
+      
+        <td>aloosnetmatch</td>
+      
+  
+  
+  
+      
+        <td>create the folder for the logfile, not the logfile itself</td>
+      
+  
+  
+  
+      
+        <td>Thanks @aloosnetmatch for submitting the PR.
+Could you please look into the unit test case failures. Thank you.</td>
+      
+  
+  
+  
+      
+        <td>sheenaajay</td>
+      
+  
+  
+  
+      
+        <td>8</td>
+      
+  
+  
+  
+      
+        <td>1</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-mysql'>puppetlabs-mysql</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-mysql/pull/1244'>1244</a></td>
+  
+  
+  
+      
+        <td>64</td>
+      
+  
+  
+  
+      
+        <td>fraenki</td>
+      
+  
+  
+  
+      
+        <td>(MODULES-10023) expose $incremental_backups parameter</td>
+      
+  
+  
+  
+      
+        <td>Hello @fraenki ,
+
+Thank you for this contribution. It would be possible to add a test under [mysql_backup_xtrabackup_spec](https://github.com/puppetlabs/puppetlabs-mysql/blob/505290677d557f817f604b1aca920945a11e3817/spec/classes/mysql_backup_xtrabackup_spec.rb#L161) to test the new param please? Thanks!
+
+Cheers!</td>
+      
+  
+  
+  
+      
+        <td>lionce</td>
+      
+  
+  
+  
+      
+        <td>36</td>
+      
+  
+  
+  
+      
+        <td>1</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-mysql'>puppetlabs-mysql</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-mysql/pull/1247'>1247</a></td>
+  
+  
+  
+      
+        <td>55</td>
+      
+  
+  
+  
+      
+        <td>alexjfisher <span class='label label-primary'>vox</span></td>
+      
+  
+  
+  
+      
+        <td>WIP: Improvement to mysql::sql task</td>
+      
+  
+  
+  
+      
+        <td>Hi @alexjfisher - appreciate you looking in to it. If it's something that will cause a time sink, then we can probably merge without the tests. Still in a bit of a learning phase at the moment :)</td>
+      
+  
+  
+  
+      
+        <td>cmccrisken-puppet</td>
+      
+  
+  
+  
+      
+        <td>50</td>
+      
+  
+  
+  
+      
+        <td>2</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-mysql'>puppetlabs-mysql</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-mysql/pull/1192'>1192</a></td>
+  
+  
+  
+      
+        <td>230</td>
+      
+  
+  
+  
+      
+        <td>mauricemeyer</td>
+      
+  
+  
+  
+      
+        <td>Enable module to not use default options</td>
+      
+  
+  
+  
+      
+        <td>Hello @mauricemeyer ,
+
+It looks good to me! Thank you!
+@bastelfreak thank you for your great review! :) Please re-check this  
 
 Cheers!
 
+![Screenshot 2019-11-07 at 14 06 09](https://user-images.githubusercontent.com/42546087/68393471-cc153f00-0174-11ea-9bab-36c8c74dddaf.png)
 </td>
-<td>lionce</td>
-<td>35</td>
-<td>5</td>
-<td>false</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-mysql</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-mysql/pull/1260'>1260</a></td>
-<td>18</td>
-<td>aloosnetmatch</td>
-<td>create the folder for the logfile, not the logfile itself</td>
-<td>Thanks @aloosnetmatch for submitting the PR.
-Could you please look into the unit test case failures. Thank you.</td>
-<td>sheenaajay</td>
-<td>7</td>
-<td>1</td>
-<td>false</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-mysql</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-mysql/pull/1269'>1269</a></td>
-<td>6</td>
-<td>baldurmen</td>
-<td>Don't try to install cron packages by default</td>
-<td>Travis CI seems broken, but I'm pretty this PR didn't break it :)
+      
+  
+  
+  
+      
+        <td>lionce</td>
+      
+  
+  
+  
+      
+        <td>40</td>
+      
+  
+  
+  
+      
+        <td>8</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
 
-Happy to rebase on something that works if needed.</td>
-<td>baldurmen</td>
-<td>6</td>
-<td>1</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-mysql</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-mysql/pull/1245'>1245</a></td>
-<td>62</td>
-<td>fraenki</td>
-<td>Fix multiple xtrabackup regressions (+JIRA ticket)</td>
-<td>Hey @fraenki ,
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-mysql'>puppetlabs-mysql</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-mysql/pull/1245'>1245</a></td>
+  
+  
+  
+      
+        <td>62</td>
+      
+  
+  
+  
+      
+        <td>fraenki</td>
+      
+  
+  
+  
+      
+        <td>Fix multiple xtrabackup regressions (+JIRA ticket)</td>
+      
+  
+  
+  
+      
+        <td>Hey @fraenki ,
 
 The tests should be successfully ran. 
 `Successful on 1 nodes: ["eloquent_gauss, waffleimage/centos7"]`
@@ -1312,70 +3605,226 @@ If you want to provision just one platform, you should use:
 
 Cheers!
 </td>
-<td>lionce</td>
-<td>33</td>
-<td>7</td>
-<td>false</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-mysql</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-mysql/pull/1247'>1247</a></td>
-<td>54</td>
-<td>alexjfisher <span class='label label-primary'>vox</span></td>
-<td>WIP: Improvement to mysql::sql task</td>
-<td>Hi @alexjfisher - appreciate you looking in to it. If it's something that will cause a time sink, then we can probably merge without the tests. Still in a bit of a learning phase at the moment :)</td>
-<td>cmccrisken-puppet</td>
-<td>49</td>
-<td>2</td>
-<td>false</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-mysql</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-mysql/pull/1244'>1244</a></td>
-<td>63</td>
-<td>fraenki</td>
-<td>(MODULES-10023) expose $incremental_backups parameter</td>
-<td>Hello @fraenki ,
+      
+  
+  
+  
+      
+        <td>lionce</td>
+      
+  
+  
+  
+      
+        <td>34</td>
+      
+  
+  
+  
+      
+        <td>7</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
 
-Thank you for this contribution. It would be possible to add a test under [mysql_backup_xtrabackup_spec](https://github.com/puppetlabs/puppetlabs-mysql/blob/505290677d557f817f604b1aca920945a11e3817/spec/classes/mysql_backup_xtrabackup_spec.rb#L161) to test the new param please? Thanks!
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-mysql'>puppetlabs-mysql</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-mysql/pull/1194'>1194</a></td>
+  
+  
+  
+      
+        <td>226</td>
+      
+  
+  
+  
+      
+        <td>elfranne</td>
+      
+  
+  
+  
+      
+        <td>Debian dirs </td>
+      
+  
+  
+  
+      
+        <td>Hello @elfranne ,
 
-Cheers!</td>
-<td>lionce</td>
-<td>35</td>
-<td>1</td>
-<td>false</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-mysql</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-mysql/pull/1192'>1192</a></td>
-<td>229</td>
-<td>mauricemeyer</td>
-<td>Enable module to not use default options</td>
-<td>Hello @mauricemeyer ,
-
-It looks good to me! Thank you!
-@bastelfreak thank you for your great review! :) Please re-check this  
+Currently we're using puppet-litmus for running acceptance tests. This replaces beaker as the test runner. To run the acceptance tests follow the instructions from this point [here](https://github.com/puppetlabs/puppet_litmus/wiki/Tutorial:-use-Litmus-to-execute-acceptance-tests-with-a-sample-module-(MoTD)#install-the-necessary-gems-for-the-module).
+Here is a useful documentation on how to add unit tests using[ rspec-puppet](https://puppet.com/blog/unit-testing-rspec-puppet-for-beginners)
+To add new unit tests for that here is an example for [manage_config_file](https://github.com/puppetlabs/puppetlabs-mysql/blob/178327a897a5122618f058d0a1aac2cbfc618324/spec/classes/mysql_server_spec.rb#L24). Another example for[ mysql::server::backup](https://github.com/puppetlabs/puppetlabs-mysql/blob/178327a897a5122618f058d0a1aac2cbfc618324/spec/classes/mysql_server_backup_spec.rb#L3). I hope these examples will help you. If you need help, please contact us! Thanks!
 
 Cheers!
 
-![Screenshot 2019-11-07 at 14 06 09](https://user-images.githubusercontent.com/42546087/68393471-cc153f00-0174-11ea-9bab-36c8c74dddaf.png)
 </td>
-<td>lionce</td>
-<td>39</td>
-<td>8</td>
-<td>false</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-mysql</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-mysql/pull/1233'>1233</a></td>
-<td>84</td>
-<td>koshatul</td>
-<td>change split on whitespace to split on tab in mysql_user</td>
-<td>The documentation on mysql's website only goes back as far as 5.5, it has tab separation for the batch-mode output.
+      
+  
+  
+  
+      
+        <td>lionce</td>
+      
+  
+  
+  
+      
+        <td>36</td>
+      
+  
+  
+  
+      
+        <td>5</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-mysql'>puppetlabs-mysql</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-mysql/pull/1269'>1269</a></td>
+  
+  
+  
+      
+        <td>7</td>
+      
+  
+  
+  
+      
+        <td>baldurmen</td>
+      
+  
+  
+  
+      
+        <td>Don't try to install cron packages by default</td>
+      
+  
+  
+  
+      
+        <td>Travis CI seems broken, but I'm pretty this PR didn't break it :)
+
+Happy to rebase on something that works if needed.</td>
+      
+  
+  
+  
+      
+        <td>baldurmen</td>
+      
+  
+  
+  
+      
+        <td>7</td>
+      
+  
+  
+  
+      
+        <td>1</td>
+      
+  
+  
+  
+      
+        <td>true</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-mysql'>puppetlabs-mysql</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-mysql/pull/1233'>1233</a></td>
+  
+  
+  
+      
+        <td>85</td>
+      
+  
+  
+  
+      
+        <td>koshatul</td>
+      
+  
+  
+  
+      
+        <td>change split on whitespace to split on tab in mysql_user</td>
+      
+  
+  
+  
+      
+        <td>The documentation on mysql's website only goes back as far as 5.5, it has tab separation for the batch-mode output.
 
 https://dev.mysql.com/doc/refman/5.5/en/mysql-command-options.html#option_mysql_batch
 
@@ -1388,127 +3837,2400 @@ https://dev.mysql.com/doc/refman/5.5/en/mysql-command-options.html#option_mysql_
 The spec test seems to have been spaces since it was refactored from `database_user`, so I think this is actually broken in the real world, it's just lucky that the commonly used fields rarely if ever have spaces.
 
 Surely I can't be the first person to have issues with the TLS config though (unless I'm also the first to use a TLS CA with spaces in the name).</td>
-<td>koshatul</td>
-<td>70</td>
-<td>3</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-mysql</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-mysql/pull/1206'>1206</a></td>
-<td>188</td>
-<td>comport3</td>
-<td>Fix regression introduced by PR#1175 for managing CRON package</td>
-<td>@comport3 Thanks for submitting the PR. We need to resolve the conflicts again. Do you want to open a new PR with the changes?</td>
-<td>sheenaajay</td>
-<td>96</td>
-<td>11</td>
-<td>false</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-ntp</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-ntp/pull/548'>548</a></td>
-<td>0</td>
-<td>DavidS <span class='label label-warning'>puppet</span></td>
-<td>pdksync - (maint) travis updates: bundler and slack</td>
-<td></td>
-<td></td>
-<td>0</td>
-<td>0</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-ntp</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-ntp/pull/489'>489</a></td>
-<td>430</td>
-<td>juju4</td>
-<td>Allow custom ntp user and daemon options</td>
-<td>Hello @juju4 ,
+      
+  
+  
+  
+      
+        <td>koshatul</td>
+      
+  
+  
+  
+      
+        <td>71</td>
+      
+  
+  
+  
+      
+        <td>3</td>
+      
+  
+  
+  
+      
+        <td>true</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
 
-Please let us know if you're still working on this PR and if you need help. Thanks!
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-mysql'>puppetlabs-mysql</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-mysql/pull/1206'>1206</a></td>
+  
+  
+  
+      
+        <td>189</td>
+      
+  
+  
+  
+      
+        <td>comport3</td>
+      
+  
+  
+  
+      
+        <td>Fix regression introduced by PR#1175 for managing CRON package</td>
+      
+  
+  
+  
+      
+        <td>@comport3 Thanks for submitting the PR. We need to resolve the conflicts again. Do you want to open a new PR with the changes?</td>
+      
+  
+  
+  
+      
+        <td>sheenaajay</td>
+      
+  
+  
+  
+      
+        <td>97</td>
+      
+  
+  
+  
+      
+        <td>11</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
 
-Cheers! </td>
-<td>lionce</td>
-<td>39</td>
-<td>14</td>
-<td>false</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-ntp</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-ntp/pull/541'>541</a></td>
-<td>43</td>
-<td>paescuj</td>
-<td>Support for illumos</td>
-<td></td>
-<td></td>
-<td>0</td>
-<td>0</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-package</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-package/pull/171'>171</a></td>
-<td>0</td>
-<td>DavidS <span class='label label-warning'>puppet</span></td>
-<td>pdksync - (maint) travis updates: bundler and slack</td>
-<td></td>
-<td></td>
-<td>0</td>
-<td>0</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-panos</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-panos/pull/115'>115</a></td>
-<td>0</td>
-<td>DavidS <span class='label label-warning'>puppet</span></td>
-<td>pdksync - (maint) travis updates: bundler and slack</td>
-<td># [Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-panos/pull/115?src=pr&el=h1) Report
-> Merging [#115](https://codecov.io/gh/puppetlabs/puppetlabs-panos/pull/115?src=pr&el=desc) into [master](https://codecov.io/gh/puppetlabs/puppetlabs-panos/commit/51b98d4409012df852bb10e894c67aeb2c9930ac?src=pr&el=desc) will **not change** coverage.
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-kubernetes'>puppetlabs-kubernetes</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-kubernetes/pull/370'>370</a></td>
+  
+  
+  
+      
+        <td>0</td>
+      
+  
+  
+  
+      
+        <td>carabasdaniel <span class='label label-warning'>puppet</span></td>
+      
+  
+  
+  
+      
+        <td>Fix acceptance tests</td>
+      
+  
+  
+  
+      
+        <td># [Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-kubernetes/pull/370?src=pr&el=h1) Report
+> Merging [#370](https://codecov.io/gh/puppetlabs/puppetlabs-kubernetes/pull/370?src=pr&el=desc) into [master](https://codecov.io/gh/puppetlabs/puppetlabs-kubernetes/commit/04589b9cc35a8d6f36db2a1dd6158d5e39c6164c?src=pr&el=desc) will **not change** coverage.
 > The diff coverage is `n/a`.
 
-[![Impacted file tree graph](https://codecov.io/gh/puppetlabs/puppetlabs-panos/pull/115/graphs/tree.svg?width=650&token=TehXkElt3n&height=150&src=pr)](https://codecov.io/gh/puppetlabs/puppetlabs-panos/pull/115?src=pr&el=tree)
+[![Impacted file tree graph](https://codecov.io/gh/puppetlabs/puppetlabs-kubernetes/pull/370/graphs/tree.svg?width=650&token=dwPmb8g1f6&height=150&src=pr)](https://codecov.io/gh/puppetlabs/puppetlabs-kubernetes/pull/370?src=pr&el=tree)
 
 ```diff
 @@          Coverage Diff          @@
-##           master   #115   +/-   ##
+##           master   #370   +/-   ##
 =====================================
-  Coverage     100%   100%           
+  Coverage       0%     0%           
 =====================================
-  Files          40     40           
-  Lines        1136   1136           
+  Files           2      2           
+  Lines          44     44           
 =====================================
-  Hits         1136   1136
+  Misses         44     44
 ```
 
 
 
 ------
 
-[Continue to review full report at Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-panos/pull/115?src=pr&el=continue).
+[Continue to review full report at Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-kubernetes/pull/370?src=pr&el=continue).
 > **Legend** - [Click here to learn more](https://docs.codecov.io/docs/codecov-delta)
-> `Δ = absolute <relative> (impact)`, `ø = not affected`, `? = missing data`
-> Powered by [Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-panos/pull/115?src=pr&el=footer). Last update [51b98d4...7ef534f](https://codecov.io/gh/puppetlabs/puppetlabs-panos/pull/115?src=pr&el=lastupdated). Read the [comment docs](https://docs.codecov.io/docs/pull-request-comments).
+> `Δ = absolute  (impact)`, `ø = not affected`, `? = missing data`
+> Powered by [Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-kubernetes/pull/370?src=pr&el=footer). Last update [04589b9...e2b2673](https://codecov.io/gh/puppetlabs/puppetlabs-kubernetes/pull/370?src=pr&el=lastupdated). Read the [comment docs](https://docs.codecov.io/docs/pull-request-comments).
 </td>
-<td>codecov[bot]</td>
-<td>0</td>
-<td>1</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-panos</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-panos/pull/112'>112</a></td>
-<td>32</td>
-<td>DavidS <span class='label label-warning'>puppet</span></td>
-<td>pdksync - Update to pdk 1.14</td>
-<td># [Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-panos/pull/112?src=pr&el=h1) Report
+      
+  
+  
+  
+      
+        <td>codecov-io</td>
+      
+  
+  
+  
+      
+        <td>0</td>
+      
+  
+  
+  
+      
+        <td>1</td>
+      
+  
+  
+  
+      
+        <td>true</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-kubernetes'>puppetlabs-kubernetes</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-kubernetes/pull/318'>318</a></td>
+  
+  
+  
+      
+        <td>168</td>
+      
+  
+  
+  
+      
+        <td>AlexanderSalmin</td>
+      
+  
+  
+  
+      
+        <td>Add choice for architecture</td>
+      
+  
+  
+  
+      
+        <td>Thank you @AlexanderSalmin for the PR. Could you please resolve the conflicts too. Thank you.</td>
+      
+  
+  
+  
+      
+        <td>sheenaajay</td>
+      
+  
+  
+  
+      
+        <td>90</td>
+      
+  
+  
+  
+      
+        <td>2</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-kubernetes'>puppetlabs-kubernetes</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-kubernetes/pull/311'>311</a></td>
+  
+  
+  
+      
+        <td>188</td>
+      
+  
+  
+  
+      
+        <td>zeysh</td>
+      
+  
+  
+  
+      
+        <td>Manage kernel modules for proxy_mode IPVS</td>
+      
+  
+  
+  
+      
+        <td>@zeysh Thanks for submitting the PR.Apologies for the delay. Could you please incorporate the comments from @SimonHoenscheid .Thank you.</td>
+      
+  
+  
+  
+      
+        <td>sheenaajay</td>
+      
+  
+  
+  
+      
+        <td>98</td>
+      
+  
+  
+  
+      
+        <td>2</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>true</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-kubernetes'>puppetlabs-kubernetes</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-kubernetes/pull/312'>312</a></td>
+  
+  
+  
+      
+        <td>187</td>
+      
+  
+  
+  
+      
+        <td>SimonHoenscheid <span class='label label-warning'>puppet</span></td>
+      
+  
+  
+  
+      
+        <td>implement crio support</td>
+      
+  
+  
+  
+      
+        <td>@SimonHoenscheid Looks like kream is working. Could you please check it. Thank you.</td>
+      
+  
+  
+  
+      
+        <td>sheenaajay</td>
+      
+  
+  
+  
+      
+        <td>93</td>
+      
+  
+  
+  
+      
+        <td>6</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>true</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-kubernetes'>puppetlabs-kubernetes</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-kubernetes/pull/323'>323</a></td>
+  
+  
+  
+      
+        <td>148</td>
+      
+  
+  
+  
+      
+        <td>ynnt</td>
+      
+  
+  
+  
+      
+        <td>manage etcd client certificates even if etcd is not managed</td>
+      
+  
+  
+  
+      
+        <td>@ynnt Thank you.It looks like its showing all the commits from the master after the rebase.
+Could you please do clean rebase and force push. Thank you.</td>
+      
+  
+  
+  
+      
+        <td>sheenaajay</td>
+      
+  
+  
+  
+      
+        <td>91</td>
+      
+  
+  
+  
+      
+        <td>4</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-kubernetes'>puppetlabs-kubernetes</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-kubernetes/pull/349'>349</a></td>
+  
+  
+  
+      
+        <td>56</td>
+      
+  
+  
+  
+      
+        <td>scoopex</td>
+      
+  
+  
+  
+      
+        <td>improve package installation and dashboard installation</td>
+      
+  
+  
+  
+      
+        <td>> Hello @scoopex, you can grab the PR from here #353 and run the acceptance tests locally using Vagrant. In the README.md you will find information on how to do that. It would be really great to get this merged.
+
+Ah thats cool. I never used litmus before probably it is a good thing to add some documentation to this PR informs the user that there are acceptance tests and how to run them.</td>
+      
+  
+  
+  
+      
+        <td>scoopex</td>
+      
+  
+  
+  
+      
+        <td>19</td>
+      
+  
+  
+  
+      
+        <td>9</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-ntp'>puppetlabs-ntp</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-ntp/pull/541'>541</a></td>
+  
+  
+  
+      
+        <td>44</td>
+      
+  
+  
+  
+      
+        <td>paescuj</td>
+      
+  
+  
+  
+      
+        <td>Support for illumos</td>
+      
+  
+  
+  
+      
+        <td></td>
+      
+  
+  
+  
+      
+        <td></td>
+      
+  
+  
+  
+      
+        <td>0</td>
+      
+  
+  
+  
+      
+        <td>0</td>
+      
+  
+  
+  
+      
+        <td>true</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-ntp'>puppetlabs-ntp</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-ntp/pull/489'>489</a></td>
+  
+  
+  
+      
+        <td>431</td>
+      
+  
+  
+  
+      
+        <td>juju4</td>
+      
+  
+  
+  
+      
+        <td>Allow custom ntp user and daemon options</td>
+      
+  
+  
+  
+      
+        <td>Hello @juju4 ,
+
+Please let us know if you're still working on this PR and if you need help. Thanks!
+
+Cheers! </td>
+      
+  
+  
+  
+      
+        <td>lionce</td>
+      
+  
+  
+  
+      
+        <td>40</td>
+      
+  
+  
+  
+      
+        <td>14</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-postgresql'>puppetlabs-postgresql</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-postgresql/pull/1124'>1124</a></td>
+  
+  
+  
+      
+        <td>0</td>
+      
+  
+  
+  
+      
+        <td>david22swan <span class='label label-warning'>puppet</span></td>
+      
+  
+  
+  
+      
+        <td>(MODULES-10133) - 6.3.0 Release Preperation</td>
+      
+  
+  
+  
+      
+        <td></td>
+      
+  
+  
+  
+      
+        <td></td>
+      
+  
+  
+  
+      
+        <td>0</td>
+      
+  
+  
+  
+      
+        <td>0</td>
+      
+  
+  
+  
+      
+        <td>true</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-postgresql'>puppetlabs-postgresql</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-postgresql/pull/1092'>1092</a></td>
+  
+  
+  
+      
+        <td>160</td>
+      
+  
+  
+  
+      
+        <td>npwalker <span class='label label-warning'>puppet</span></td>
+      
+  
+  
+  
+      
+        <td>(MAINT) Add a default function</td>
+      
+  
+  
+  
+      
+        <td>
+@npwalker if you are still having issues with docs we can take over. adding in @carabasdaniel </td>
+      
+  
+  
+  
+      
+        <td>tphoney</td>
+      
+  
+  
+  
+      
+        <td>139</td>
+      
+  
+  
+  
+      
+        <td>2</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>true</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-postgresql'>puppetlabs-postgresql</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-postgresql/pull/1091'>1091</a></td>
+  
+  
+  
+      
+        <td>161</td>
+      
+  
+  
+  
+      
+        <td>biertie</td>
+      
+  
+  
+  
+      
+        <td>Enable suport for JIT in PostgreSQL >= 11</td>
+      
+  
+  
+  
+      
+        <td>@biertie PR Looks good. Could you please add unit tests to verify the change and also suggestions from @npwalker.Ran the Adhoc test suites and it's all green.</td>
+      
+  
+  
+  
+      
+        <td>sheenaajay</td>
+      
+  
+  
+  
+      
+        <td>98</td>
+      
+  
+  
+  
+      
+        <td>5</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>true</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-postgresql'>puppetlabs-postgresql</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-postgresql/pull/1097'>1097</a></td>
+  
+  
+  
+      
+        <td>145</td>
+      
+  
+  
+  
+      
+        <td>detbetteegern</td>
+      
+  
+  
+  
+      
+        <td>Fixing Fixing https://tickets.puppetlabs.com/browse/MODULES-8535 (again)</td>
+      
+  
+  
+  
+      
+        <td>Thanks for submitting the PR @detbetteegern . Could you please fix the failing tests. Thank you.</td>
+      
+  
+  
+  
+      
+        <td>sheenaajay</td>
+      
+  
+  
+  
+      
+        <td>140</td>
+      
+  
+  
+  
+      
+        <td>2</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-powershell'>puppetlabs-powershell</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-powershell/pull/274'>274</a></td>
+  
+  
+  
+      
+        <td>1</td>
+      
+  
+  
+  
+      
+        <td>DavidS <span class='label label-warning'>puppet</span></td>
+      
+  
+  
+  
+      
+        <td>pdksync - (maint) travis updates: bundler and slack</td>
+      
+  
+  
+  
+      
+        <td></td>
+      
+  
+  
+  
+      
+        <td></td>
+      
+  
+  
+  
+      
+        <td>0</td>
+      
+  
+  
+  
+      
+        <td>0</td>
+      
+  
+  
+  
+      
+        <td>true</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-puppet_conf'>puppetlabs-puppet_conf</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-puppet_conf/pull/91'>91</a></td>
+  
+  
+  
+      
+        <td>1</td>
+      
+  
+  
+  
+      
+        <td>DavidS <span class='label label-warning'>puppet</span></td>
+      
+  
+  
+  
+      
+        <td>pdksync - (maint) travis updates: bundler and slack</td>
+      
+  
+  
+  
+      
+        <td></td>
+      
+  
+  
+  
+      
+        <td></td>
+      
+  
+  
+  
+      
+        <td>0</td>
+      
+  
+  
+  
+      
+        <td>0</td>
+      
+  
+  
+  
+      
+        <td>true</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-reboot'>puppetlabs-reboot</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-reboot/pull/223'>223</a></td>
+  
+  
+  
+      
+        <td>22</td>
+      
+  
+  
+  
+      
+        <td>beechtom <span class='label label-warning'>puppet</span></td>
+      
+  
+  
+  
+      
+        <td>(GH-1376) Change `$nodes` parameter for `reboot` plan to `$targets`</td>
+      
+  
+  
+  
+      
+        <td>Updated with docs changes.</td>
+      
+  
+  
+  
+      
+        <td>beechtom</td>
+      
+  
+  
+  
+      
+        <td>22</td>
+      
+  
+  
+  
+      
+        <td>1</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-reboot'>puppetlabs-reboot</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-reboot/pull/179'>179</a></td>
+  
+  
+  
+      
+        <td>411</td>
+      
+  
+  
+  
+      
+        <td>razorbladex401</td>
+      
+  
+  
+  
+      
+        <td>(MODULES-8201) Add pending reboot due to domain join for windows.</td>
+      
+  
+  
+  
+      
+        <td>So this is a pretty interesting (and useful!) addition to the module. Thanks @razorbladex401 !
+
+Oddly, there appears to be scant information on this particular registry key (https://serverfault.com/a/735854), though some prior art at https://gallery.technet.microsoft.com/scriptcenter/Get-PendingReboot-Query-bdb79542 provided by a Microsoft employee
+
+The changelog there states
+
+```
+ 07/27/2015:
+-Added Domain Join detection to PendComputerRename, DOES NOT currently detect Workgroup Join/Change.
+```
+
+So I'm inclined to believe this is a legitimate thing to check for, but we may want to do a little vetting here manually (it will be difficult to vet this in an automated fashion given it requires a domain)</td>
+      
+  
+  
+  
+      
+        <td>Iristyle</td>
+      
+  
+  
+  
+      
+        <td>337</td>
+      
+  
+  
+  
+      
+        <td>1</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-resource_api'>puppetlabs-resource_api</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-resource_api/pull/25'>25</a></td>
+  
+  
+  
+      
+        <td>90</td>
+      
+  
+  
+  
+      
+        <td>DavidS <span class='label label-warning'>puppet</span></td>
+      
+  
+  
+  
+      
+        <td>pdksync - (maint) update pdk-templates</td>
+      
+  
+  
+  
+      
+        <td>Since this module is about to be deprecated, we won't be updating the infrastructure unless absolutely needed.</td>
+      
+  
+  
+  
+      
+        <td>DavidS</td>
+      
+  
+  
+  
+      
+        <td>33</td>
+      
+  
+  
+  
+      
+        <td>1</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-scheduled_task'>puppetlabs-scheduled_task</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-scheduled_task/pull/91'>91</a></td>
+  
+  
+  
+      
+        <td>124</td>
+      
+  
+  
+  
+      
+        <td>RandomNoun7 <span class='label label-warning'>puppet</span></td>
+      
+  
+  
+  
+      
+        <td>(FM-8179) Set up CI with Azure Pipelines</td>
+      
+  
+  
+  
+      
+        <td></td>
+      
+  
+  
+  
+      
+        <td></td>
+      
+  
+  
+  
+      
+        <td>0</td>
+      
+  
+  
+  
+      
+        <td>0</td>
+      
+  
+  
+  
+      
+        <td>true</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-service'>puppetlabs-service</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-service/pull/129'>129</a></td>
+  
+  
+  
+      
+        <td>1</td>
+      
+  
+  
+  
+      
+        <td>DavidS <span class='label label-warning'>puppet</span></td>
+      
+  
+  
+  
+      
+        <td>pdksync - (maint) travis updates: bundler and slack</td>
+      
+  
+  
+  
+      
+        <td></td>
+      
+  
+  
+  
+      
+        <td></td>
+      
+  
+  
+  
+      
+        <td>0</td>
+      
+  
+  
+  
+      
+        <td>0</td>
+      
+  
+  
+  
+      
+        <td>true</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-stdlib'>puppetlabs-stdlib</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-stdlib/pull/1006'>1006</a></td>
+  
+  
+  
+      
+        <td>280</td>
+      
+  
+  
+  
+      
+        <td>runejuhl <span class='label label-primary'>vox</span></td>
+      
+  
+  
+  
+      
+        <td>Add more ensure types</td>
+      
+  
+  
+  
+      
+        <td>Thanks, @runejuhl for submitting the PR. Apologize the delay.
+Please check if the later releases of puppet solve the issue.</td>
+      
+  
+  
+  
+      
+        <td>sheenaajay</td>
+      
+  
+  
+  
+      
+        <td>86</td>
+      
+  
+  
+  
+      
+        <td>5</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-stdlib'>puppetlabs-stdlib</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-stdlib/pull/1040'>1040</a></td>
+  
+  
+  
+      
+        <td>138</td>
+      
+  
+  
+  
+      
+        <td>genebean <span class='label label-warning'>puppet</span></td>
+      
+  
+  
+  
+      
+        <td>Adding str2saltedpbkdf2 function</td>
+      
+  
+  
+  
+      
+        <td>I just returned from PTO myself. I will look at this this week. (pinging @SowmyaJujjuri for visibility)</td>
+      
+  
+  
+  
+      
+        <td>genebean</td>
+      
+  
+  
+  
+      
+        <td>113</td>
+      
+  
+  
+  
+      
+        <td>7</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-stdlib'>puppetlabs-stdlib</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-stdlib/pull/1066'>1066</a></td>
+  
+  
+  
+      
+        <td>32</td>
+      
+  
+  
+  
+      
+        <td>pegasd</td>
+      
+  
+  
+  
+      
+        <td>Make type aliases stricter</td>
+      
+  
+  
+  
+      
+        <td>By `breaking compatibility` I mean that if I update the `Stdlib::Compat::*` types, they will not match the behavior of corresponding functions.
+
+I guess I could update those as well, but as I said, they're very much legacy and things may break for users in unexpected ways.
+
+What do you propose? I can take a stab at `compat` if needed.</td>
+      
+  
+  
+  
+      
+        <td>pegasd</td>
+      
+  
+  
+  
+      
+        <td>19</td>
+      
+  
+  
+  
+      
+        <td>4</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-stdlib'>puppetlabs-stdlib</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-stdlib/pull/1067'>1067</a></td>
+  
+  
+  
+      
+        <td>27</td>
+      
+  
+  
+  
+      
+        <td>binford2k <span class='label label-warning'>puppet</span> <span class='label label-primary'>vox</span></td>
+      
+  
+  
+  
+      
+        <td>(WIP) Add volatile_fact() function</td>
+      
+  
+  
+  
+      
+        <td>So, there are issues with getting the facts if not set in scope as `$facts`, a) risk of getting server side facts when called on master and b) if there are many "deferred facts" they would all result in running Facter and this would be slow c) since each call will run Facter, the values may differ for the same fact
+ 
+The best would be if the facts were already present in scope when deferred calls are resolved. That requires a change to Puppet however as the setup and use of PAL on the agent side for resolution of Deferred must be given the facts to use. (The rest should already be supported by PAL; i.e. setting `$facts` etc.)
+
+If not computed and set up front, then I think the result needs to be cached and kept while resolving deferred values. This would be good since if there is no call to get a deferred fact then Facter does not need to run at all. If going this route, there is a supported caching mechanism that functions can use. With this there is still the problem of getting the wrong facts (for server when agent was intended) as the place intention is known is when setting up the context (i.e. when setting up PAL for resolution, or when setting up for apply, master compile, bolt apply compile, etc.).</td>
+      
+  
+  
+  
+      
+        <td>hlindberg</td>
+      
+  
+  
+  
+      
+        <td>18</td>
+      
+  
+  
+  
+      
+        <td>7</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-stdlib'>puppetlabs-stdlib</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-stdlib/pull/1004'>1004</a></td>
+  
+  
+  
+      
+        <td>285</td>
+      
+  
+  
+  
+      
+        <td>Rathios</td>
+      
+  
+  
+  
+      
+        <td>(MODULES-8732) Cron types</td>
+      
+  
+  
+  
+      
+        <td>Any progress here?
+
+I also wanted to note that, since `puppet-strings` supports type aliases now, it'd be great to remove newlines between the comment and the type definition. Otherwise `puppet-strings` considers those types undocumented.</td>
+      
+  
+  
+  
+      
+        <td>pegasd</td>
+      
+  
+  
+  
+      
+        <td>35</td>
+      
+  
+  
+  
+      
+        <td>6</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-tomcat'>puppetlabs-tomcat</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-tomcat/pull/379'>379</a></td>
+  
+  
+  
+      
+        <td>1</td>
+      
+  
+  
+  
+      
+        <td>DavidS <span class='label label-warning'>puppet</span></td>
+      
+  
+  
+  
+      
+        <td>pdksync - (maint) travis updates: bundler and slack</td>
+      
+  
+  
+  
+      
+        <td></td>
+      
+  
+  
+  
+      
+        <td></td>
+      
+  
+  
+  
+      
+        <td>0</td>
+      
+  
+  
+  
+      
+        <td>0</td>
+      
+  
+  
+  
+      
+        <td>true</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-vcsrepo'>puppetlabs-vcsrepo</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-vcsrepo/pull/439'>439</a></td>
+  
+  
+  
+      
+        <td>1</td>
+      
+  
+  
+  
+      
+        <td>DavidS <span class='label label-warning'>puppet</span></td>
+      
+  
+  
+  
+      
+        <td>pdksync - (maint) travis updates: bundler and slack</td>
+      
+  
+  
+  
+      
+        <td></td>
+      
+  
+  
+  
+      
+        <td></td>
+      
+  
+  
+  
+      
+        <td>0</td>
+      
+  
+  
+  
+      
+        <td>0</td>
+      
+  
+  
+  
+      
+        <td>true</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-vcsrepo'>puppetlabs-vcsrepo</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-vcsrepo/pull/418'>418</a></td>
+  
+  
+  
+      
+        <td>222</td>
+      
+  
+  
+  
+      
+        <td>evanstachowiak</td>
+      
+  
+  
+  
+      
+        <td>Don't set --branch equal to revision when depth > 0</td>
+      
+  
+  
+  
+      
+        <td>hey @lionce,
+sorry for the delay.
+
+After further testing, when setting depth == 1, the specific revision was not present in the git clone. Do you have any guidance on how to fix this so that it's possible to checkout out the specific rev #? Guess that's why the tests were broken, because the code was broken :)</td>
+      
+  
+  
+  
+      
+        <td>evanstachowiak</td>
+      
+  
+  
+  
+      
+        <td>21</td>
+      
+  
+  
+  
+      
+        <td>3</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>true</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-websphere_application_server'>puppetlabs-websphere_application_server</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-websphere_application_server/pull/173'>173</a></td>
+  
+  
+  
+      
+        <td>208</td>
+      
+  
+  
+  
+      
+        <td>GerbenWelter</td>
+      
+  
+  
+  
+      
+        <td>Add support for BASE installations</td>
+      
+  
+  
+  
+      
+        <td>I was out of office for the past weeks but I will try to find some time to add the tests.</td>
+      
+  
+  
+  
+      
+        <td>GerbenWelter</td>
+      
+  
+  
+  
+      
+        <td>133</td>
+      
+  
+  
+  
+      
+        <td>2</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-websphere_application_server'>puppetlabs-websphere_application_server</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-websphere_application_server/pull/174'>174</a></td>
+  
+  
+  
+      
+        <td>205</td>
+      
+  
+  
+  
+      
+        <td>GerbenWelter</td>
+      
+  
+  
+  
+      
+        <td>Make use of supplied cell parameter</td>
+      
+  
+  
+  
+      
+        <td>I was out of office for the past weeks but I will try to find some time to add the tests.</td>
+      
+  
+  
+  
+      
+        <td>GerbenWelter</td>
+      
+  
+  
+  
+      
+        <td>133</td>
+      
+  
+  
+  
+      
+        <td>2</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-websphere_application_server'>puppetlabs-websphere_application_server</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-websphere_application_server/pull/177'>177</a></td>
+  
+  
+  
+      
+        <td>140</td>
+      
+  
+  
+  
+      
+        <td>logicminds <span class='label label-warning'>puppet</span> <span class='label label-primary'>vox</span></td>
+      
+  
+  
+  
+      
+        <td>Puppet 4 data type checking</td>
+      
+  
+  
+  
+      
+        <td>@logicminds Please find the Test results.Please let us know if you need more information.
+`13:03:59 Failures:
+13:03:59 
+13:03:59   1) IHS instance runs without errors
+13:03:59      Failure/Error: expect(@result.exit_code).to eq 2
+13:03:59        
+13:03:59        expected: 2
+13:03:59             got: 1
+13:03:59        
+13:03:59        (compared using ==)
+13:03:59        
+13:03:59      # ./spec/acceptance/ihs_spec.rb:23:in `block (2 levels) in '
+13:03:59 
+13:03:59   2) IHS instance shall start an ihs server process
+13:03:59      Failure/Error: ports_ihs_listening = on(@agent, "lsof -ti :#{@listen_port}").stdout.split
+13:03:59      Beaker::Host::CommandFailure:
+13:03:59        Host 'he9fhcup5rd8wqg.delivery.puppetlabs.net' exited with 1 running:
+13:03:59         lsof -ti :10080
+13:03:59        Last 10 lines of output were:
+13:03:59        
+13:03:59      # ./.bundle/gems/gems/beaker-4.11.0/lib/beaker/host.rb:391:in `exec'
+13:03:59      # ./.bundle/gems/gems/beaker-4.11.0/lib/beaker/dsl/helpers/host_helpers.rb:83:in `block in on'
+13:03:59      # ./.bundle/gems/gems/beaker-4.11.0/lib/beaker/shared/host_manager.rb:130:in `run_block_on'
+13:03:59      # ./.bundle/gems/gems/beaker-4.11.0/lib/beaker/dsl/patterns.rb:37:in `block_on'
+13:03:59      # ./.bundle/gems/gems/beaker-4.11.0/lib/beaker/dsl/helpers/host_helpers.rb:63:in `on'
+13:03:59      # ./spec/acceptance/ihs_spec.rb:30:in `block (2 levels) in '
+13:03:59 
+13:03:59   3) IHS instance shall be listening on the correct port
+13:03:59      Failure/Error: ports_ihs_listening = on(@agent, "lsof -ti :#{@listen_port}").stdout.split
+13:03:59      Beaker::Host::CommandFailure:
+13:03:59        Host 'he9fhcup5rd8wqg.delivery.puppetlabs.net' exited with 1 running:
+13:03:59         lsof -ti :10080
+13:03:59        Last 10 lines of output were:
+13:03:59        
+13:03:59      # ./.bundle/gems/gems/beaker-4.11.0/lib/beaker/host.rb:391:in `exec'
+13:03:59      # ./.bundle/gems/gems/beaker-4.11.0/lib/beaker/dsl/helpers/host_helpers.rb:83:in `block in on'
+13:03:59      # ./.bundle/gems/gems/beaker-4.11.0/lib/beaker/shared/host_manager.rb:130:in `run_block_on'
+13:03:59      # ./.bundle/gems/gems/beaker-4.11.0/lib/beaker/dsl/patterns.rb:37:in `block_on'
+13:03:59      # ./.bundle/gems/gems/beaker-4.11.0/lib/beaker/dsl/helpers/host_helpers.rb:63:in `on'
+13:03:59      # ./spec/acceptance/ihs_spec.rb:43:in `block (2 levels) in '
+13:03:59 
+13:03:59   4) IHS instance shall respond to http queries
+13:03:59      Failure/Error: expect(response_lines[0]).to match(%r{^IBM HTTP Server(.*)+$})
+13:03:59        expected nil to match /^IBM HTTP Server(.*)+$/
+13:03:59        
+13:03:59      # ./spec/acceptance/ihs_spec.rb:52:in `block (3 levels) in '
+13:03:59      # ./.bundle/gems/gems/beaker-4.11.0/lib/beaker/dsl/helpers/host_helpers.rb:93:in `block in on'
+13:03:59      # ./.bundle/gems/gems/beaker-4.11.0/lib/beaker/shared/host_manager.rb:130:in `run_block_on'
+13:03:59      # ./.bundle/gems/gems/beaker-4.11.0/lib/beaker/dsl/patterns.rb:37:in `block_on'
+13:03:59      # ./.bundle/gems/gems/beaker-4.11.0/lib/beaker/dsl/helpers/host_helpers.rb:63:in `on'
+13:03:59      # ./spec/acceptance/ihs_spec.rb:48:in `block (2 levels) in '
+13:03:59 
+13:03:59   5) IHS instance behaves like an idempotent resource runs without errors
+13:03:59      Failure/Error: expect(@result.exit_code).to eq 2
+13:03:59        
+13:03:59        expected: 2
+13:03:59             got: 1
+13:03:59        
+13:03:59        (compared using ==)
+13:03:59        
+13:03:59      Shared Example Group: "an idempotent resource" called from ./spec/acceptance/ihs_spec.rb:26
+13:03:59      # ./spec/support/examples/idempotent_resource.rb:3:in `block (2 levels) in '
+13:03:59 
+13:03:59   6) IHS instance behaves like an idempotent resource runs a second time without changes
+13:03:59      Failure/Error: expect(second_result.exit_code).to eq 0
+13:03:59        
+13:03:59        expected: 0
+13:03:59             got: 1
+13:03:59        
+13:03:59        (compared using ==)
+13:03:59        
+13:03:59      Shared Example Group: "an idempotent resource" called from ./spec/acceptance/ihs_spec.rb:26
+13:03:59      # ./spec/support/examples/idempotent_resource.rb:9:in `block (2 levels) in '
+13:03:59 
+13:03:59   7) IHS instance shall stop the IHS server runs without errors
+13:03:59      Failure/Error: expect(@result.exit_code).to eq 2
+13:03:59        
+13:03:59        expected: 2
+13:03:59             got: 1
+13:03:59        
+13:03:59        (compared using ==)
+13:03:59        
+13:03:59      # ./spec/acceptance/ihs_spec.rb:73:in `block (3 levels) in '
+13:03:59 
+13:03:59   8) IHS instance shall stop the IHS server runs a second time without changes
+13:03:59      Failure/Error: expect(second_result.exit_code).to eq 2
+13:03:59        
+13:03:59        expected: 2
+13:03:59             got: 1
+13:03:59        
+13:03:59        (compared using ==)
+13:03:59        
+13:03:59      # ./spec/acceptance/ihs_spec.rb:85:in `block (3 levels) in '
+13:03:59 
+13:03:59 Finished in 28 minutes 25 seconds (files took 15 minutes 51 seconds to load)
+13:03:59 52 examples, 8 failures`</td>
+      
+  
+  
+  
+      
+        <td>sheenaajay</td>
+      
+  
+  
+  
+      
+        <td>139</td>
+      
+  
+  
+  
+      
+        <td>3</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>true</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-panos'>puppetlabs-panos</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-panos/pull/112'>112</a></td>
+  
+  
+  
+      
+        <td>33</td>
+      
+  
+  
+  
+      
+        <td>DavidS <span class='label label-warning'>puppet</span></td>
+      
+  
+  
+  
+      
+        <td>pdksync - Update to pdk 1.14</td>
+      
+  
+  
+  
+      
+        <td># [Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-panos/pull/112?src=pr&el=h1) Report
 > Merging [#112](https://codecov.io/gh/puppetlabs/puppetlabs-panos/pull/112?src=pr&el=desc) into [master](https://codecov.io/gh/puppetlabs/puppetlabs-panos/commit/7f99a79294ab6601af3d1c3069712e604e85ad13?src=pr&el=desc) will **not change** coverage.
 > The diff coverage is `n/a`.
 
@@ -1532,882 +6254,258 @@ Cheers! </td>
 
 [Continue to review full report at Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-panos/pull/112?src=pr&el=continue).
 > **Legend** - [Click here to learn more](https://docs.codecov.io/docs/codecov-delta)
-> `Δ = absolute <relative> (impact)`, `ø = not affected`, `? = missing data`
+> `Δ = absolute  (impact)`, `ø = not affected`, `? = missing data`
 > Powered by [Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-panos/pull/112?src=pr&el=footer). Last update [7f99a79...f8ce6a3](https://codecov.io/gh/puppetlabs/puppetlabs-panos/pull/112?src=pr&el=lastupdated). Read the [comment docs](https://docs.codecov.io/docs/pull-request-comments).
 </td>
-<td>codecov[bot]</td>
-<td>32</td>
-<td>1</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-panos</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-panos/pull/106'>106</a></td>
-<td>145</td>
-<td>davinhanlon</td>
-<td>updated hands-on-lab to include resource API installation</td>
-<td>Hello @Thomas-Franklin ,
+      
+  
+  
+  
+      
+        <td>codecov[bot]</td>
+      
+  
+  
+  
+      
+        <td>33</td>
+      
+  
+  
+  
+      
+        <td>1</td>
+      
+  
+  
+  
+      
+        <td>true</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-panos'>puppetlabs-panos</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-panos/pull/95'>95</a></td>
+  
+  
+  
+      
+        <td>202</td>
+      
+  
+  
+  
+      
+        <td>shermdog</td>
+      
+  
+  
+  
+      
+        <td>(maint) Add op_command task for executing arbitrary operational commands</td>
+      
+  
+  
+  
+      
+        <td>type=op is for performing any command in operational mode - which is the default CLI for the system.  The entire purpose of this task is to allow users to pass in *any* operational CLI command as if they were on the terminal.  This is similar to what has already been merged into cisco_ios 'cli_command'</td>
+      
+  
+  
+  
+      
+        <td>shermdog</td>
+      
+  
+  
+  
+      
+        <td>181</td>
+      
+  
+  
+  
+      
+        <td>2</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
+
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-panos'>puppetlabs-panos</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-panos/pull/106'>106</a></td>
+  
+  
+  
+      
+        <td>146</td>
+      
+  
+  
+  
+      
+        <td>davinhanlon</td>
+      
+  
+  
+  
+      
+        <td>updated hands-on-lab to include resource API installation</td>
+      
+  
+  
+  
+      
+        <td>Hello @Thomas-Franklin ,
 
 Please have a look on this PR and let us know if this is still a valid one. If not, we'll close it. Thanks
 
 Cheers!</td>
-<td>lionce</td>
-<td>35</td>
-<td>2</td>
-<td>false</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-panos</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-panos/pull/95'>95</a></td>
-<td>201</td>
-<td>shermdog</td>
-<td>(maint) Add op_command task for executing arbitrary operational commands</td>
-<td>type=op is for performing any command in operational mode - which is the default CLI for the system.  The entire purpose of this task is to allow users to pass in *any* operational CLI command as if they were on the terminal.  This is similar to what has already been merged into cisco_ios 'cli_command'</td>
-<td>shermdog</td>
-<td>180</td>
-<td>2</td>
-<td>false</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-panos</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-panos/pull/111'>111</a></td>
-<td>83</td>
-<td>gbrusick</td>
-<td>add new types: panos_decryption_policy_rule, panos_application_group, panos_custom_url_category, and panos_profiles_url_filtering</td>
-<td>I added examples that I took from production devices and modified the names, but I cannot run the acceptance, because the server that has access to the devices doesn't have a version of rubby recent enough. Could you please run it and tell me if there is something wrong.</td>
-<td>gbrusick</td>
-<td>67</td>
-<td>9</td>
-<td>false</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-postgresql</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-postgresql/pull/1123'>1123</a></td>
-<td>0</td>
-<td>DavidS <span class='label label-warning'>puppet</span></td>
-<td>pdksync - (maint) travis updates: bundler and slack</td>
-<td></td>
-<td></td>
-<td>0</td>
-<td>0</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-postgresql</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-postgresql/pull/1091'>1091</a></td>
-<td>160</td>
-<td>biertie</td>
-<td>Enable suport for JIT in PostgreSQL >= 11</td>
-<td>@biertie PR Looks good. Could you please add unit tests to verify the change and also suggestions from @npwalker.Ran the Adhoc test suites and it's all green.</td>
-<td>sheenaajay</td>
-<td>97</td>
-<td>5</td>
-<td>false</td>
-<td>true</td>
-</tr>
-<tr>
-<td>puppetlabs-postgresql</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-postgresql/pull/1097'>1097</a></td>
-<td>144</td>
-<td>detbetteegern</td>
-<td>Fixing Fixing https://tickets.puppetlabs.com/browse/MODULES-8535 (again)</td>
-<td>Thanks for submitting the PR @detbetteegern . Could you please fix the failing tests. Thank you.</td>
-<td>sheenaajay</td>
-<td>139</td>
-<td>2</td>
-<td>false</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-postgresql</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-postgresql/pull/1092'>1092</a></td>
-<td>159</td>
-<td>npwalker <span class='label label-warning'>puppet</span></td>
-<td>(MAINT) Add a default function</td>
-<td>
-@npwalker if you are still having issues with docs we can take over. adding in @carabasdaniel </td>
-<td>tphoney</td>
-<td>138</td>
-<td>2</td>
-<td>false</td>
-<td>true</td>
-</tr>
-<tr>
-<td>puppetlabs-powershell</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-powershell/pull/274'>274</a></td>
-<td>0</td>
-<td>DavidS <span class='label label-warning'>puppet</span></td>
-<td>pdksync - (maint) travis updates: bundler and slack</td>
-<td></td>
-<td></td>
-<td>0</td>
-<td>0</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-puppet_conf</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-puppet_conf/pull/91'>91</a></td>
-<td>0</td>
-<td>DavidS <span class='label label-warning'>puppet</span></td>
-<td>pdksync - (maint) travis updates: bundler and slack</td>
-<td></td>
-<td></td>
-<td>0</td>
-<td>0</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-reboot</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-reboot/pull/179'>179</a></td>
-<td>410</td>
-<td>razorbladex401</td>
-<td>(MODULES-8201) Add pending reboot due to domain join for windows.</td>
-<td>So this is a pretty interesting (and useful!) addition to the module. Thanks @razorbladex401 !
+      
+  
+  
+  
+      
+        <td>lionce</td>
+      
+  
+  
+  
+      
+        <td>36</td>
+      
+  
+  
+  
+      
+        <td>2</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
 
-Oddly, there appears to be scant information on this particular registry key (https://serverfault.com/a/735854), though some prior art at https://gallery.technet.microsoft.com/scriptcenter/Get-PendingReboot-Query-bdb79542 provided by a Microsoft employee
-
-The changelog there states
-
-```
- 07/27/2015:
--Added Domain Join detection to PendComputerRename, DOES NOT currently detect Workgroup Join/Change.
-```
-
-So I'm inclined to believe this is a legitimate thing to check for, but we may want to do a little vetting here manually (it will be difficult to vet this in an automated fashion given it requires a domain)</td>
-<td>Iristyle</td>
-<td>336</td>
-<td>1</td>
-<td>false</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-reboot</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-reboot/pull/228'>228</a></td>
-<td>0</td>
-<td>DavidS <span class='label label-warning'>puppet</span></td>
-<td>pdksync - (maint) travis updates: bundler and slack</td>
-<td># [Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-reboot/pull/228?src=pr&el=h1) Report
-> Merging [#228](https://codecov.io/gh/puppetlabs/puppetlabs-reboot/pull/228?src=pr&el=desc) into [master](https://codecov.io/gh/puppetlabs/puppetlabs-reboot/commit/ae2ff979bf0a553af0ffa625b36a1c29d4e67ffb?src=pr&el=desc) will **increase** coverage by `0.32%`.
-> The diff coverage is `n/a`.
-
-[![Impacted file tree graph](https://codecov.io/gh/puppetlabs/puppetlabs-reboot/pull/228/graphs/tree.svg?width=650&token=A2Q8DIpJyO&height=150&src=pr)](https://codecov.io/gh/puppetlabs/puppetlabs-reboot/pull/228?src=pr&el=tree)
-
-```diff
-@@            Coverage Diff            @@
-##           master    #228      +/-   ##
-=========================================
-+ Coverage   50.48%   50.8%   +0.32%     
-=========================================
-  Files           6       6              
-  Lines         309     309              
-=========================================
-+ Hits          156     157       +1     
-+ Misses        153     152       -1
-```
-
-
-| [Impacted Files](https://codecov.io/gh/puppetlabs/puppetlabs-reboot/pull/228?src=pr&el=tree) | Coverage Δ | |
-|---|---|---|
-| [lib/puppet/provider/reboot/windows.rb](https://codecov.io/gh/puppetlabs/puppetlabs-reboot/pull/228/diff?src=pr&el=tree#diff-bGliL3B1cHBldC9wcm92aWRlci9yZWJvb3Qvd2luZG93cy5yYg==) | `24.81% <0%> (+0.75%)` | :arrow_up: |
-
-------
-
-[Continue to review full report at Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-reboot/pull/228?src=pr&el=continue).
-> **Legend** - [Click here to learn more](https://docs.codecov.io/docs/codecov-delta)
-> `Δ = absolute <relative> (impact)`, `ø = not affected`, `? = missing data`
-> Powered by [Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-reboot/pull/228?src=pr&el=footer). Last update [ae2ff97...50a24fe](https://codecov.io/gh/puppetlabs/puppetlabs-reboot/pull/228?src=pr&el=lastupdated). Read the [comment docs](https://docs.codecov.io/docs/pull-request-comments).
-</td>
-<td>codecov-io</td>
-<td>0</td>
-<td>1</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-reboot</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-reboot/pull/223'>223</a></td>
-<td>21</td>
-<td>beechtom <span class='label label-warning'>puppet</span></td>
-<td>(GH-1376) Change `$nodes` parameter for `reboot` plan to `$targets`</td>
-<td>Updated with docs changes.</td>
-<td>beechtom</td>
-<td>21</td>
-<td>1</td>
-<td>false</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-registry</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-registry/pull/199'>199</a></td>
-<td>0</td>
-<td>DavidS <span class='label label-warning'>puppet</span></td>
-<td>pdksync - (maint) travis updates: bundler and slack</td>
-<td># [Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-registry/pull/199?src=pr&el=h1) Report
-> Merging [#199](https://codecov.io/gh/puppetlabs/puppetlabs-registry/pull/199?src=pr&el=desc) into [master](https://codecov.io/gh/puppetlabs/puppetlabs-registry/commit/2b84064a5fcea784902822ae7e2ed86c92ad0e5f?src=pr&el=desc) will **not change** coverage.
-> The diff coverage is `n/a`.
-
-[![Impacted file tree graph](https://codecov.io/gh/puppetlabs/puppetlabs-registry/pull/199/graphs/tree.svg?width=650&token=yicR0GIDPl&height=150&src=pr)](https://codecov.io/gh/puppetlabs/puppetlabs-registry/pull/199?src=pr&el=tree)
-
-```diff
-@@           Coverage Diff           @@
-##           master     #199   +/-   ##
-=======================================
-  Coverage   88.15%   88.15%           
-=======================================
-  Files           5        5           
-  Lines         363      363           
-=======================================
-  Hits          320      320           
-  Misses         43       43
-```
-
-
-
-------
-
-[Continue to review full report at Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-registry/pull/199?src=pr&el=continue).
-> **Legend** - [Click here to learn more](https://docs.codecov.io/docs/codecov-delta)
-> `Δ = absolute <relative> (impact)`, `ø = not affected`, `? = missing data`
-> Powered by [Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-registry/pull/199?src=pr&el=footer). Last update [2b84064...df67642](https://codecov.io/gh/puppetlabs/puppetlabs-registry/pull/199?src=pr&el=lastupdated). Read the [comment docs](https://docs.codecov.io/docs/pull-request-comments).
-</td>
-<td>codecov-io</td>
-<td>0</td>
-<td>1</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-resource</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-resource/pull/78'>78</a></td>
-<td>0</td>
-<td>DavidS <span class='label label-warning'>puppet</span></td>
-<td>pdksync - (maint) travis updates: bundler and slack</td>
-<td></td>
-<td></td>
-<td>0</td>
-<td>0</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-resource_api</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-resource_api/pull/29'>29</a></td>
-<td>0</td>
-<td>DavidS <span class='label label-warning'>puppet</span></td>
-<td>pdksync - (maint) travis updates: bundler and slack</td>
-<td># [Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-resource_api/pull/29?src=pr&el=h1) Report
-> Merging [#29](https://codecov.io/gh/puppetlabs/puppetlabs-resource_api/pull/29?src=pr&el=desc) into [master](https://codecov.io/gh/puppetlabs/puppetlabs-resource_api/commit/559bcf357e28fa70f68b68294118ad5c3124a6c5?src=pr&el=desc) will **not change** coverage.
-> The diff coverage is `n/a`.
-
-[![Impacted file tree graph](https://codecov.io/gh/puppetlabs/puppetlabs-resource_api/pull/29/graphs/tree.svg?width=650&token=ah0qrJEoJg&height=150&src=pr)](https://codecov.io/gh/puppetlabs/puppetlabs-resource_api/pull/29?src=pr&el=tree)
-
-```diff
-@@           Coverage Diff           @@
-##           master      #29   +/-   ##
-=======================================
-  Coverage   32.43%   32.43%           
-=======================================
-  Files           3        3           
-  Lines          37       37           
-=======================================
-  Hits           12       12           
-  Misses         25       25
-```
-
-
-
-------
-
-[Continue to review full report at Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-resource_api/pull/29?src=pr&el=continue).
-> **Legend** - [Click here to learn more](https://docs.codecov.io/docs/codecov-delta)
-> `Δ = absolute <relative> (impact)`, `ø = not affected`, `? = missing data`
-> Powered by [Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-resource_api/pull/29?src=pr&el=footer). Last update [559bcf3...257a7bd](https://codecov.io/gh/puppetlabs/puppetlabs-resource_api/pull/29?src=pr&el=lastupdated). Read the [comment docs](https://docs.codecov.io/docs/pull-request-comments).
-</td>
-<td>codecov-io</td>
-<td>0</td>
-<td>1</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-resource_api</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-resource_api/pull/25'>25</a></td>
-<td>89</td>
-<td>DavidS <span class='label label-warning'>puppet</span></td>
-<td>pdksync - (maint) update pdk-templates</td>
-<td>Since this module is about to be deprecated, we won't be updating the infrastructure unless absolutely needed.</td>
-<td>DavidS</td>
-<td>32</td>
-<td>1</td>
-<td>false</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-rook</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-rook/pull/68'>68</a></td>
-<td>0</td>
-<td>DavidS <span class='label label-warning'>puppet</span></td>
-<td>pdksync - (maint) travis updates: bundler and slack</td>
-<td></td>
-<td></td>
-<td>0</td>
-<td>0</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-satellite_pe_tools</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-satellite_pe_tools/pull/122'>122</a></td>
-<td>0</td>
-<td>DavidS <span class='label label-warning'>puppet</span></td>
-<td>pdksync - (maint) travis updates: bundler and slack</td>
-<td># [Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-satellite_pe_tools/pull/122?src=pr&el=h1) Report
-> :exclamation: No coverage uploaded for pull request base (`master@a96cd36`). [Click here to learn what that means](https://docs.codecov.io/docs/error-reference#section-missing-base-commit).
-> The diff coverage is `n/a`.
-
-[![Impacted file tree graph](https://codecov.io/gh/puppetlabs/puppetlabs-satellite_pe_tools/pull/122/graphs/tree.svg?width=650&token=x8CfawET6w&height=150&src=pr)](https://codecov.io/gh/puppetlabs/puppetlabs-satellite_pe_tools/pull/122?src=pr&el=tree)
-
-```diff
-@@           Coverage Diff           @@
-##             master   #122   +/-   ##
-=======================================
-  Coverage          ?     0%           
-=======================================
-  Files             ?      5           
-  Lines             ?    206           
-  Branches          ?      0           
-=======================================
-  Hits              ?      0           
-  Misses            ?    206           
-  Partials          ?      0
-```
-
-
-
-------
-
-[Continue to review full report at Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-satellite_pe_tools/pull/122?src=pr&el=continue).
-> **Legend** - [Click here to learn more](https://docs.codecov.io/docs/codecov-delta)
-> `Δ = absolute <relative> (impact)`, `ø = not affected`, `? = missing data`
-> Powered by [Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-satellite_pe_tools/pull/122?src=pr&el=footer). Last update [a96cd36...1d3b3cb](https://codecov.io/gh/puppetlabs/puppetlabs-satellite_pe_tools/pull/122?src=pr&el=lastupdated). Read the [comment docs](https://docs.codecov.io/docs/pull-request-comments).
-</td>
-<td>codecov-io</td>
-<td>0</td>
-<td>1</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-scheduled_task</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-scheduled_task/pull/112'>112</a></td>
-<td>0</td>
-<td>DavidS <span class='label label-warning'>puppet</span></td>
-<td>pdksync - (maint) travis updates: bundler and slack</td>
-<td># [Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-scheduled_task/pull/112?src=pr&el=h1) Report
-> Merging [#112](https://codecov.io/gh/puppetlabs/puppetlabs-scheduled_task/pull/112?src=pr&el=desc) into [master](https://codecov.io/gh/puppetlabs/puppetlabs-scheduled_task/commit/64b8713b4c29cb15dcbc51fe30133ccd0a024f82?src=pr&el=desc) will **not change** coverage.
-> The diff coverage is `n/a`.
-
-[![Impacted file tree graph](https://codecov.io/gh/puppetlabs/puppetlabs-scheduled_task/pull/112/graphs/tree.svg?width=650&token=QHNzTJj4KT&height=150&src=pr)](https://codecov.io/gh/puppetlabs/puppetlabs-scheduled_task/pull/112?src=pr&el=tree)
-
-```diff
-@@           Coverage Diff           @@
-##           master     #112   +/-   ##
-=======================================
-  Coverage   95.41%   95.41%           
-=======================================
-  Files           6        6           
-  Lines         829      829           
-=======================================
-  Hits          791      791           
-  Misses         38       38
-```
-
-
-
-------
-
-[Continue to review full report at Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-scheduled_task/pull/112?src=pr&el=continue).
-> **Legend** - [Click here to learn more](https://docs.codecov.io/docs/codecov-delta)
-> `Δ = absolute <relative> (impact)`, `ø = not affected`, `? = missing data`
-> Powered by [Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-scheduled_task/pull/112?src=pr&el=footer). Last update [64b8713...8bdc7d3](https://codecov.io/gh/puppetlabs/puppetlabs-scheduled_task/pull/112?src=pr&el=lastupdated). Read the [comment docs](https://docs.codecov.io/docs/pull-request-comments).
-</td>
-<td>codecov-io</td>
-<td>0</td>
-<td>1</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-scheduled_task</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-scheduled_task/pull/91'>91</a></td>
-<td>123</td>
-<td>RandomNoun7 <span class='label label-warning'>puppet</span></td>
-<td>(FM-8179) Set up CI with Azure Pipelines</td>
-<td></td>
-<td></td>
-<td>0</td>
-<td>0</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-service</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-service/pull/129'>129</a></td>
-<td>0</td>
-<td>DavidS <span class='label label-warning'>puppet</span></td>
-<td>pdksync - (maint) travis updates: bundler and slack</td>
-<td></td>
-<td></td>
-<td>0</td>
-<td>0</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-sqlserver</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-sqlserver/pull/335'>335</a></td>
-<td>0</td>
-<td>DavidS <span class='label label-warning'>puppet</span></td>
-<td>pdksync - (maint) travis updates: bundler and slack</td>
-<td></td>
-<td></td>
-<td>0</td>
-<td>0</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-stdlib</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-stdlib/pull/1074'>1074</a></td>
-<td>0</td>
-<td>DavidS <span class='label label-warning'>puppet</span></td>
-<td>pdksync - (maint) travis updates: bundler and slack</td>
-<td></td>
-<td></td>
-<td>0</td>
-<td>0</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-stdlib</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-stdlib/pull/1066'>1066</a></td>
-<td>31</td>
-<td>pegasd</td>
-<td>Make type aliases stricter</td>
-<td>By `breaking compatibility` I mean that if I update the `Stdlib::Compat::*` types, they will not match the behavior of corresponding functions.
-
-I guess I could update those as well, but as I said, they're very much legacy and things may break for users in unexpected ways.
-
-What do you propose? I can take a stab at `compat` if needed.</td>
-<td>pegasd</td>
-<td>18</td>
-<td>4</td>
-<td>false</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-stdlib</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-stdlib/pull/1006'>1006</a></td>
-<td>279</td>
-<td>runejuhl <span class='label label-primary'>vox</span></td>
-<td>Add more ensure types</td>
-<td>Thanks, @runejuhl for submitting the PR. Apologize the delay.
-Please check if the later releases of puppet solve the issue.</td>
-<td>sheenaajay</td>
-<td>85</td>
-<td>5</td>
-<td>false</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-stdlib</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-stdlib/pull/1067'>1067</a></td>
-<td>26</td>
-<td>binford2k <span class='label label-warning'>puppet</span> <span class='label label-primary'>vox</span></td>
-<td>(WIP) Add volatile_fact() function</td>
-<td>So, there are issues with getting the facts if not set in scope as `$facts`, a) risk of getting server side facts when called on master and b) if there are many "deferred facts" they would all result in running Facter and this would be slow c) since each call will run Facter, the values may differ for the same fact
+  <tr>
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-panos'>puppetlabs-panos</a></td>
+  
+  
+  
+      
+  
+  
+  
+      <td><a href='https://github.com/puppetlabs/puppetlabs-panos/pull/111'>111</a></td>
+  
+  
+  
+      
+        <td>84</td>
+      
+  
+  
+  
+      
+        <td>gbrusick</td>
+      
+  
+  
+  
+      
+        <td>add new types: panos_decryption_policy_rule, panos_application_group, panos_custom_url_category, and panos_profiles_url_filtering</td>
+      
+  
+  
+  
+      
+        <td>I added examples that I took from production devices and modified the names, but I cannot run the acceptance, because the server that has access to the devices doesn't have a version of rubby recent enough. Could you please run it and tell me if there is something wrong.</td>
+      
+  
+  
+  
+      
+        <td>gbrusick</td>
+      
+  
+  
+  
+      
+        <td>68</td>
+      
+  
+  
+  
+      
+        <td>9</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  
+      
+        <td>false</td>
+      
+  
+  
+  </tr>
  
-The best would be if the facts were already present in scope when deferred calls are resolved. That requires a change to Puppet however as the setup and use of PAL on the agent side for resolution of Deferred must be given the facts to use. (The rest should already be supported by PAL; i.e. setting `$facts` etc.)
-
-If not computed and set up front, then I think the result needs to be cached and kept while resolving deferred values. This would be good since if there is no call to get a deferred fact then Facter does not need to run at all. If going this route, there is a supported caching mechanism that functions can use. With this there is still the problem of getting the wrong facts (for server when agent was intended) as the place intention is known is when setting up the context (i.e. when setting up PAL for resolution, or when setting up for apply, master compile, bolt apply compile, etc.).</td>
-<td>hlindberg</td>
-<td>17</td>
-<td>7</td>
-<td>false</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-stdlib</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-stdlib/pull/1040'>1040</a></td>
-<td>137</td>
-<td>genebean <span class='label label-warning'>puppet</span></td>
-<td>Adding str2saltedpbkdf2 function</td>
-<td>I just returned from PTO myself. I will look at this this week. (pinging @SowmyaJujjuri for visibility)</td>
-<td>genebean</td>
-<td>112</td>
-<td>7</td>
-<td>false</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-stdlib</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-stdlib/pull/1004'>1004</a></td>
-<td>284</td>
-<td>Rathios</td>
-<td>(MODULES-8732) Cron types</td>
-<td>Any progress here?
-
-I also wanted to note that, since `puppet-strings` supports type aliases now, it'd be great to remove newlines between the comment and the type definition. Otherwise `puppet-strings` considers those types undocumented.</td>
-<td>pegasd</td>
-<td>34</td>
-<td>6</td>
-<td>false</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-tagmail</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-tagmail/pull/152'>152</a></td>
-<td>0</td>
-<td>DavidS <span class='label label-warning'>puppet</span></td>
-<td>pdksync - (maint) travis updates: bundler and slack</td>
-<td></td>
-<td></td>
-<td>0</td>
-<td>0</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-tomcat</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-tomcat/pull/379'>379</a></td>
-<td>0</td>
-<td>DavidS <span class='label label-warning'>puppet</span></td>
-<td>pdksync - (maint) travis updates: bundler and slack</td>
-<td></td>
-<td></td>
-<td>0</td>
-<td>0</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-translate</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-translate/pull/65'>65</a></td>
-<td>0</td>
-<td>DavidS <span class='label label-warning'>puppet</span></td>
-<td>pdksync - (maint) travis updates: bundler and slack</td>
-<td># [Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-translate/pull/65?src=pr&el=h1) Report
-> Merging [#65](https://codecov.io/gh/puppetlabs/puppetlabs-translate/pull/65?src=pr&el=desc) into [master](https://codecov.io/gh/puppetlabs/puppetlabs-translate/commit/c9cd7001ff1b91dd40979b28f22b0db0e581613f?src=pr&el=desc) will **not change** coverage.
-> The diff coverage is `n/a`.
-
-[![Impacted file tree graph](https://codecov.io/gh/puppetlabs/puppetlabs-translate/pull/65/graphs/tree.svg?width=650&token=cJYeGUpZ50&height=150&src=pr)](https://codecov.io/gh/puppetlabs/puppetlabs-translate/pull/65?src=pr&el=tree)
-
-```diff
-@@         Coverage Diff          @@
-##           master   #65   +/-   ##
-====================================
-  Coverage       0%    0%           
-====================================
-  Files           1     1           
-  Lines          14    14           
-====================================
-  Misses         14    14
-```
-
-
-
-------
-
-[Continue to review full report at Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-translate/pull/65?src=pr&el=continue).
-> **Legend** - [Click here to learn more](https://docs.codecov.io/docs/codecov-delta)
-> `Δ = absolute <relative> (impact)`, `ø = not affected`, `? = missing data`
-> Powered by [Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-translate/pull/65?src=pr&el=footer). Last update [c9cd700...2770e21](https://codecov.io/gh/puppetlabs/puppetlabs-translate/pull/65?src=pr&el=lastupdated). Read the [comment docs](https://docs.codecov.io/docs/pull-request-comments).
-</td>
-<td>codecov-io</td>
-<td>0</td>
-<td>1</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-vcsrepo</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-vcsrepo/pull/439'>439</a></td>
-<td>0</td>
-<td>DavidS <span class='label label-warning'>puppet</span></td>
-<td>pdksync - (maint) travis updates: bundler and slack</td>
-<td></td>
-<td></td>
-<td>0</td>
-<td>0</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-vcsrepo</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-vcsrepo/pull/418'>418</a></td>
-<td>221</td>
-<td>evanstachowiak</td>
-<td>Don't set --branch equal to revision when depth > 0</td>
-<td>hey @lionce,
-sorry for the delay.
-
-After further testing, when setting depth == 1, the specific revision was not present in the git clone. Do you have any guidance on how to fix this so that it's possible to checkout out the specific rev #? Guess that's why the tests were broken, because the code was broken :)</td>
-<td>evanstachowiak</td>
-<td>20</td>
-<td>3</td>
-<td>false</td>
-<td>true</td>
-</tr>
-<tr>
-<td>puppetlabs-vsphere</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-vsphere/pull/173'>173</a></td>
-<td>0</td>
-<td>DavidS <span class='label label-warning'>puppet</span></td>
-<td>pdksync - (maint) travis updates: bundler and slack</td>
-<td></td>
-<td></td>
-<td>0</td>
-<td>0</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-vsphere</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-vsphere/pull/172'>172</a></td>
-<td>3</td>
-<td>lionce <span class='label label-warning'>puppet</span></td>
-<td>FM-8449 - convert vsphere to litmus</td>
-<td>github actions report [here](https://github.com/puppetlabs/puppetlabs-vsphere/runs/347706213)
-this report is for test
-is pointing to branch litmus
-branch litmus contains almost the same code as lionce:litmus_githubActions. The only difference is about github_actions config. </td>
-<td>lionce</td>
-<td>3</td>
-<td>1</td>
-<td>false</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-websphere_application_server</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-websphere_application_server/pull/186'>186</a></td>
-<td>0</td>
-<td>DavidS <span class='label label-warning'>puppet</span></td>
-<td>pdksync - (maint) travis updates: bundler and slack</td>
-<td># [Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-websphere_application_server/pull/186?src=pr&el=h1) Report
-> :exclamation: No coverage uploaded for pull request base (`master@1022330`). [Click here to learn what that means](https://docs.codecov.io/docs/error-reference#section-missing-base-commit).
-> The diff coverage is `n/a`.
-
-[![Impacted file tree graph](https://codecov.io/gh/puppetlabs/puppetlabs-websphere_application_server/pull/186/graphs/tree.svg?width=650&token=5qRL7V25Zr&height=150&src=pr)](https://codecov.io/gh/puppetlabs/puppetlabs-websphere_application_server/pull/186?src=pr&el=tree)
-
-```diff
-@@           Coverage Diff            @@
-##             master    #186   +/-   ##
-========================================
-  Coverage          ?   5.33%           
-========================================
-  Files             ?      26           
-  Lines             ?    2568           
-  Branches          ?       0           
-========================================
-  Hits              ?     137           
-  Misses            ?    2431           
-  Partials          ?       0
-```
-
-
-
-------
-
-[Continue to review full report at Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-websphere_application_server/pull/186?src=pr&el=continue).
-> **Legend** - [Click here to learn more](https://docs.codecov.io/docs/codecov-delta)
-> `Δ = absolute <relative> (impact)`, `ø = not affected`, `? = missing data`
-> Powered by [Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-websphere_application_server/pull/186?src=pr&el=footer). Last update [1022330...d09269f](https://codecov.io/gh/puppetlabs/puppetlabs-websphere_application_server/pull/186?src=pr&el=lastupdated). Read the [comment docs](https://docs.codecov.io/docs/pull-request-comments).
-</td>
-<td>codecov-io</td>
-<td>0</td>
-<td>1</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-websphere_application_server</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-websphere_application_server/pull/173'>173</a></td>
-<td>207</td>
-<td>GerbenWelter</td>
-<td>Add support for BASE installations</td>
-<td>I was out of office for the past weeks but I will try to find some time to add the tests.</td>
-<td>GerbenWelter</td>
-<td>132</td>
-<td>2</td>
-<td>false</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-websphere_application_server</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-websphere_application_server/pull/177'>177</a></td>
-<td>139</td>
-<td>logicminds <span class='label label-warning'>puppet</span> <span class='label label-primary'>vox</span></td>
-<td>Puppet 4 data type checking</td>
-<td>@logicminds Please find the Test results.Please let us know if you need more information.
-`13:03:59 Failures:
-13:03:59 
-13:03:59   1) IHS instance runs without errors
-13:03:59      Failure/Error: expect(@result.exit_code).to eq 2
-13:03:59        
-13:03:59        expected: 2
-13:03:59             got: 1
-13:03:59        
-13:03:59        (compared using ==)
-13:03:59        
-13:03:59      # ./spec/acceptance/ihs_spec.rb:23:in `block (2 levels) in <top (required)>'
-13:03:59 
-13:03:59   2) IHS instance shall start an ihs server process
-13:03:59      Failure/Error: ports_ihs_listening = on(@agent, "lsof -ti :#{@listen_port}").stdout.split
-13:03:59      Beaker::Host::CommandFailure:
-13:03:59        Host 'he9fhcup5rd8wqg.delivery.puppetlabs.net' exited with 1 running:
-13:03:59         lsof -ti :10080
-13:03:59        Last 10 lines of output were:
-13:03:59        
-13:03:59      # ./.bundle/gems/gems/beaker-4.11.0/lib/beaker/host.rb:391:in `exec'
-13:03:59      # ./.bundle/gems/gems/beaker-4.11.0/lib/beaker/dsl/helpers/host_helpers.rb:83:in `block in on'
-13:03:59      # ./.bundle/gems/gems/beaker-4.11.0/lib/beaker/shared/host_manager.rb:130:in `run_block_on'
-13:03:59      # ./.bundle/gems/gems/beaker-4.11.0/lib/beaker/dsl/patterns.rb:37:in `block_on'
-13:03:59      # ./.bundle/gems/gems/beaker-4.11.0/lib/beaker/dsl/helpers/host_helpers.rb:63:in `on'
-13:03:59      # ./spec/acceptance/ihs_spec.rb:30:in `block (2 levels) in <top (required)>'
-13:03:59 
-13:03:59   3) IHS instance shall be listening on the correct port
-13:03:59      Failure/Error: ports_ihs_listening = on(@agent, "lsof -ti :#{@listen_port}").stdout.split
-13:03:59      Beaker::Host::CommandFailure:
-13:03:59        Host 'he9fhcup5rd8wqg.delivery.puppetlabs.net' exited with 1 running:
-13:03:59         lsof -ti :10080
-13:03:59        Last 10 lines of output were:
-13:03:59        
-13:03:59      # ./.bundle/gems/gems/beaker-4.11.0/lib/beaker/host.rb:391:in `exec'
-13:03:59      # ./.bundle/gems/gems/beaker-4.11.0/lib/beaker/dsl/helpers/host_helpers.rb:83:in `block in on'
-13:03:59      # ./.bundle/gems/gems/beaker-4.11.0/lib/beaker/shared/host_manager.rb:130:in `run_block_on'
-13:03:59      # ./.bundle/gems/gems/beaker-4.11.0/lib/beaker/dsl/patterns.rb:37:in `block_on'
-13:03:59      # ./.bundle/gems/gems/beaker-4.11.0/lib/beaker/dsl/helpers/host_helpers.rb:63:in `on'
-13:03:59      # ./spec/acceptance/ihs_spec.rb:43:in `block (2 levels) in <top (required)>'
-13:03:59 
-13:03:59   4) IHS instance shall respond to http queries
-13:03:59      Failure/Error: expect(response_lines[0]).to match(%r{^<title>IBM HTTP Server(.*)+</title>$})
-13:03:59        expected nil to match /^<title>IBM HTTP Server(.*)+<\/title>$/
-13:03:59        
-13:03:59      # ./spec/acceptance/ihs_spec.rb:52:in `block (3 levels) in <top (required)>'
-13:03:59      # ./.bundle/gems/gems/beaker-4.11.0/lib/beaker/dsl/helpers/host_helpers.rb:93:in `block in on'
-13:03:59      # ./.bundle/gems/gems/beaker-4.11.0/lib/beaker/shared/host_manager.rb:130:in `run_block_on'
-13:03:59      # ./.bundle/gems/gems/beaker-4.11.0/lib/beaker/dsl/patterns.rb:37:in `block_on'
-13:03:59      # ./.bundle/gems/gems/beaker-4.11.0/lib/beaker/dsl/helpers/host_helpers.rb:63:in `on'
-13:03:59      # ./spec/acceptance/ihs_spec.rb:48:in `block (2 levels) in <top (required)>'
-13:03:59 
-13:03:59   5) IHS instance behaves like an idempotent resource runs without errors
-13:03:59      Failure/Error: expect(@result.exit_code).to eq 2
-13:03:59        
-13:03:59        expected: 2
-13:03:59             got: 1
-13:03:59        
-13:03:59        (compared using ==)
-13:03:59        
-13:03:59      Shared Example Group: "an idempotent resource" called from ./spec/acceptance/ihs_spec.rb:26
-13:03:59      # ./spec/support/examples/idempotent_resource.rb:3:in `block (2 levels) in <top (required)>'
-13:03:59 
-13:03:59   6) IHS instance behaves like an idempotent resource runs a second time without changes
-13:03:59      Failure/Error: expect(second_result.exit_code).to eq 0
-13:03:59        
-13:03:59        expected: 0
-13:03:59             got: 1
-13:03:59        
-13:03:59        (compared using ==)
-13:03:59        
-13:03:59      Shared Example Group: "an idempotent resource" called from ./spec/acceptance/ihs_spec.rb:26
-13:03:59      # ./spec/support/examples/idempotent_resource.rb:9:in `block (2 levels) in <top (required)>'
-13:03:59 
-13:03:59   7) IHS instance shall stop the IHS server runs without errors
-13:03:59      Failure/Error: expect(@result.exit_code).to eq 2
-13:03:59        
-13:03:59        expected: 2
-13:03:59             got: 1
-13:03:59        
-13:03:59        (compared using ==)
-13:03:59        
-13:03:59      # ./spec/acceptance/ihs_spec.rb:73:in `block (3 levels) in <top (required)>'
-13:03:59 
-13:03:59   8) IHS instance shall stop the IHS server runs a second time without changes
-13:03:59      Failure/Error: expect(second_result.exit_code).to eq 2
-13:03:59        
-13:03:59        expected: 2
-13:03:59             got: 1
-13:03:59        
-13:03:59        (compared using ==)
-13:03:59        
-13:03:59      # ./spec/acceptance/ihs_spec.rb:85:in `block (3 levels) in <top (required)>'
-13:03:59 
-13:03:59 Finished in 28 minutes 25 seconds (files took 15 minutes 51 seconds to load)
-13:03:59 52 examples, 8 failures`</td>
-<td>sheenaajay</td>
-<td>138</td>
-<td>3</td>
-<td>false</td>
-<td>true</td>
-</tr>
-<tr>
-<td>puppetlabs-websphere_application_server</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-websphere_application_server/pull/174'>174</a></td>
-<td>204</td>
-<td>GerbenWelter</td>
-<td>Make use of supplied cell parameter</td>
-<td>I was out of office for the past weeks but I will try to find some time to add the tests.</td>
-<td>GerbenWelter</td>
-<td>132</td>
-<td>2</td>
-<td>false</td>
-<td>false</td>
-</tr>
-<tr>
-<td>puppetlabs-wsus_client</td>
-<td><a href='https://github.com/puppetlabs/puppetlabs-wsus_client/pull/119'>119</a></td>
-<td>0</td>
-<td>DavidS <span class='label label-warning'>puppet</span></td>
-<td>pdksync - (maint) travis updates: bundler and slack</td>
-<td># [Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-wsus_client/pull/119?src=pr&el=h1) Report
-> Merging [#119](https://codecov.io/gh/puppetlabs/puppetlabs-wsus_client/pull/119?src=pr&el=desc) into [master](https://codecov.io/gh/puppetlabs/puppetlabs-wsus_client/commit/a8c1df1d1d2c7f19d61d7be0824c47191fbb947b?src=pr&el=desc) will **not change** coverage.
-> The diff coverage is `n/a`.
-
-[![Impacted file tree graph](https://codecov.io/gh/puppetlabs/puppetlabs-wsus_client/pull/119/graphs/tree.svg?width=650&token=cQpNKxuZy2&height=150&src=pr)](https://codecov.io/gh/puppetlabs/puppetlabs-wsus_client/pull/119?src=pr&el=tree)
-
-```diff
-@@          Coverage Diff          @@
-##           master   #119   +/-   ##
-=====================================
-  Coverage       0%     0%           
-=====================================
-  Files           3      3           
-  Lines          83     83           
-=====================================
-  Misses         83     83
-```
-
-
-
-------
-
-[Continue to review full report at Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-wsus_client/pull/119?src=pr&el=continue).
-> **Legend** - [Click here to learn more](https://docs.codecov.io/docs/codecov-delta)
-> `Δ = absolute <relative> (impact)`, `ø = not affected`, `? = missing data`
-> Powered by [Codecov](https://codecov.io/gh/puppetlabs/puppetlabs-wsus_client/pull/119?src=pr&el=footer). Last update [a8c1df1...df4055e](https://codecov.io/gh/puppetlabs/puppetlabs-wsus_client/pull/119?src=pr&el=lastupdated). Read the [comment docs](https://docs.codecov.io/docs/pull-request-comments).
-</td>
-<td>codecov-io</td>
-<td>0</td>
-<td>1</td>
-<td>true</td>
-<td>false</td>
-</tr>
 </table>
+</body>
+</html>

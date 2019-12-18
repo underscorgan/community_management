@@ -1,56 +1,343 @@
 <html>
-<head><script src='./web_libraries/sorttable.js'></script><link rel='stylesheet' href='./web_libraries/bootstrap.min.css'></head>
+<head>
+<script src='./web_libraries/jquery.min.js' type='text/javascript'></script>
+<script src='./web_libraries/sorttable.js'></script><link rel='stylesheet' href='./web_libraries/bootstrap.min.css'>
+<script src='./web_libraries/DataTables/datatables.js'></script><link rel='stylesheet' href='./web_libraries/DataTables/datatables.css'>
+<script type= 'text/javascript'> $(document).ready( function () {$('#id_table').DataTable();} ); </script>
+</head>
+
+
 <body>
 <h2>Modules Requiring Release</h2>
-<table border='1' style='width:100%' class='sortable table table-hover'> <tr>
+<table border='1' id = 'id_table' style='width:100%' class='sortable table table-hover'> <tr>
 <th>Module Name</th>
 <th>Last Release Tag Date</th>
 <th>Commits Since Then</th>
+<th>Number of downloads</th>
 </tr>
-<tr>
-<td>puppetlabs/cisco-network-puppet-module</td>
-<td>2017-05-31 17:06:34 UTC</td>
-<td align="center">448</td>
-</tr>
-<tr>
-<td>puppetlabs/puppetlabs-concat</td>
-<td>2019-07-23 13:38:45 UTC</td>
-<td align="center">47</td>
-</tr>
-<tr>
-<td>puppetlabs/puppetlabs-kubernetes</td>
-<td>2019-07-24 08:33:11 UTC</td>
-<td align="center">45</td>
-</tr>
-<tr>
-<td>puppetlabs/puppetlabs-postgresql</td>
-<td>2019-09-12 11:08:08 UTC</td>
-<td align="center">38</td>
-</tr>
-<tr>
-<td>puppetlabs/puppetlabs-powershell</td>
-<td>2019-04-16 13:10:42 UTC</td>
-<td align="center">34</td>
-</tr>
-<tr>
-<td>puppetlabs/puppetlabs-sqlserver</td>
-<td>2019-10-21 16:48:02 UTC</td>
-<td align="center">25</td>
-</tr>
-<tr>
-<td>puppetlabs/puppetlabs-vsphere</td>
-<td>2019-08-14 08:43:51 UTC</td>
-<td align="center">26</td>
-</tr>
-<tr>
-<td>puppetlabs/puppetlabs-websphere_application_server</td>
-<td>2019-05-20 07:36:20 UTC</td>
-<td align="center">27</td>
-</tr>
-<tr>
-<td>puppetlabs/puppetlabs-wsus_client</td>
-<td>2019-10-18 13:00:45 UTC</td>
-<td align="center">23</td>
-</tr>
+
+  <tr>
+  <td><a href='https://github.com/cisco/cisco-network-puppet-module'>cisco/cisco-network-puppet-module</a></td>
+  <td>2019-08-19 13:40:38 UTC</td>
+  <td align=\"center\">3</td>
+  <td align=\"center\">1825</td>
+  </tr>
+
+  <tr>
+  <td><a href='https://github.com/puppetlabs/puppetlabs-accounts'>puppetlabs/puppetlabs-accounts</a></td>
+  <td>2019-11-11 08:55:08 UTC</td>
+  <td align=\"center\">17</td>
+  <td align=\"center\">1435</td>
+  </tr>
+
+  <tr>
+  <td><a href='https://github.com/puppetlabs/puppetlabs-acl'>puppetlabs/puppetlabs-acl</a></td>
+  <td>2019-12-03 11:12:53 UTC</td>
+  <td align=\"center\">9</td>
+  <td align=\"center\">937</td>
+  </tr>
+
+  <tr>
+  <td><a href='https://github.com/puppetlabs/puppetlabs-apache'>puppetlabs/puppetlabs-apache</a></td>
+  <td>2019-12-11 12:25:53 UTC</td>
+  <td align=\"center\">6</td>
+  <td align=\"center\">3218</td>
+  </tr>
+
+  <tr>
+  <td><a href='https://github.com/puppetlabs/puppetlabs-apt'>puppetlabs/puppetlabs-apt</a></td>
+  <td>2019-12-11 15:21:10 UTC</td>
+  <td align=\"center\">5</td>
+  <td align=\"center\">7950</td>
+  </tr>
+
+  <tr>
+  <td><a href='https://github.com/puppetlabs/puppetlabs-bootstrap'>puppetlabs/puppetlabs-bootstrap</a></td>
+  <td>2019-11-11 09:55:34 UTC</td>
+  <td align=\"center\">20</td>
+  <td align=\"center\">1301</td>
+  </tr>
+
+  <tr>
+  <td><a href='https://github.com/puppetlabs/puppetlabs-chocolatey'>puppetlabs/puppetlabs-chocolatey</a></td>
+  <td>2019-12-09 13:53:24 UTC</td>
+  <td align=\"center\">5</td>
+  <td align=\"center\">1101</td>
+  </tr>
+
+  <tr>
+  <td><a href='https://github.com/puppetlabs/puppetlabs-concat'>puppetlabs/puppetlabs-concat</a></td>
+  <td>2019-07-23 13:38:45 UTC</td>
+  <td align=\"center\">47</td>
+  <td align=\"center\">199314</td>
+  </tr>
+
+  <tr>
+  <td><a href='https://github.com/puppetlabs/puppetlabs-docker'>puppetlabs/puppetlabs-docker</a></td>
+  <td>2019-12-09 10:03:16 UTC</td>
+  <td align=\"center\">5</td>
+  <td align=\"center\">2495</td>
+  </tr>
+
+  <tr>
+  <td><a href='https://github.com/puppetlabs/puppetlabs-exec'>puppetlabs/puppetlabs-exec</a></td>
+  <td>2019-11-11 14:23:52 UTC</td>
+  <td align=\"center\">21</td>
+  <td align=\"center\">792</td>
+  </tr>
+
+  <tr>
+  <td><a href='https://github.com/puppetlabs/puppetlabs-facter_task'>puppetlabs/puppetlabs-facter_task</a></td>
+  <td>2019-11-11 12:38:07 UTC</td>
+  <td align=\"center\">23</td>
+  <td align=\"center\">1342</td>
+  </tr>
+
+  <tr>
+  <td><a href='https://github.com/puppetlabs/puppetlabs-firewall'>puppetlabs/puppetlabs-firewall</a></td>
+  <td>2019-12-09 11:28:29 UTC</td>
+  <td align=\"center\">9</td>
+  <td align=\"center\">4478</td>
+  </tr>
+
+  <tr>
+  <td><a href='https://github.com/puppetlabs/puppetlabs-haproxy'>puppetlabs/puppetlabs-haproxy</a></td>
+  <td>2019-12-09 10:50:07 UTC</td>
+  <td align=\"center\">5</td>
+  <td align=\"center\">740</td>
+  </tr>
+
+  <tr>
+  <td><a href='https://github.com/puppetlabs/puppetlabs-helm'>puppetlabs/puppetlabs-helm</a></td>
+  <td>2019-12-06 10:53:27 UTC</td>
+  <td align=\"center\">7</td>
+  <td align=\"center\">472</td>
+  </tr>
+
+  <tr>
+  <td><a href='https://github.com/puppetlabs/puppetlabs-hocon'>puppetlabs/puppetlabs-hocon</a></td>
+  <td>2019-10-29 15:07:58 UTC</td>
+  <td align=\"center\">5</td>
+  <td align=\"center\">2550</td>
+  </tr>
+
+  <tr>
+  <td><a href='https://github.com/puppetlabs/puppetlabs-ibm_installation_manager'>puppetlabs/puppetlabs-ibm_installation_manager</a></td>
+  <td>2019-12-09 10:23:14 UTC</td>
+  <td align=\"center\">6</td>
+  <td align=\"center\">413</td>
+  </tr>
+
+  <tr>
+  <td><a href='https://github.com/puppetlabs/puppetlabs-iis'>puppetlabs/puppetlabs-iis</a></td>
+  <td>2019-10-30 09:57:27 UTC</td>
+  <td align=\"center\">21</td>
+  <td align=\"center\">1403</td>
+  </tr>
+
+  <tr>
+  <td><a href='https://github.com/puppetlabs/puppetlabs-inifile'>puppetlabs/puppetlabs-inifile</a></td>
+  <td>2019-11-11 13:46:45 UTC</td>
+  <td align=\"center\">21</td>
+  <td align=\"center\">21700</td>
+  </tr>
+
+  <tr>
+  <td><a href='https://github.com/puppetlabs/puppetlabs-java'>puppetlabs/puppetlabs-java</a></td>
+  <td>2019-11-11 13:31:38 UTC</td>
+  <td align=\"center\">18</td>
+  <td align=\"center\">102223</td>
+  </tr>
+
+  <tr>
+  <td><a href='https://github.com/puppetlabs/puppetlabs-java_ks'>puppetlabs/puppetlabs-java_ks</a></td>
+  <td>2019-12-09 11:51:01 UTC</td>
+  <td align=\"center\">6</td>
+  <td align=\"center\">1008</td>
+  </tr>
+
+  <tr>
+  <td><a href='https://github.com/puppetlabs/puppetlabs-kubernetes'>puppetlabs/puppetlabs-kubernetes</a></td>
+  <td>2019-07-24 08:33:11 UTC</td>
+  <td align=\"center\">45</td>
+  <td align=\"center\">3411</td>
+  </tr>
+
+  <tr>
+  <td><a href='https://github.com/puppetlabs/puppetlabs-motd'>puppetlabs/puppetlabs-motd</a></td>
+  <td>2019-11-11 10:23:18 UTC</td>
+  <td align=\"center\">19</td>
+  <td align=\"center\">1700</td>
+  </tr>
+
+  <tr>
+  <td><a href='https://github.com/puppetlabs/puppetlabs-mysql'>puppetlabs/puppetlabs-mysql</a></td>
+  <td>2019-12-11 18:22:02 UTC</td>
+  <td align=\"center\">2</td>
+  <td align=\"center\">1464</td>
+  </tr>
+
+  <tr>
+  <td><a href='https://github.com/puppetlabs/puppetlabs-kubernetes'>puppetlabs/puppetlabs-kubernetes</a></td>
+  <td>2019-07-24 08:33:11 UTC</td>
+  <td align=\"center\">45</td>
+  <td align=\"center\">3411</td>
+  </tr>
+
+  <tr>
+  <td><a href='https://github.com/puppetlabs/puppetlabs-ntp'>puppetlabs/puppetlabs-ntp</a></td>
+  <td>2019-12-09 12:01:03 UTC</td>
+  <td align=\"center\">6</td>
+  <td align=\"center\">1918</td>
+  </tr>
+
+  <tr>
+  <td><a href='https://github.com/puppetlabs/puppetlabs-package'>puppetlabs/puppetlabs-package</a></td>
+  <td>2019-12-11 11:08:47 UTC</td>
+  <td align=\"center\">5</td>
+  <td align=\"center\">430</td>
+  </tr>
+
+  <tr>
+  <td><a href='https://github.com/puppetlabs/puppetlabs-postgresql'>puppetlabs/puppetlabs-postgresql</a></td>
+  <td>2019-09-12 11:08:08 UTC</td>
+  <td align=\"center\">41</td>
+  <td align=\"center\">91691</td>
+  </tr>
+
+  <tr>
+  <td><a href='https://github.com/puppetlabs/puppetlabs-powershell'>puppetlabs/puppetlabs-powershell</a></td>
+  <td>2019-04-16 13:10:42 UTC</td>
+  <td align=\"center\">34</td>
+  <td align=\"center\">251691</td>
+  </tr>
+
+  <tr>
+  <td><a href='https://github.com/puppetlabs/puppetlabs-puppet_conf'>puppetlabs/puppetlabs-puppet_conf</a></td>
+  <td>2019-12-09 14:30:00 UTC</td>
+  <td align=\"center\">3</td>
+  <td align=\"center\">525</td>
+  </tr>
+
+  <tr>
+  <td><a href='https://github.com/puppetlabs/puppetlabs-reboot'>puppetlabs/puppetlabs-reboot</a></td>
+  <td>2019-12-06 12:08:37 UTC</td>
+  <td align=\"center\">10</td>
+  <td align=\"center\">4597</td>
+  </tr>
+
+  <tr>
+  <td><a href='https://github.com/puppetlabs/puppetlabs-registry'>puppetlabs/puppetlabs-registry</a></td>
+  <td>2019-12-10 10:12:09 UTC</td>
+  <td align=\"center\">7</td>
+  <td align=\"center\">1582</td>
+  </tr>
+
+  <tr>
+  <td><a href='https://github.com/puppetlabs/puppetlabs-resource'>puppetlabs/puppetlabs-resource</a></td>
+  <td>2019-12-09 09:55:03 UTC</td>
+  <td align=\"center\">6</td>
+  <td align=\"center\">436</td>
+  </tr>
+
+  <tr>
+  <td><a href='https://github.com/puppetlabs/puppetlabs-resource_api'>puppetlabs/puppetlabs-resource_api</a></td>
+  <td>2019-06-17 10:43:24 UTC</td>
+  <td align=\"center\">19</td>
+  <td align=\"center\">6827</td>
+  </tr>
+
+  <tr>
+  <td><a href='https://github.com/puppetlabs/puppetlabs-rook'>puppetlabs/puppetlabs-rook</a></td>
+  <td>2019-09-05 16:13:10 UTC</td>
+  <td align=\"center\">18</td>
+  <td align=\"center\">2100</td>
+  </tr>
+
+  <tr>
+  <td><a href='https://github.com/puppetlabs/puppetlabs-scheduled_task'>puppetlabs/puppetlabs-scheduled_task</a></td>
+  <td>2019-12-03 13:24:00 UTC</td>
+  <td align=\"center\">10</td>
+  <td align=\"center\">11789</td>
+  </tr>
+
+  <tr>
+  <td><a href='https://github.com/puppetlabs/puppetlabs-service'>puppetlabs/puppetlabs-service</a></td>
+  <td>2019-12-12 10:20:45 UTC</td>
+  <td align=\"center\">2</td>
+  <td align=\"center\">437</td>
+  </tr>
+
+  <tr>
+  <td><a href='https://github.com/puppetlabs/puppetlabs-sqlserver'>puppetlabs/puppetlabs-sqlserver</a></td>
+  <td>2019-10-21 16:48:02 UTC</td>
+  <td align=\"center\">28</td>
+  <td align=\"center\">1253</td>
+  </tr>
+
+  <tr>
+  <td><a href='https://github.com/puppetlabs/puppetlabs-stdlib'>puppetlabs/puppetlabs-stdlib</a></td>
+  <td>2019-12-10 09:45:11 UTC</td>
+  <td align=\"center\">7</td>
+  <td align=\"center\">24645</td>
+  </tr>
+
+  <tr>
+  <td><a href='https://github.com/puppetlabs/puppetlabs-tagmail'>puppetlabs/puppetlabs-tagmail</a></td>
+  <td>2019-12-09 12:09:45 UTC</td>
+  <td align=\"center\">6</td>
+  <td align=\"center\">438</td>
+  </tr>
+
+  <tr>
+  <td><a href='https://github.com/puppetlabs/puppetlabs-tomcat'>puppetlabs/puppetlabs-tomcat</a></td>
+  <td>2019-12-11 09:59:00 UTC</td>
+  <td align=\"center\">2</td>
+  <td align=\"center\">796</td>
+  </tr>
+
+  <tr>
+  <td><a href='https://github.com/puppetlabs/puppetlabs-translate'>puppetlabs/puppetlabs-translate</a></td>
+  <td>2019-11-29 11:49:59 UTC</td>
+  <td align=\"center\">11</td>
+  <td align=\"center\">27296</td>
+  </tr>
+
+  <tr>
+  <td><a href='https://github.com/puppetlabs/puppetlabs-vcsrepo'>puppetlabs/puppetlabs-vcsrepo</a></td>
+  <td>2019-12-10 10:48:40 UTC</td>
+  <td align=\"center\">4</td>
+  <td align=\"center\">2547</td>
+  </tr>
+
+  <tr>
+  <td><a href='https://github.com/puppetlabs/puppetlabs-websphere_application_server'>puppetlabs/puppetlabs-websphere_application_server</a></td>
+  <td>2019-05-20 07:36:20 UTC</td>
+  <td align=\"center\">30</td>
+  <td align=\"center\">2588</td>
+  </tr>
+
+  <tr>
+  <td><a href='https://github.com/puppetlabs/puppetlabs-wsus_client'>puppetlabs/puppetlabs-wsus_client</a></td>
+  <td>2019-10-18 13:00:45 UTC</td>
+  <td align=\"center\">26</td>
+  <td align=\"center\">1097</td>
+  </tr>
+
+  <tr>
+  <td><a href='https://github.com/puppetlabs/puppetlabs-panos'>puppetlabs/puppetlabs-panos</a></td>
+  <td>2019-07-29 16:56:30 UTC</td>
+  <td align=\"center\">18</td>
+  <td align=\"center\">2805</td>
+  </tr>
+
+  <tr>
+  <td><a href='https://github.com/puppetlabs/puppetlabs-test_device'>puppetlabs/puppetlabs-test_device</a></td>
+  <td>2019-05-08 14:58:31 UTC</td>
+  <td align=\"center\">17</td>
+  <td align=\"center\">47012</td>
+  </tr>
+
 </body>
 </html>
+
