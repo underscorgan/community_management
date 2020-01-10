@@ -1,0 +1,48 @@
+name: "5 minutes"
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+
+jobs:
+  generate:
+    name: "Make reports"
+    runs-on: ubuntu-18.04
+    env:
+      token: '${{ secrets.token }}'
+    steps:
+      - uses: actions/checkout@master
+      - name: Setup ruby
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: '2.5' 
+      - name: Generate reports
+        run: |
+          gem install bundler
+          ### generate pr graphs
+          bundle install --path .bundle/gems/
+          bundle exec ruby pr_work_done.rb -t $token
+          bundle exec ruby daily_open_prs.rb -t $token
+          bundle exec ruby graph.rb --pr_work_done --created_prs_per_day --open_prs_per_day
+          ### generate prs for triage report
+          bundle exec ruby pr_review_list.rb -t $token
+          ### generate release planning
+          bundle exec ruby release_planning.rb -c 0 -g '^v*\d*\.\d*\.\d*' -m 0 -t $token -o
+      - name: List files
+        run: |
+          ls -la
+          mkdir -p docs
+          cp -r *.html docs/
+          cp -r *.png docs/
+          cp -r *.csv docs/
+          ls -la docs/
+      - name: Commit files
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          git commit -m "Add generated data"
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.token }}
