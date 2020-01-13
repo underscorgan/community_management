@@ -1,5 +1,18 @@
 <html>
-<head><link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'></head>
+<head><link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+	.footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   background-color: white;
+   color: grey;
+   text-align: right;
+}
+</style>
+</head>
 <body>
 
 <h2>Available reports</h2>
@@ -10,6 +23,16 @@
 </ul>
 
 <iframe height="100%" width="100%" src="graph.html" name="iframe_a"></iframe>
+
+<div class="footer">
+<p id="demo"></p>
+
+<script>
+var d = new Date();
+document.getElementById("demo").innerHTML = d;
+</script>
+
+</div>
 
 </body>
 </html>
