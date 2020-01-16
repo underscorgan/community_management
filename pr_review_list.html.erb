@@ -21,9 +21,9 @@
   <tr>
   <% row.each do |key, value| %>
   <%  if key == :pr %>
-      <td><a href='<%= row[:address] %>/pull/<%= value %>'><%= value %></a></td>
+      <td><a target ="_blank" href='<%= row[:address] %>/pull/<%= value %>'><%= value %></a></td>
   <%  elsif key == :repo %>
-      <td><a href='<%= row[:address] %>'><%= value %></a></td>
+      <td><a target ="_blank" href='<%= row[:address] %>'><%= value %></a></td>
   <%  else %>
       <% if key != :address %>
         <td><%= value %></td>
