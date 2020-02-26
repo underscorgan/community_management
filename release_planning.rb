@@ -6,17 +6,39 @@ require 'optparse'
 require_relative 'octokit_utils'
 
 class PuppetModule
-  attr_accessor :name, :namespace, :tag_date, :commits, :downloads
-  def initialize(name, namespace, tag_date, commits, downloads = 0)
+  attr_accessor :name, :namespace, :tag_date, :commits, :no_maintenance_commits, :downloads
+  def initialize(name, namespace, tag_date, commits, no_maintenance_commits = 0, downloads = 0)
     @name = name
     @namespace = namespace
     @tag_date = tag_date
     @commits = commits
+    @no_maintenance_commits = no_maintenance_commits
     @downloads = downloads
   end
 end
 
 puppet_modules = []
+
+def get_number_of_commits_on_maintenance(util, commits, prs, label, m)
+  pr_commits = []
+  nr = 0
+  prs.each do |pr_since_tag|
+    label_on_maintenance = util.does_pr_have_label("#{m['github_namespace']}/#{m['repo_name']}", pr_since_tag[:pull][:number], label)
+
+    next unless label_on_maintenance == true
+
+    pr_commits = util.client.pull_request_commits("#{m['github_namespace']}/#{m['repo_name']}", pr_since_tag[:pull][:number])
+
+    pr_commits.each do |c|
+      commits.each do |c1|
+        nr += 1 if c[:sha] == c1[:sha]
+      end
+    end
+  end
+
+  nr
+end
+
 def number_of_downloads(module_name)
   uri = URI.parse("https://forgeapi.puppetlabs.com/v3/modules/#{module_name}")
   request =  Net::HTTP::Get.new(uri.path)
@@ -25,7 +47,6 @@ def number_of_downloads(module_name)
   end
   output = response.body
   parsed = JSON.parse(output)
-  puts parsed
 
   begin
     parsed['current_release']['downloads']
@@ -71,11 +92,20 @@ repo_data = []
 parsed.each do |m|
   begin
     latest_tag = util.fetch_tags("#{m['github_namespace']}/#{m['repo_name']}", options).first
+
     tag_ref = util.ref_from_tag(latest_tag)
     date_of_tag = util.date_of_ref("#{m['github_namespace']}/#{m['repo_name']}", tag_ref)
+
     commits_since_tag = util.commits_since_date("#{m['github_namespace']}/#{m['repo_name']}", date_of_tag)
-    repo_data << { 'repo' => "#{m['github_namespace']}/#{m['repo_name']}", 'date' => date_of_tag, 'commits' => commits_since_tag, 'downloads' => number_of_downloads(m['forge_name']) }
-    puppet_modules << PuppetModule.new(repo, "#{m['github_namespace']}/#{m['repo_name']}", date_of_tag, commits_since_tag)
+    # puts commits_since_tag
+
+    prs_since_tag = util.fetch_async("#{m['github_namespace']}/#{m['repo_name']}", options = { state: 'closed', sort: 'updated' }, filter = %i[statuses pull_request_commits issue_comments], attribute: 'closed_at', date: date_of_tag)
+
+    no_maintenance_commits = get_number_of_commits_on_maintenance(util, commits_since_tag, prs_since_tag, 'maintenance', m)
+    puts no_maintenance_commits
+
+    repo_data << { 'repo' => "#{m['github_namespace']}/#{m['repo_name']}", 'date' => date_of_tag, 'commits' => commits_since_tag.size, 'downloads' => number_of_downloads(m['forge_name']), 'number_maintenance_commits' => no_maintanance_commits }
+    puppet_modules << PuppetModule.new(repo, "#{m['github_namespace']}/#{m['repo_name']}", date_of_tag, commits_since_tag, no_maintenance_commits)
   rescue StandardError
     puts "Unable to fetch tags for #{options[:namespace]}/#{repo}" if options[:verbose]
   end
@@ -97,9 +127,12 @@ due_for_release = if due_by_commit && due_by_time
                   else
                     due_by_time
                   end
-
+ begin
 due_for_release.each do |entry|
   puts "#{entry['repo']} is due for release. Last release was tagged on #{entry['date']} and there have been #{entry['commits']} commits since then."
+  rescue NoMethodError
+    puts "nill"
+end
 end
 
 html = ERB.new(File.read('release_planning.html.erb')).result(binding)

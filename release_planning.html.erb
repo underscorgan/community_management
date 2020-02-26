@@ -13,13 +13,16 @@
 <th>Module Name</th>
 <th>Last Release Tag Date</th>
 <th>Commits Since Then</th>
+<th>Number of commits on maintenance</th>
 <th>Number of downloads</th>
+
 </tr>
 <% repo_data.each do |puppet_module| %>
   <tr>
   <td><a target ="_blank" href='https://github.com/<%= puppet_module['repo']%>'><%=puppet_module['repo']%></a></td>
   <td><%= puppet_module['date']%></td>
   <td align=\"center\"><%= puppet_module['commits']%></td>
+  <td align=\"center\"><%= puppet_module['no_maintenance_commits']%></td>
   <td align=\"center\"><%= puppet_module['downloads']%></td>
   </tr>
 <% end %>

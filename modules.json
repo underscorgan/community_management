@@ -1,4 +1,4 @@
-[
+ [
   {
     "repo_name": "cisco-network-puppet-module",
     "github_namespace": "cisco",
@@ -281,4 +281,4 @@
     "module_name": "websphere_test_device",
     "forge_name": "puppetlabs-test_device"
   }
-]
+  ]

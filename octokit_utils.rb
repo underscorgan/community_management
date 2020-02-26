@@ -3,6 +3,7 @@
 
 require 'octokit'
 require 'json'
+require 'time'
 
 class OctokitUtils
   attr_accessor :client
@@ -30,6 +31,25 @@ class OctokitUtils
     @pr_cache[[repo, options]] ||= client.pulls(repo, options)
   end
 
+  #  def to_time(form = :local)
+  #   parts = Date._parse(self, false)
+  #   used_keys = %(year mon mday hour min sec sec_fraction offset)
+  #   return if (parts.keys & used_keys).empty?
+
+  #   now = Time.now
+  #   time = Time.new(
+  #     parts.fetch(:year, now.year),
+  #     parts.fetch(:mon, now.month),
+  #     parts.fetch(:mday, now.day),
+  #     parts.fetch(:hour, 0),
+  #     parts.fetch(:min, 0),
+  #     parts.fetch(:sec, 0) + parts.fetch(:sec_fraction, 0),
+  #     parts.fetch(:offset, form == :utc ? 0 : nil)
+  #   )
+
+  #   form == :utc ? time.utc : time.to_time
+  # end
+
   def fetch_async(repo, options = { state: 'open', sort: 'updated' }, filter = %i[statuses pull_request_commits issue_comments], limit = nil)
     # example of limit..  limit={:attribute=>'closed_at', :date=>'2016-01-15 12:59:47 UTC'}
     pr_information_cache = []
@@ -41,9 +61,10 @@ class OctokitUtils
       prs = unlimited_prs
     else
       unlimited_prs.each do |iter|
-        next unless limit[:attribute] == 'closed_at'
+        # next unless limit[:attribute] == 'closed_at'
 
-        prs.push(iter) if iter.closed_at > limit[:date].to_time
+        prs.push(iter) if iter.closed_at > limit[:date]
+        # puts prs
       end
     end
 
@@ -283,7 +304,7 @@ class OctokitUtils
 
   def commits_since_date(repo, date)
     commits ||= client.commits_since(repo, date)
-    commits.size
+    commits
   end
 
   def test_for_release(repo, options)
@@ -375,6 +396,7 @@ class OctokitUtils
 
   def does_pr_have_label(repo, pr_number, needed_label)
     return_val = false
+
     labels = client.labels_for_issue(repo, pr_number)
     labels.each do |label|
       return_val = true if label.name == needed_label
